@@ -1,0 +1,6 @@
+{
+  "generator-feathers": {
+    "requirejs": true,
+    "coffee": true
+  }
+}
