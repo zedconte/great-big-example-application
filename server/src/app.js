@@ -1,12 +1,13 @@
 
-const debug = require('debug')('server:app');
-const path = require('path');
-const cors = require('cors');
-const favicon = require('serve-favicon');
-// const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const compress = require('compression');
 const config = require('config');
+// const cookieParser = require('cookie-parser');
+const cors = require('cors');
+const debug = require('debug')('server:app');
+const favicon = require('serve-favicon');
+const mongoose = require('mongoose');
+const path = require('path');
 
 const feathers = require('feathers');
 const authentication = require('feathers-authentication');
@@ -59,6 +60,10 @@ const app = feathers()
   .configure(services)
   .configure(middleware)
   .configure(authentication);
+
+  // Connect to the Mongo Database
+  // mongoose.connect(app.get('mongodb'));
+  mongoose.connect(config.mongodb);
 
 module.exports = app;
 
