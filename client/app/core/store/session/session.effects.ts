@@ -4,6 +4,7 @@ import { Effect, Actions } from '@ngrx/effects';
 import { DataService } from '../../services/data.service';
 import * as functions from '../slice/slice.functions';
 import { slices } from '../util';
+import { feathersAuthentication }  from '../../../feathers';
 
 @Injectable()
 export class SessionEffects {

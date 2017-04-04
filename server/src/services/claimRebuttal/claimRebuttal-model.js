@@ -1,7 +1,7 @@
 'use strict';
 
 // claimRebuttal-model.js - A mongoose model
-// 
+//
 // See http://mongoosejs.com/docs/models.html
 // for more of what you can do here.
 
@@ -14,6 +14,6 @@ const claimRebuttalSchema = new Schema({
   updatedAt: { type: Date, 'default': Date.now }
 });
 
-const claimRebuttalModel = mongoose.model('claimRebuttal', claimRebuttalSchema);
+const claimRebuttalModel = mongoose.model('claimrebuttal', claimRebuttalSchema);
 
 module.exports = claimRebuttalModel;

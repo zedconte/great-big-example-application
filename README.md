@@ -56,10 +56,11 @@ lower authority yielding to the higher one:
 6. [angular-seed-advanced](https://github.com/NathanWalker/angular-seed-advanced) by Minko Gechev + Nathan Walker + community
 7. [ng2-state-talk - drag/editable notes](https://github.com/JavascriptMick/ng2-state-talk) by [@JavascriptMick](https://github.com/JavascriptMick) 
 8. [rangle-starter Angular 2 with TypeScript and Redux version - counter](https://www.npmjs.com/package/rangle-starter) by [@SethDavenport](https://github.com/SethDavenport)
+9. [feathers-starter-react-redux-login-roles - Feathers back end with auth](https://github.com/eddyystop/feathers-starter-react-redux-login-roles) by [@eddyystop]
 
 In addition to the features from these demos, I added one of my own. I replaced
 
-9. [this other project](http://www.bernierebuttals.org) 
+10. [this other project](http://www.bernierebuttals.org) 
 
 which was made with JQuery and Google Scripts. The data is 
 contained in [this Google Sheet](https://docs.google.com/spreadsheets/d/1RdIhMdNCRJ-xtl6IgbT2SdChtLIYW8VXeloq7rR1lqY/edit#gid=50602236) 
@@ -114,6 +115,8 @@ use VS Code for debugging.
 If you want to Dockerize your app, go [here](http://www.dzurico.com/dockerize-angular-application) to setup Docker, and 
 install [PhantomJS](http://phantomjs.org/download.html). It's used by Docker.
 
+Install MongoDB and start it
+
 
 # Make it go
 
@@ -126,6 +129,14 @@ $ cd great-big-angular2-example
 
 # Install dependencies
 $ npm install
+
+
+# Seed the database
+
+1. Run $ npm install -g node-mongo-seeds
+2. Run $ seed to seed the mongodb with data from the /seeds folder. Running this again
+will wipe out data in these collections and replace it with what's in the json files.
+
 
 # Run the backend server 
 
