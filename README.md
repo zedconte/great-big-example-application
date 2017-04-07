@@ -106,16 +106,15 @@ That's it. It shouldn't be too hard to remember these, and in return you will ha
 
 # Prerequisites
 
+## Get Git
 You will need to have [Git](https://git-scm.com/) and [Node.js + NPM](http://nodejs.org) installed on your machine. 
 
-If you want to debug server-side code, install [Visual Studio Code](https://code.visualstudio.com/). This project has the configuration to
-use VS Code for debugging.
-
+## Get Docker
 If you want to Dockerize your app, go [here](http://www.dzurico.com/dockerize-angular-application) to setup Docker, and 
 install [PhantomJS](http://phantomjs.org/download.html). It's used by Docker.
 
+## Get MongoDB
 Install MongoDB and start it by running `mongod` from any directory.
-
 
 ## Use latest TypeScript compiler
 TypeScript 2.1.x includes everything you need. Make sure to upgrade, even if you installed TypeScript previously.
@@ -127,46 +126,26 @@ npm install --global typescript
 
 # Make it go
 
-This is a standard angular-cli generated application so you can use all of the ng XXX commands to manage the application.
-
 ```
-# Download the code
+## Download the code
 $ git clone https://github.com/dancancro/great-big-angular2-example.git
 $ cd great-big-angular2-example
 
-# Install dependencies
+## Install dependencies
 $ npm install
 
-
-# Put some data in the database
-
+## Put some data in the database
 1. Run `$ npm install -g node-mongo-seeds` to install the mongo seed tool globally
 2. Run `$ cd app && seed` to seed the mongodb with data from the /seeds folder. Running this again
 will wipe out data in these collections and replace it with what's in the json files.
 
-
-# Run the backend server 
-
-... in debug mode
-Select Launch via NPM from VSCode debug menu. Click DEBUG.
-
-... without debugging
-$npm run dev:server
-
-# Build and start the frontend server
-$ npm run dev:client
-
-# Continuously run the tests
-$ ng test
+## Start it 
+$npm start
 
 ```
 
-Then navigate to [http://localhost:4200](http://localhost:4200) in your browser. If you get stuck on anything, no matter how little, 
+Then navigate to [http://localhost:3130](http://localhost:3130) in your browser. If you get stuck on anything, no matter how little, 
 please let me know. I know how the little things are what cause the problems and I don't want you to have any problems.
-
-## Special Heroku instruction
-
-Set Config var NPM_CONFIG_PRODUCT to false on the Settings tab of your app admin page.
 
 ## Blocking Dependency Issues
 
@@ -174,11 +153,10 @@ Set Config var NPM_CONFIG_PRODUCT to false on the Settings tab of your app admin
 | :-- | :-- | :-- |
 | [14480](https://github.com/angular/angular/issues/14480) | Angular 2 relative pathing from siblings doesn't work | Compose Message box on Crisis Center and login success routing |
 | [14201](https://github.com/angular/angular/pull/14201) | Duplicate instantiation of lazy loaded modules | ngrx Effects |
-| [3781](https://github.com/angular/angular-cli/issues/3781) | Cannot read property 'newLine' of undefined | Travis build |
 
 # FAQ
 
-## 1) In many ngrx examples it seems like there is a lot of boilerplate and duplicate code per store slice. Why not have the Action Types be created dynamically by combining the store slice name nouns and action name verbs?
+## 1) In many Redux examples it seems like there is a lot of boilerplate and duplicate code per store slice. Why not have the Action Types be created dynamically by combining the store slice name nouns and action name verbs?
 
 I agree. That's why I created utility functions to hold all the common code and got rid of plural names to enable generic handling, 
 and I replaced static action type definitions with dynamic functions that combine slice nouns and action verbs. It also turns out that most of 
