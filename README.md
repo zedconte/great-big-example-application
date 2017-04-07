@@ -215,8 +215,7 @@ CSS style checking|X| | |X| |
 [Deployment automation, using Docker (?)](https://www.docker.io/ "This is for making the app lightweight, portable and self sufficient so you can run it anywhere")|[X](https://github.com/dancancro/great-big-angular2-example/blob/master/docker-compose.yml "")| | |[X](https://github.com/rangle/angular2-redux-example/blob/master/Dockerfile "")|[X](https://github.com/mgechev/angular-seed/blob/master/docker-compose.production.yml "")|
 [Deployment automation, using Heroku (?)](https://github.com/jhipster/generator-jhipster/issues/1288 "Generates a dist folder that is deployment ready for heroku.com    Heroku is an interface to Amazon's US East EC2 region")|[X](http://great-big-angular2-example.herokuapp.com "")| | |[X](https://github.com/rangle/angular2-redux-example/blob/master/server/node-server.js#L15 "")| |
 [Error handling, Client-side logging](http://www.bennadel.com/blog/2542-logging-client-side-errors-with-angularjs-and-stacktrace-js.htm "")| | | |UNIQUE| |
-[Hot Module Replacement (?)](https://github.com/qdouble/angular-webpack2-starter/blob/498dc04957011e71bd1d0cd3c9eab36bc848349e/package.json#L14 "Allows you to update a particular module without reloading the entire application or losing state")|UNIQUE| | | | |
-[Hot reloading (?)](http://mern.io/ "After a code change the page will reload and put you in the same place you were in before without losing state.")|[X](https://youtu.be/xsSnOQynTHs?t=506 ",")|[X](https://youtu.be/xsSnOQynTHs?t=506 ",")|[X](https://youtu.be/xsSnOQynTHs?t=506 ",")|[X](https://youtu.be/xsSnOQynTHs?t=506 ",,")| |
+[Hot Module Replacement (?)](https://github.com/qdouble/angular-webpack2-starter/blob/498dc04957011e71bd1d0cd3c9eab36bc848349e/package.json#L14 "After a code change the page will reload and put you in the same place you were in before without losing state.")|UNIQUE| | | | |
 In-memory server-side database| |UNIQUE| | | |
 [Local storage](https://github.com/jhipster/jhipster-sample-app/blob/5bec9d09ac1fc523fcea5cb97769153b7e97aaf2/src/main/webapp/app/blocks/config/localstorage.config.js "")|[X](https://github.com/dancancro/great-big-angular2-example/blob/e29a656b8f923ad9fb5867288f4628674994b697/src/app/core/store/index.ts#L123 "")|[X](https://github.com/born2net/Angular-kitchen-sink/blob/65b01608a769578a94850bc39254d7e81f82d239/src/services/LocalStorage.ts "")|X|X| |
 No pluralization|UNIQUE| | | | |
@@ -271,7 +270,7 @@ Continuous integration testers |Travis | | | |
 Convenience method libraries |lodash |lodash |lodash | |
 Databases |MongoDB |Redis | | |
 Documentation generators | |typedoc | | |
-Frontend Frameworks |Angular 2.0 |Angular 2.0 |Angular 2.0 |Angular 2.0 |Angular 2.0
+Frontend Frameworks |Angular 2.0, React, React Native (opt) |Angular 2.0 |Angular 2.0 |Angular 2.0 |Angular 2.0
 Languages |JS ES5, JS ES6 (ES2015), JSX (opt), Typescript |JS ES5, JS ES6 (ES2015), Typescript |JS ES5, JS ES6 (ES2015), Typescript |JS ES5, JS ES6 (ES2015), JSX (opt), Python, Typescript |JS ES2016, JS ES5, JS ES6 (ES2015), Typescript
 Linters |codelyzer, ESLint, stylelint, tslint | |codelyzer, tslint |ESLint, stylelint |codelyzer, tslint
 Loaders/Bundlers |Webpack |Webpack |Webpack |Webpack |Rollup, SystemJS
@@ -288,6 +287,8 @@ Test coverage reporters |Istanbul | | |Istanbul |
 Test runners |Karma | |Karma, Protractor |Karma, Robot |BrowserSync (opt), Karma
 Transpilers |libsass |libsass |libsass |libsass |
 Widget collections |Angular Material |Angular Material | | |
+
+See any mistakes? [Help improve this data](https://docs.google.com/forms/d/e/1FAIpQLSeo2fG1YwFbGF_p9zor7Tu_KHPGF6tIt5EWoZGcosGLytC_EQ/viewform)
 
 ## File Structure
 ```
