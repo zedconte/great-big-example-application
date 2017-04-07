@@ -12,13 +12,10 @@ import { RioAlertComponent } from './alert/alert.component';
 import { RioButtonComponent } from './button/button.component';
 import { RioContainerComponent } from './container/container.component';
 import { RioInputComponent } from './input/input.component';
-import { RioLogoComponent } from './logo/logo.component';
 import { RioFormComponent } from './form/form.component';
 import { RioFormErrorComponent } from './form-error/form-error.component';
 import { RioFormGroupComponent } from './form-group/form-group.component';
 import { RioLabelComponent } from './label/label.component';
-import { RioModalComponent } from './modal/modal.component';
-import { RioModalContentComponent } from './modal-content/modal-content.component';
 import { AwesomePipe } from './awesome/awesome.pipe';
 import { HighlightDirective } from './highlight/highlight.directive';
 import { TitleCasePipe } from './title-case/title-case.pipe';
@@ -33,13 +30,10 @@ export const components = [
   RioButtonComponent,
   RioContainerComponent,
   RioInputComponent,
-  RioLogoComponent,
   RioFormComponent,
   RioFormErrorComponent,
   RioFormGroupComponent,
   RioLabelComponent,
-  RioModalComponent,
-  RioModalContentComponent,
   AwesomePipe,
   HighlightDirective,
   TitleCasePipe,

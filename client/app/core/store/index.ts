@@ -8,7 +8,7 @@ import 'rxjs/add/operator/filter';
 
 import { Book } from './book/book.model';
 import { Note } from './note/note.model';
-import { environment } from '../../../environments/environment.prod';
+// import { environment } from '../../../environments/environment.prod';
 import { Claim } from './claim/claim.model';
 import { Rebuttal, initialRebuttal } from './rebuttal/rebuttal.model';
 import { ClaimRebuttal } from './claim-rebuttal/claim-rebuttal.model';
@@ -55,18 +55,19 @@ import { combineReducers } from '@ngrx/store';
  * notation packages up all of the exports into a single object.
  */
 import * as fromBooks from './book/book.reducer';
+import * as fromClaimRebuttals from './claim-rebuttal/claim-rebuttal.reducer';
 import * as fromClaims from './claim/claim.reducer';
 import * as fromCollection from './collection/collection.reducer';
+import * as fromContacts from './contact/contact.reducer';
 import * as fromCounter from './counter/counter.reducer';
+import * as fromCrises from './crisis/crisis.reducer';
+import * as fromHeroes from './hero/hero.reducer';
 import * as fromLayout from './layout/layout.reducer';
+import * as fromMessage from './message/message.reducer';
 import * as fromNotes from './note/note.reducer';
 import * as fromRebuttals from './rebuttal/rebuttal.reducer';
-import * as fromClaimRebuttals from './claim-rebuttal/claim-rebuttal.reducer';
 import * as fromSearch from './search/search.reducer';
 import * as fromSession from './session/session.reducer';
-import * as fromCrises from './crisis/crisis.reducer';
-import * as fromContacts from './contact/contact.reducer';
-import * as fromHeroes from './hero/hero.reducer';
 import { Entities, IDs } from './entity/entity.model';
 
 /**
@@ -83,6 +84,7 @@ export interface RootState {
   crisis: Entities<Crisis>;
   hero: Entities<Hero>
   layout: Layout;
+  message: any;
   note: Entities<Note>;
   rebuttal: Entities<Rebuttal>;
   router: fromRouter.RouterState;
@@ -109,6 +111,7 @@ const reducers = {
   crisis: fromCrises.reducer,
   hero: fromHeroes.reducer,
   layout: fromLayout.reducer,
+  message: fromMessage.reducer,
   note: fromNotes.reducer,
   rebuttal: fromRebuttals.reducer,
   router: fromRouter.routerReducer,
@@ -125,7 +128,7 @@ const productionReducer = compose(
   combineReducers)(reducers);
 
 export function reducer(state: any, action: any) {
-  if (environment.production) {
+  if (process.env.NODE_ENV === 'production') {
     return productionReducer(state, action);
   } else {
     return developmentReducer(state, action);

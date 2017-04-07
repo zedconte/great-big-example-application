@@ -1,0 +1,20 @@
+@import "./shared/material";
+
+
+
+html, body{
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0px;
+}
+
+[md-fab].fixed-bottom-right {
+  position: fixed;
+  right: 60px;
+  bottom: 100px;
+}

@@ -1,33 +1,33 @@
-# See http://help.github.com/ignore-files/ for more about ignoring files.
+# Logs
+logs
+*.log
 
-# compiled output
-/dist
-/tmp
+# Runtime data
+pids
+*.pid
+*.seed
 
-# dependencies
-/node_modules
-/server-rangle
+# Dependency directory
+# Commenting this out is preferred by some people, see
+# https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git-
+/node_modules/
+/typings/
 
-# IDEs and editors
-/.idea
-.project
-.classpath
-.c9/
-*.launch
-.settings/
-
-# misc
-/.sass-cache
-/connect.lock
-/coverage/*
-/libpeerconnection.log
-npm-debug.log
-testem.log
-
-# e2e
-/e2e/*.js
-/e2e/*.map
-
-#System Files
+# Users Environment Variables
 .DS_Store
-Thumbs.db
+.lock-wscript
+.tsdrc
+.typingsrc
+.awcache
+yarn-error.log
+npm-debug.log
+
+
+# IDE configuration files
+.idea
+.vscode
+*.iml
+
+# target
+dist
+dll

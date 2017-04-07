@@ -1,0 +1,23 @@
+version: '2'
+services:
+  manf:
+    build:
+      context: ..
+      dockerfile: ./docker/dev.dockerfile
+    environment:
+      - NODE_ENV=development
+      - NODE_CONFIG_DIR=./app/config
+    ports:
+      - "3130:3130"
+    volumes:
+      - ..:/manf/
+      - /manf/node_modules
+    links:
+      - mongo
+  mongo:
+    image: mongo:3.4
+    ports:
+      - "27017:27017"  # for host connect
+    volumes:
+      - ~/docker/mongodb/log:/var/log/mongodb
+      - ~/docker/data/db:/data/db

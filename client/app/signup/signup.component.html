@@ -1,0 +1,28 @@
+<div class="signup" fxLayout="row" fxLayoutAlign="center center">
+  <md-card fxFlex="500px" class="md-elevation-z6">
+    <md-toolbar color="primary">MANF</md-toolbar>
+    <md-card-content>
+      <form (ngSubmit)="onSubmit()" #signupForm="ngForm">
+        <p>
+          <md-input-container style="width: 100%">
+            <input mdInput placeholder="Fullname" type="text" [(ngModel)]="userModel.fullname" name="fullname">
+          </md-input-container>
+        </p>
+        <p>
+          <md-input-container style="width: 100%">
+            <input mdInput placeholder="Email" type="email" [(ngModel)]="userModel.email" name="email">
+          </md-input-container>
+        </p>
+        <p>
+          <md-input-container style="width: 100%">
+            <input mdInput placeholder="Password" type="password" [(ngModel)]="userModel.password" name="password">
+          </md-input-container>
+        </p>
+        <div fxLayout="row" fxLayoutAlign="end start">
+          <button type="submit" md-raised-button color="primary" [disabled]="!signupForm.form.valid">Sign up</button>
+          <button md-button type="button" color="primary" [routerLink]="['/login']">Back</button>
+        </div>
+      </form>
+    </md-card-content>
+  </md-card>
+</div>

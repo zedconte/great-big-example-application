@@ -1,39 +1,41 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { MaterialModule } from '@angular/material';
 import { Router } from '@angular/router';
+import { RouterModule } from '@angular/router'
+import './app.global.scss'
+
+import { StoreLogMonitorModule } from '@ngrx/store-log-monitor'
+
+import { ROUTES } from './app.routes'
 
 /** TODO: remove when work-around is not needed*/
 import 'hammerjs';
 
 /* App Root */
-import { AppPage } from './app.page';
-import { RioLoginModalComponent } from './core/auth/login/login-modal/login-modal.component';
-import { LoginModule } from './core/auth/login/login.module';
+import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
-import { AppRouting } from './app.routing';
-import { AppConfig } from './app.config';
+import { PageNotFoundComponent } from './404/404.component'
 
-/* Feature Modules */
+/* Core Module */
 import { CoreModule } from './core/core.module';
 
 @NgModule({
   imports: [
-    BrowserModule,
     CoreModule,
-    AppRouting,
-    LoginModule,
-    MaterialModule.forRoot(),
-    SharedModule
+    SharedModule,
+    StoreLogMonitorModule,
+    RouterModule.forRoot(ROUTES, {
+      useHash: true    // TODO: fix this. If this is false, the only page that works is the root
+    })
   ],
   declarations: [
-    AppPage
+    AppComponent,
+    PageNotFoundComponent
   ],
   providers: [
-    AppConfig
   ],
   bootstrap: [
-    AppPage
+    AppComponent
   ]
 })
 export class AppModule { }

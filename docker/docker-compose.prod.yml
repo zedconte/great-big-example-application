@@ -1,0 +1,22 @@
+version: '2'
+services:
+  manf:
+    build:
+      context: ..
+      dockerfile: ./docker/prod.dockerfile
+    environment:
+      NODE_ENV: production
+      NODE_CONFIG_DIR: ./app/config
+    ports:
+      - "8080:8080"
+    volumes:
+      - ~/docker/manf/log:/var/log/manf
+    links:
+      - mongo
+  mongo:
+    image: mongo:3.4
+    ports:
+      - "27017:27017"  # for host connect
+    volumes:
+      - ~/docker/mongodb/log:/var/log/mongodb
+      - ~/docker/data/db:/data/db

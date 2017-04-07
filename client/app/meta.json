@@ -1,0 +1,46 @@
+[
+  {
+    "name": "Dashboard",
+    "id": "dashboard"
+  },
+  {
+    "name": "Message",
+    "id": "message"
+  },
+  {
+    "name": "User",
+    "id": "user"
+  },
+  {
+    "name": "Book Collection",
+    "id": "books"
+  },
+  {
+    "name": "Search for Books",
+    "id": "books/find"
+  },
+  {
+    "name": "Notes",
+    "id": "notes"
+  },
+  {
+    "name": "Counter",
+    "id": "counter"
+  },
+  {
+    "name": "Contacts",
+    "id": "contacts"
+  },
+  {
+    "name": "Heroes",
+    "id": "heroes"
+  },
+  {
+    "name": "Bernie",
+    "id": "bernie"
+  },
+  {
+    "name": "Wikipedia",
+    "id": "wiki"
+  }
+]

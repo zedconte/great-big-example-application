@@ -6,9 +6,7 @@ export interface Claim {
   name: string;
   rebuttalIds?: string[];
   rebuttals?: Rebuttal[];
-  imgHref?: string;
-  imgSrc?: string;
-  star?: boolean;
+  imageLink?: string;
 
   // UI state
   rebuttalsReordered: boolean;

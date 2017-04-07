@@ -1,0 +1,23 @@
+<div class="login" fxLayout="row" fxLayoutAlign="center center" [fxShow]="showLogin">
+  <md-card fxFlex="500px" class="md-elevation-z6">
+    <md-toolbar color="primary">MANF</md-toolbar>
+    <md-card-content>
+      <form (ngSubmit)="onSubmit()">
+        <p>
+          <md-input-container style="width: 100%">
+            <input mdInput placeholder="Email" type="email" [(ngModel)]="user.email" name="email">
+          </md-input-container>
+        </p>
+        <p>
+          <md-input-container style="width: 100%">
+            <input mdInput placeholder="Password" type="password" [(ngModel)]="user.password" name="password">
+          </md-input-container>
+        </p>
+        <div fxLayout="row" fxLayoutAlign="end start">
+          <button type="submit" md-raised-button color="primary">Login</button>
+          <button md-button type="button" color="primary" [routerLink]="['/signup']">Sign up</button>
+        </div>
+      </form>
+    </md-card-content>
+  </md-card>
+</div>

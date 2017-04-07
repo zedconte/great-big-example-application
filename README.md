@@ -50,17 +50,18 @@ lower authority yielding to the higher one:
 
 1. [Angular Style Guide](https://angular.io/docs/ts/latest/guide/style-guide.html) by Google
 2. [Tour of Heroes (ngModules, Routing, App Specs, HTTP, Server Communication versions)](https://github.com/dancancro/tour-of-heroes-versions) by Google
-3. [Angular CLI](https://github.com/angular/angular-cli) by Google and the community
-4. [Redux Docs](http://redux.js.org/) Redux.org
-5. [ngrx example app - book collection](https://github.com/ngrx/example-app) by [@MikeRyan52](https://github.com/MikeRyan52)
-6. [angular-seed-advanced](https://github.com/NathanWalker/angular-seed-advanced) by Minko Gechev + Nathan Walker + community
-7. [ng2-state-talk - drag/editable notes](https://github.com/JavascriptMick/ng2-state-talk) by [@JavascriptMick](https://github.com/JavascriptMick) 
-8. [rangle-starter Angular 2 with TypeScript and Redux version - counter](https://www.npmjs.com/package/rangle-starter) by [@SethDavenport](https://github.com/SethDavenport)
-9. [feathers-starter-react-redux-login-roles - Feathers back end with auth](https://github.com/eddyystop/feathers-starter-react-redux-login-roles) by [@eddyystop]
+3. [Redux Docs](http://redux.js.org/) Redux.org
+4. [FAMN example](https://github.com/implustech/famn) by [@implustech](https://github.com/implustech)
+5. [Angular CLI](https://github.com/angular/angular-cli) by Google and the community
+6. [ngrx example app - book collection](https://github.com/ngrx/example-app) by [@MikeRyan52](https://github.com/MikeRyan52)
+7. [angular-seed-advanced](https://github.com/NathanWalker/angular-seed-advanced) by Minko Gechev + Nathan Walker + community
+8. [ng2-state-talk - drag/editable notes](https://github.com/JavascriptMick/ng2-state-talk) by [@JavascriptMick](https://github.com/JavascriptMick) 
+9. [rangle-starter Angular 2 with TypeScript and Redux version - counter](https://www.npmjs.com/package/rangle-starter) by [@SethDavenport](https://github.com/SethDavenport)
+10. [feathers-starter-react-redux-login-roles - Feathers back end with auth](https://github.com/eddyystop/feathers-starter-react-redux-login-roles) by [@eddyystop]
 
 In addition to the features from these demos, I added one of my own. I replaced
 
-10. [this other project](http://www.bernierebuttals.org) 
+11. [this other project](http://www.bernierebuttals.org) 
 
 which was made with JQuery and Google Scripts. The data is 
 contained in [this Google Sheet](https://docs.google.com/spreadsheets/d/1RdIhMdNCRJ-xtl6IgbT2SdChtLIYW8VXeloq7rR1lqY/edit#gid=50602236) 
@@ -107,15 +108,21 @@ That's it. It shouldn't be too hard to remember these, and in return you will ha
 
 You will need to have [Git](https://git-scm.com/) and [Node.js + NPM](http://nodejs.org) installed on your machine. 
 
-You will also need to install the `angular-cli` NPM package globally via `npm i -g angular-cli`.
-
 If you want to debug server-side code, install [Visual Studio Code](https://code.visualstudio.com/). This project has the configuration to
 use VS Code for debugging.
 
 If you want to Dockerize your app, go [here](http://www.dzurico.com/dockerize-angular-application) to setup Docker, and 
 install [PhantomJS](http://phantomjs.org/download.html). It's used by Docker.
 
-Install MongoDB and start it
+Install MongoDB and start it by running `mongod` from any directory.
+
+
+## Use latest TypeScript compiler
+TypeScript 2.1.x includes everything you need. Make sure to upgrade, even if you installed TypeScript previously.
+
+```
+npm install --global typescript
+```
 
 
 # Make it go
@@ -131,10 +138,10 @@ $ cd great-big-angular2-example
 $ npm install
 
 
-# Seed the database
+# Put some data in the database
 
-1. Run $ npm install -g node-mongo-seeds
-2. Run $ seed to seed the mongodb with data from the /seeds folder. Running this again
+1. Run `$ npm install -g node-mongo-seeds` to install the mongo seed tool globally
+2. Run `$ cd app && seed` to seed the mongodb with data from the /seeds folder. Running this again
 will wipe out data in these collections and replace it with what's in the json files.
 
 
@@ -168,19 +175,6 @@ Set Config var NPM_CONFIG_PRODUCT to false on the Settings tab of your app admin
 | [14480](https://github.com/angular/angular/issues/14480) | Angular 2 relative pathing from siblings doesn't work | Compose Message box on Crisis Center and login success routing |
 | [14201](https://github.com/angular/angular/pull/14201) | Duplicate instantiation of lazy loaded modules | ngrx Effects |
 | [3781](https://github.com/angular/angular-cli/issues/3781) | Cannot read property 'newLine' of undefined | Travis build |
-
-## And other problems
-
-There's something the matter with TypeScript that produces warnings claiming certain classes can't be found. This was merely annoying until a new release 
-of angular-cli came out that put an overlay with warnings on top of the app instead of just putting them in the console.
-
-To turn off this new overlay, you need to change line 140 of node_modules/@angular/cli/tasks/serve.js from
-
-    overlay: serveTaskOptions.target === 'development'
-to
-
-    overlay: false // serveTaskOptions.target === 'development'
-
 
 # FAQ
 
@@ -219,12 +213,7 @@ what's going on. In most cases, the same person is writing the component, action
 in one of them from the other? Now you can get the whole story by reading one line of code. You should decouple things when the need arises, 
 but you can overdo it too.
 
-## 2) Why isn't the `server` directory under /src? It contains source code.
-
-This directory is not located inside /src because if it were there then the 
-front-end server which watches /src would restart after any change to back-end code. That can probably be fixed by configuring which I haven't done.
-
-## 3) Why are entities modeled as a hash (map) of objects and an array of IDs instead of just an array of objects?
+## 2) Why are entities modeled as a hash (map) of objects and an array of IDs instead of just an array of objects?
 
 I got the idea from the ngrx example app. I asked about it once and was told that it was done for performance reasons but I'm not sure under what conditions they apply.
 
@@ -232,77 +221,91 @@ Any other questions?  Just ask.
 
 # Demonstrations and Features
 
-| **Developer Experience** |[great big angular2 example](https://github.com/dancancro/great-big-angular2-example)|[Angular-kitchen-sink](https://github.com/born2net/Angular-kitchen-sink)|[ngrx example app](https://github.com/ngrx/example-app/issues/100#issuecomment-275451726)|[angular-redux-starter](https://github.com/rangle/angular-redux-starter)|[angular-seed-advanced](https://github.com/NathanWalker/angular-seed-advanced)|
+| **Developer Experience** |[great big angular2 example](https://github.com/dancancro/great-big-angular2-example)|[Angular-kitchen-sink](https://github.com/born2net/Angular-kitchen-sink)|[ngrx example app](https://github.com/ngrx/example-app/issues/100#issuecomment-275451726)|[angular-redux-starter](https://github.com/rangle/angular-redux-starter)|[mgechev's angular-seed](https://github.com/mgechev/angular-seed)|
 |:------ | :------: | :------: | :------: | :------: | :------: |
 [Authentication](https://github.com/jhipster/jhipster-sample-app/blob/5bec9d09ac1fc523fcea5cb97769153b7e97aaf2/src/main/webapp/bower_components/swagger-ui/src/main/javascript/view/AuthView.js "")|[X](https://github.com/dancancro/great-big-angular2-example/blob/master/src/app/core/store/session/session.effects.ts#L26 "")|[X](https://github.com/born2net/Angular-kitchen-sink/blob/7260a89a3f968243e642b20c9fd6775ba59eaf41/src/services/DefaultAuthService.ts "")| |[X](https://github.com/rangle/angular2-redux-example/blob/master/src/epics/session.epics.ts#L20 "")| |
 [Authentication, with two-factor authentication](https://github.com/born2net/Angular-kitchen-sink/blob/08ff94405b80ee24acff09d0de270e56ba4bace2/src/actions/SampleActions.js#L22 "")| |[UNIQUE](https://github.com/born2net/Angular-kitchen-sink/blob/08ff94405b80ee24acff09d0de270e56ba4bace2/src/actions/SampleActions.js#L22 "")| | | |
-[Can run on a desktop without a browser](http://electron.atom.io/ "")| | | | |[UNIQUE](http://electron.atom.io/ "")|
-[Client-side unit tests](https://github.com/born2net/Angular-kitchen-sink/blob/132ddece2635d13e983ce873742ba962fc5c7fce/src/app/app.component.spec.ts "")|[X](https://github.com/dancancro/great-big-angular2-example/blob/master/src/app/debate/claim/claim.component.spec.ts "")|[X](https://github.com/born2net/Angular-kitchen-sink/blob/132ddece2635d13e983ce873742ba962fc5c7fce/src/app/app.component.spec.ts "")| |[X](https://github.com/rangle/angular2-redux-example/blob/master/src/components/button/button.component.test.ts "")|[X](https://github.com/NathanWalker/angular-seed-advanced/blob/master/src/client/app/components/app.component.spec.ts "")|
-[Code coverage reporting (?)](http://blog.johnryding.com/post/46757192364/javascript-code-coverage-with-phantomjs-jasmine-and "Generate reports that tell you how much of your code is being tested")|[X](http://mochajs.org/ ",")|[X](http://mochajs.org/ "")|[X](http://mochajs.org/ "")|X| |
-[Command line interface (CLI)](https://github.com/angular/angular-cli "")|[X](https://github.com/angular/angular-cli "")|[X](https://github.com/angular/angular-cli "")|[X](https://github.com/angular/angular-cli "")|X| |
+[Client side validation](https://github.com/dancancro/great-big-angular2-example/blob/master/src/app/login/login-form/login-form.component.ts#L37 "")|[X](https://github.com/dancancro/great-big-angular2-example/blob/master/src/app/login/login-form/login-form.component.ts#L37 "")| | |[X](https://github.com/rangle/angular2-redux-example/blob/2c541e5ce057111c32464ccee3624ab50d84f084/src/components/login/login-form.ts#L37 "")| |
+[Client-side unit tests](https://github.com/born2net/Angular-kitchen-sink/blob/132ddece2635d13e983ce873742ba962fc5c7fce/src/app/app.component.spec.ts "")|[X](https://github.com/dancancro/great-big-angular2-example/blob/master/src/app/debate/claim/claim.component.spec.ts "")|[X](https://github.com/born2net/Angular-kitchen-sink/blob/132ddece2635d13e983ce873742ba962fc5c7fce/src/app/app.component.spec.ts "")| |[X](https://github.com/rangle/angular2-redux-example/blob/master/src/components/button/button.component.test.ts "")|[X](https://github.com/mgechev/angular-seed/blob/master/src/client/app/app.component.spec.ts "")|
+[Code coverage reporting (?)](http://blog.johnryding.com/post/46757192364/javascript-code-coverage-with-phantomjs-jasmine-and "Generate reports that tell you how much of your code is being tested")|X|[X](http://mochajs.org/ "")|[X](http://mochajs.org/ "")|X| |
+[Command line interface (CLI)](https://github.com/angular/angular-cli "")|[X](https://github.com/facebookincubator/create-react-app "")|[X](https://github.com/angular/angular-cli "")|[X](https://github.com/angular/angular-cli "")|X| |
 [Compiled, supports ahead of time (AOT) compilation](https://github.com/mgechev/angular-seed/blob/18a6e44da97d2734d7e81377df49e52ac70d2354/tools/tasks/seed/build.js.prod.aot.ts "")| | | | |[UNIQUE](https://github.com/mgechev/angular-seed/blob/18a6e44da97d2734d7e81377df49e52ac70d2354/tools/tasks/seed/build.js.prod.aot.ts "")|
 [Components communicate with events](https://github.com/born2net/Angular-kitchen-sink/blob/65b01608a769578a94850bc39254d7e81f82d239/src/comps/app3/starwars/components/films-component.ts#L11 "")|[X](https://github.com/dancancro/great-big-angular2-example/blob/master/src/app/debate/debate.page.html#L9 "")|[X](https://github.com/born2net/Angular-kitchen-sink/blob/65b01608a769578a94850bc39254d7e81f82d239/src/comps/app3/starwars/components/films-component.ts#L11 "")|X| | |
-[Core Module](https://angular.io/docs/ts/latest/guide/style-guide.html#!#04-12 "")|[X](https://github.com/dancancro/great-big-angular2-example/blob/master/src/app/core/core.module.ts "")| | | |[X](https://github.com/NathanWalker/angular-seed-advanced/blob/master/src/client/app/shared/core/core.module.ts "")|
+[Concurrency (synchronization), immutable data (?)](https://vuejs.org/v2/guide/comparison.html#Update-Performance "With mutable objects, developers pass objects to functions by reference and then end up mutating those objects - in fact, the language encourages them to do so.  This can lead to subtle, hard to detect bugs.    Immutable data solves concurrency problems because values in a set of values are guaranteed to not change between the time the first one is read and the last one is read.    However, immutability can make strongly typed stores harder to accomplish.")|X|X|X|X| |
+[Core Module](https://angular.io/docs/ts/latest/guide/style-guide.html#!#04-12 "")|[UNIQUE](https://github.com/dancancro/great-big-angular2-example/blob/master/src/app/core/core.module.ts "")| | | | |
 CSS style checking|X| | |X| |
-[Deployment automation, to a mobile native executable](https://github.com/NathanWalker/angular-seed-advanced#electron-app "")| | | | |[UNIQUE](https://github.com/NathanWalker/angular-seed-advanced#electron-app "")|
-[Deployment automation, using Docker (?)](https://www.docker.io/ "This is for making the app lightweight, portable and self sufficient so you can run it anywhere")|[X](https://github.com/dancancro/great-big-angular2-example/blob/master/docker-compose.yml "")| | |[X](https://github.com/rangle/angular2-redux-example/blob/master/Dockerfile "")|[X](https://github.com/NathanWalker/angular-seed-advanced/blob/master/docker-compose.production.yml "")|
+[Deployment automation, using Docker (?)](https://www.docker.io/ "This is for making the app lightweight, portable and self sufficient so you can run it anywhere")|[X](https://github.com/dancancro/great-big-angular2-example/blob/master/docker-compose.yml "")| | |[X](https://github.com/rangle/angular2-redux-example/blob/master/Dockerfile "")|[X](https://github.com/mgechev/angular-seed/blob/master/docker-compose.production.yml "")|
 [Deployment automation, using Heroku (?)](https://github.com/jhipster/generator-jhipster/issues/1288 "Generates a dist folder that is deployment ready for heroku.com    Heroku is an interface to Amazon's US East EC2 region")|[X](http://great-big-angular2-example.herokuapp.com "")| | |[X](https://github.com/rangle/angular2-redux-example/blob/master/server/node-server.js#L15 "")| |
-[Error handling, Client-side logging](http://www.bennadel.com/blog/2542-logging-client-side-errors-with-angularjs-and-stacktrace-js.htm "")| | | |X|[X](https://github.com/NathanWalker/angular-seed-advanced/blob/master/src/client/app/shared/core/services/log.service.ts "")|
+[Error handling, Client-side logging](http://www.bennadel.com/blog/2542-logging-client-side-errors-with-angularjs-and-stacktrace-js.htm "")| | | |UNIQUE| |
+[Hot Module Replacement (?)](https://github.com/qdouble/angular-webpack2-starter/blob/498dc04957011e71bd1d0cd3c9eab36bc848349e/package.json#L14 "Allows you to update a particular module without reloading the entire application or losing state")|UNIQUE| | | | |
+[Hot reloading (?)](http://mern.io/ "After a code change the page will reload and put you in the same place you were in before without losing state.")|[X](https://youtu.be/xsSnOQynTHs?t=506 ",")|[X](https://youtu.be/xsSnOQynTHs?t=506 ",")|[X](https://youtu.be/xsSnOQynTHs?t=506 ",")|[X](https://youtu.be/xsSnOQynTHs?t=506 ",,")| |
 In-memory server-side database| |UNIQUE| | | |
 [Local storage](https://github.com/jhipster/jhipster-sample-app/blob/5bec9d09ac1fc523fcea5cb97769153b7e97aaf2/src/main/webapp/app/blocks/config/localstorage.config.js "")|[X](https://github.com/dancancro/great-big-angular2-example/blob/e29a656b8f923ad9fb5867288f4628674994b697/src/app/core/store/index.ts#L123 "")|[X](https://github.com/born2net/Angular-kitchen-sink/blob/65b01608a769578a94850bc39254d7e81f82d239/src/services/LocalStorage.ts "")|X|X| |
 No pluralization|UNIQUE| | | | |
-[Production build, generate docs (?)](https://github.com/yeoman/yeoman/issues/152 "By reading comments in your code or maintaining separate docs:  https://github.com/millermedeiros/mdoc    examples:  ngDoc  YUIdoc")| |[X](http://typedoc.org/ "")| | |[X](http://typedoc.org/ "")|
+[Object-relational mapping (?)](http://hibernate.org/orm/what-is-an-orm/ "A system for managing the difference between data that is stored in rows but used as objects.  This only applies to SQL databases, not NoSQL databases.    Examples:  ActiveRecord for Rails  Hibernate for Java")|[UNIQUE](https://docs.feathersjs.com/why/vs/readme.html "")| | | | |
+[Persistent, server-side data storage (?)](http://hammerprinciple.com/databases "See link for a good explanation of NoSQL options and solutions to normalization issues")|UNIQUE| | | | |
+[Production build, generate docs (?)](https://github.com/yeoman/yeoman/issues/152 "By reading comments in your code or maintaining separate docs:  https://github.com/millermedeiros/mdoc    examples:  ngDoc  YUIdoc")| |[UNIQUE](http://typedoc.org/ "")| | | |
 [Separation of smart containers and dumb components (?)](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0#.vkyyo356c "Such components typically do the following things: subscribe to data, fetch data from those subscriptions, and fetch global client-side state from stores.  Ideally, once a smart component has assembled such a set of data, it passes it off to a reusable component child to render with. Smart components usually don’t render anything apart from one or more reusable children. This makes it easy to separate rendering and data loading in your tests.")|X| |X| | |
-[Server-side integration & unit tests](http://www.letscodejavascript.com/v3/episodes/live/1 "")|X|X|X| | |
+[Server-side integration & unit tests](http://www.letscodejavascript.com/v3/episodes/live/1 "")| |X|X| | |
 [Shared Module](https://angular.io/docs/ts/latest/guide/style-guide.html#!#04-10 "")|[X](https://github.com/dancancro/great-big-angular2-example/blob/master/src/app/shared/shared.module.ts "")|[X](https://github.com/born2net/Angular-kitchen-sink/blob/8cc88024f22156f397f2aa95dc142460f720f50f/src/comps/app1/lazyone/SharedModule.ts "")| | | |
+[Single source of truth, central state management (?)](https://vuejs.org/v2/guide/state-management.html "only one piece of the application flow is tasked with mutating state data")|[X](http://www.reddit.com/r/javascript/comments/2uvz0x/whats_so_great_about_reactjs/ ",")|X|X|X| |
 [Single source of truth, central state management, without lots of boilerplate (?)](https://github.com/dancancro/great-big-angular2-example/tree/4431d3f9f361fbf944f083f266e59722d8601dfe/src/app/core/store/entity "Usually with Redux implementations your app will have lots of similar code in action, reducer and effect files for each slice of the store.    To avoid this, takes imposing some conventions and creating utility functions.")|[UNIQUE](https://github.com/dancancro/great-big-angular2-example/tree/4431d3f9f361fbf944f083f266e59722d8601dfe/src/app/core/store/entity "")| | | | |
+State inspection tools|X|X|X|X| |
 [Style guide for code (?)](https://github.com/Swiip/generator-gulp-angular/pull/469 "Provides consistency and best practices")|[X](https://angular.io/docs/ts/latest/guide/style-guide.html "")| | | |[X](https://angular.io/docs/ts/latest/guide/style-guide.html "")|
 [There is a book about it](http://www.amazon.com/MEAN-Web-Development-Amos-Haviv-ebook/dp/B00NXWI1BM/ref=dp_kinw_strp_1 "")| | | |[UNIQUE](http://angular-2-training-book.rangle.io/ "")| |
+[Time travel, undo (?)](http://redux.js.org/docs/recipes/ImplementingUndoHistory.html "You can move forward and backward through a series of state changes")|X|X|X|X| |
 [Update generated code in an existing app](https://jhipster.github.io/upgrading-an-application/ "")| | | | |[UNIQUE](https://github.com/mgechev/angular-seed/wiki/Architecture-and-usage-of-angular2-seed#build "")|
+Used in-house to make vendor's business critical applications|[UNIQUE](https://docs.feathersjs.com/why/vs/readme.html "")| | | | |
+[Virtual, shadow DOM (?)](https://plus.google.com/u/0/+AngularJS/posts/eZNUbuXwbCm "writes out a full render virtually, and then checks the difference between the virtual render and what’s actually on the DOM and creates a patch.    Includes concepts such as <content> tags, projection, and selection")|[UNIQUE](https://www.packtpub.com/books/content/try-something-new-today-reactjs "")| | | | |
 |  | | | | |
-| **User Experience** |[great big angular2 example](https://github.com/dancancro/great-big-angular2-example)|[Angular-kitchen-sink](https://github.com/born2net/Angular-kitchen-sink)|[ngrx example app](https://github.com/ngrx/example-app/issues/100#issuecomment-275451726)|[angular-redux-starter](https://github.com/rangle/angular-redux-starter)|[angular-seed-advanced](https://github.com/NathanWalker/angular-seed-advanced)|
+| **User Experience** |[great big angular2 example](https://github.com/dancancro/great-big-angular2-example)|[Angular-kitchen-sink](https://github.com/born2net/Angular-kitchen-sink)|[ngrx example app](https://github.com/ngrx/example-app/issues/100#issuecomment-275451726)|[angular-redux-starter](https://github.com/rangle/angular-redux-starter)|[mgechev's angular-seed](https://github.com/mgechev/angular-seed)|
+Account Management, add/remove user|UNIQUE| | | | |
 [Account Management, Forgotten Password with Resetting](https://github.com/meanjs/mean/issues/30 "")| |[UNIQUE](https://github.com/born2net/Angular-kitchen-sink/blob/08ff94405b80ee24acff09d0de270e56ba4bace2/src/comps/entry/ForgotPass.ts "")| | | |
 [Account Management, login/logout](https://github.com/born2net/Angular-kitchen-sink/blob/65b01608a769578a94850bc39254d7e81f82d239/src/comps/entry/EntryPanel.ts "")|X|[X](https://github.com/born2net/Angular-kitchen-sink/blob/65b01608a769578a94850bc39254d7e81f82d239/src/comps/entry/EntryPanel.ts "")| |[X](https://github.com/rangle/angular2-redux-example/tree/master/src/components/login "")| |
-[Analytics](https://github.com/jhipster/generator-jhipster/blob/4cce6ecc6719d80cc6ed29f8303ed608d8133423/generators/client/templates/angular/src/main/webapp/_index.html "")| | | | |[UNIQUE](https://github.com/NathanWalker/angular-seed-advanced "")|
-[Asynchronously loaded data example](https://github.com/dancancro/great-big-angular2-example/blob/master/src/app/core/store/data.service.ts#L32 "")|[X](https://github.com/dancancro/great-big-angular2-example/blob/master/src/app/core/store/data.service.ts#L32 "")|X|X| |[X](https://github.com/NathanWalker/angular-seed-advanced/blob/dadb1052f74cb3114547de94d297cc591ed27ab1/src/client/app/shared/sample/services/name-list.service.ts#L31 "")|
+[Account Management, register](http://208.68.38.122/themes/emerald/dev/htmls/pages/sign_in.html "")|UNIQUE| | | | |
+[Asynchronously loaded data example](https://github.com/dancancro/great-big-angular2-example/blob/master/src/app/core/store/data.service.ts#L32 "")|[X](https://github.com/dancancro/great-big-angular2-example/blob/master/src/app/core/store/data.service.ts#L32 "")|X|X| | |
 [Breadcrumbs (?)](https://github.com/born2net/Angular-kitchen-sink/tree/master/src/comps/breadcrumb "Breadcrumbs are the series of links displayed at the top of a page which take you to any of the ancestral pages between the home page and the one you're on")| |[UNIQUE](https://github.com/born2net/Angular-kitchen-sink/tree/master/src/comps/breadcrumb "")| | | |
 [Derived, computed properties](http://redux.js.org/docs/recipes/ComputingDerivedData.html "")|[X](https://github.com/dancancro/great-big-angular2-example/blob/master/src/app/core/store/claim/claim.model.ts#L27-L29 "")|[X](https://github.com/born2net/Angular-kitchen-sink/blob/master/src/models/ServerModel.js#L35 "")| | | |
 [Dynamic component creation](https://github.com/born2net/Angular-kitchen-sink/tree/08ff94405b80ee24acff09d0de270e56ba4bace2/src/comps/dynmiaccomp "")| |[UNIQUE](https://github.com/born2net/Angular-kitchen-sink/tree/08ff94405b80ee24acff09d0de270e56ba4bace2/src/comps/dynmiaccomp "")| | | |
 [External, 3rd party, API interaction](https://github.com/born2net/Angular-kitchen-sink/blob/master/src/services/SearchSpotifyService.ts "")|[X](https://github.com/dancancro/great-big-angular2-example/blob/master/src/app/core/store/book/google-books.service.ts "")|[X](https://github.com/born2net/Angular-kitchen-sink/blob/master/src/services/SearchSpotifyService.ts "")|X| | |
-[Footer](https://github.com/born2net/Angular-kitchen-sink/blob/08ff94405b80ee24acff09d0de270e56ba4bace2/src/comps/footer/Footer.ts "")| |[UNIQUE](https://github.com/born2net/Angular-kitchen-sink/blob/08ff94405b80ee24acff09d0de270e56ba4bace2/src/comps/footer/Footer.ts "")| | | |
-[Front-end CRUD](https://github.com/born2net/Angular-kitchen-sink/tree/65b01608a769578a94850bc39254d7e81f82d239/src/comps/app1/todos "")|[X](https://github.com/dancancro/great-big-angular2-example/tree/master/src/app/contact "")|[X](https://github.com/born2net/Angular-kitchen-sink/tree/65b01608a769578a94850bc39254d7e81f82d239/src/comps/app1/todos "")| | |[X](https://github.com/NathanWalker/angular-seed-advanced/blob/master/src/client/app/components/home/home.component.html "")|
+[Footer](https://github.com/born2net/Angular-kitchen-sink/blob/08ff94405b80ee24acff09d0de270e56ba4bace2/src/comps/footer/Footer.ts "")|X|[X](https://github.com/born2net/Angular-kitchen-sink/blob/08ff94405b80ee24acff09d0de270e56ba4bace2/src/comps/footer/Footer.ts "")| | | |
+[Front-end CRUD](https://github.com/born2net/Angular-kitchen-sink/tree/65b01608a769578a94850bc39254d7e81f82d239/src/comps/app1/todos "")|[X](https://github.com/dancancro/great-big-angular2-example/tree/master/src/app/contact "")|[X](https://github.com/born2net/Angular-kitchen-sink/tree/65b01608a769578a94850bc39254d7e81f82d239/src/comps/app1/todos "")| | | |
 [Full-stack CRUD (?)](https://github.com/born2net/Angular-kitchen-sink/tree/65b01608a769578a94850bc39254d7e81f82d239/src/comps/app1/todos "CRUD = Create,Read,Update, Delete    The example demonstrates creating, reading, updating and deleting from a backend file system or database through a web page user interface.  It includes seed data and does not require a lot of work to get the app connected to a database")|[X](https://github.com/dancancro/great-big-angular2-example/tree/master/src/app/contact "")|[X](https://github.com/born2net/Angular-kitchen-sink/tree/65b01608a769578a94850bc39254d7e81f82d239/src/comps/app1/todos "")| | | |
 [Full-stack CRUD, with Create, Update and Delete](https://github.com/born2net/Angular-kitchen-sink/tree/65b01608a769578a94850bc39254d7e81f82d239/src/comps/app1/todos "")|[X](https://github.com/dancancro/great-big-angular2-example/tree/master/src/app/contact "")|[X](https://github.com/born2net/Angular-kitchen-sink/tree/65b01608a769578a94850bc39254d7e81f82d239/src/comps/app1/todos "")| | | |
 [Full-stack CRUD, with Create, Update and Delete, individual records](https://github.com/born2net/Angular-kitchen-sink/tree/65b01608a769578a94850bc39254d7e81f82d239/src/comps/app1/todos "")|[X](https://github.com/dancancro/great-big-angular2-example/tree/master/src/app/contact "")|[X](https://github.com/born2net/Angular-kitchen-sink/tree/65b01608a769578a94850bc39254d7e81f82d239/src/comps/app1/todos "")| | | |
 [Full-stack CRUD, with Create, Update and Delete, whole data structures](https://github.com/dancancro/great-big-angular2-example/blob/master/src/app/core/store/data.service.ts "")|[UNIQUE](https://github.com/dancancro/great-big-angular2-example/blob/master/src/app/core/store/data.service.ts "")| | | | |
 [Full-stack CRUD, with Read](https://github.com/born2net/Angular-kitchen-sink/tree/65b01608a769578a94850bc39254d7e81f82d239/src/comps/app1/todos "")|[X](https://github.com/dancancro/great-big-angular2-example/tree/master/src/app/contact "")|[X](https://github.com/born2net/Angular-kitchen-sink/tree/65b01608a769578a94850bc39254d7e81f82d239/src/comps/app1/todos "")| | | |
-[i18n, localization (?)](https://jhipster.github.io/installing-new-languages/ "Internationalization or localization    Text for different languages are stored in separate places and used to fill in placeholders in the view depending on the user's preferences")| | | | |[UNIQUE](https://github.com/NathanWalker/angular-seed-advanced/tree/master/src/client/app/shared/i18n "")|
+[Grid](http://blog.durandal.io/2015/05/20/porting-an-angular-2-0-app-to-aurelia/#comment-2039711426 "")|UNIQUE| | | | |
+[i18n, localization (?)](https://jhipster.github.io/installing-new-languages/ "Internationalization or localization    Text for different languages are stored in separate places and used to fill in placeholders in the view depending on the user's preferences")| | | | |[UNIQUE](https://github.com/mgechev/angular-seed/blob/master/src/client/app/i18n.providers.ts "")|
 [Many-to-many data](https://github.com/dancancro/great-big-angular2-example/blob/master/src/app/core/store/index.ts#L265 "")|[UNIQUE](https://github.com/dancancro/great-big-angular2-example/blob/master/src/app/core/store/index.ts#L265 "")| | | | |
-[Mouse wheel (?)](https://github.com/born2net/Angular-kitchen-sink/blob/08ff94405b80ee24acff09d0de270e56ba4bace2/src/comps/Mousewheel/Mousewheel.ts "Demonstrates reaction to mouse wheel input")| |[UNIQUE](https://github.com/born2net/Angular-kitchen-sink/blob/08ff94405b80ee24acff09d0de270e56ba4bace2/src/comps/Mousewheel/Mousewheel.ts "")| | | |
+[Modals (popups, dialogs) (?)](https://material.angularjs.org/latest/demo/dialog "A popup window that when opened disables the rest of the application")|UNIQUE| | | | |
 [Navigation bar](https://github.com/jhipster/jhipster-sample-app/tree/master/src/main/webapp/app/layouts/navbar "")|[X](https://github.com/dancancro/great-big-angular2-example/blob/master/src/app/app.page.html "")|[X](https://github.com/dancancro/great-big-angular2-example/blob/master/src/app/app.page.html "")|[X](https://github.com/ngrx/example-app/blob/master/src/app/containers/app.ts#L15 "")| | |
 [Panels, draggable](https://github.com/born2net/Angular-kitchen-sink/blob/65b01608a769578a94850bc39254d7e81f82d239/src/comps/dragndrop/make-draggable.directive.ts "")|X|[X](https://github.com/born2net/Angular-kitchen-sink/blob/65b01608a769578a94850bc39254d7e81f82d239/src/comps/dragndrop/make-draggable.directive.ts "")| | | |
 [Responsive styles](https://youtu.be/d1MEM8PdAzQ?t=588 "")|[X](https://github.com/dancancro/great-big-angular2-example/blob/166ae9353bd6ff34badbc045b2044cf417c6d8c5/src/assets/styles/flexbox.css#L4 "")| | |[X](https://github.com/rangle/angular2-redux-example/blob/2c541e5ce057111c32464ccee3624ab50d84f084/src/components/modal/modal.css#L7 "")| |
 [Search, actually works with backend API](https://github.com/jhipster/generator-jhipster/search?utf8=%E2%9C%93&q=elasticsearch "")|[X](https://github.com/dancancro/great-big-angular2-example/blob/master/src/app/books/book-search/book-search.component.ts "")| |[X](https://github.com/ngrx/example-app/blob/master/src/app/components/book-search.ts "")| | |
+[Tables (?)](http://railscasts.com/episodes/340-datatables?autoplay=true "Create jQuery dataTables")|UNIQUE| | | | |
+To do list|UNIQUE| | | | |
 |  | | | | |
-| **Dependencies** |[great big angular2 example](https://github.com/dancancro/great-big-angular2-example)|[Angular-kitchen-sink](https://github.com/born2net/Angular-kitchen-sink)|[ngrx example app](https://github.com/ngrx/example-app/issues/100#issuecomment-275451726)|[angular-redux-starter](https://github.com/rangle/angular-redux-starter)|[angular-seed-advanced](https://github.com/NathanWalker/angular-seed-advanced)|
-Backend Frameworks |Express | | |Express |Express
-Client-side API interfaces |@angular/http |@angular/http |@angular/http |@angular/http |@angular/http
-Continuous integration testers |Travis | | | |Travis
-Convenience method libraries |lodash |lodash |lodash | |lodash
-Databases | |Redis | | |
-Documentation generators | |typedoc | | |typedoc
+| **Dependencies** |[great big angular2 example](https://github.com/dancancro/great-big-angular2-example)|[Angular-kitchen-sink](https://github.com/born2net/Angular-kitchen-sink)|[ngrx example app](https://github.com/ngrx/example-app/issues/100#issuecomment-275451726)|[angular-redux-starter](https://github.com/rangle/angular-redux-starter)|[mgechev's angular-seed](https://github.com/mgechev/angular-seed)|
+Backend Frameworks |Express, Feathers.js | | |Express |Express
+Client-side API interfaces |@angular/http |@angular/http |@angular/http |@angular/http |
+Continuous integration testers |Travis | | | |
+Convenience method libraries |lodash |lodash |lodash | |
+Databases |MongoDB |Redis | | |
+Documentation generators | |typedoc | | |
 Frontend Frameworks |Angular 2.0 |Angular 2.0 |Angular 2.0 |Angular 2.0 |Angular 2.0
 Languages |JS ES5, JS ES6 (ES2015), JSX (opt), Typescript |JS ES5, JS ES6 (ES2015), Typescript |JS ES5, JS ES6 (ES2015), Typescript |JS ES5, JS ES6 (ES2015), JSX (opt), Python, Typescript |JS ES2016, JS ES5, JS ES6 (ES2015), Typescript
 Linters |codelyzer, ESLint, stylelint, tslint | |codelyzer, tslint |ESLint, stylelint |codelyzer, tslint
 Loaders/Bundlers |Webpack |Webpack |Webpack |Webpack |Rollup, SystemJS
-Misc |Angular Style Guide, Helmet, nodemon, Redux, redux-devtools, RxJS |Immutable, Redux, redux-devtools, RxJS |Redux, redux-devtools, RxJS (opt) |autoprefixer, cssnano, Helmet, Immutable, nodemon, Redux, redux-devtools, redux-logging, RxJS |Angular Style Guide, cssnano, Electron, Redux, redux-devtools, RxJS
-Package Managers |npm |npm |npm |npm |npm
+Misc |Angular Style Guide, Helmet, nodemon, Redux, redux-devtools, RxJS (opt) |Immutable, Redux, redux-devtools, RxJS |Redux, redux-devtools, RxJS (opt) |autoprefixer, cssnano, Helmet, Immutable, nodemon, Redux, redux-devtools, redux-logging, RxJS |Angular Style Guide, cssnano, RxJS
+Object Database Mappers |Mongoose | | | |
+Package Managers |npm, Yarn |npm |npm |npm |npm
 Routers |Angular Component Router |Angular Component Router |Angular Component Router |Angular Component Router |Angular Component Router
-Runtime Environments |Node |Node |Node |Node |NativeScript, Node
-Stacks |angular-cli |angular-cli |angular-cli | |mgechev's angular-seed
-State Managers |ngrx |ng-redux |ngrx |ng-redux |ngrx
+Runtime Environments |Node |Node |Node |Node |Node
+Stacks | |angular-cli |angular-cli | |
+State Managers |ngrx |ng-redux |ngrx |ng-redux |
 Task Runners | |Gulp | | |Gulp
-Test assertion libraries |Chai, Jasmine, Mocha |Chai, Jasmine, Mocha |Chai, Jasmine, Mocha |Jasmine |Jasmine
+Test assertion libraries |Jasmine |Chai, Jasmine, Mocha |Chai, Jasmine, Mocha |Jasmine |Jasmine
 Test coverage reporters |Istanbul | | |Istanbul |
 Test runners |Karma | |Karma, Protractor |Karma, Robot |BrowserSync (opt), Karma
 Transpilers |libsass |libsass |libsass |libsass |
@@ -311,24 +314,20 @@ Widget collections |Angular Material |Angular Material | | |
 ## File Structure
 ```
 .
+├── CHANGELOG.md
 ├── README.md
-├── docker-compose.production.yml
-├── docker-compose.yml
-├── e2e
-│   ├── about.e2e-spec.ts
-│   ├── app.e2e-spec.ts
-│   ├── app.po.ts
-│   ├── not-found.e2e-spec.ts
-│   └── tsconfig.e2e.json
-├── karma.conf.js
-├── nodemon.json
-├── package.json
-├── protractor.conf.js
-├── proxy.conf.json
-├── server
-│   ├── Procfile
-│   ├── auth-passport.js
-│   ├── db
+├── app
+│   ├── app.ts
+│   ├── hooks
+│   │   └── index.ts
+│   ├── middleware
+│   │   ├── index.ts
+│   │   ├── logger.ts
+│   │   ├── not-found-handler.ts
+│   │   └── webpack-hot.ts
+│   ├── seed.json
+│   ├── seeds
+│   │   ├── README.md
 │   │   ├── claim.json
 │   │   ├── claimRebuttal.json
 │   │   ├── contact.json
@@ -337,107 +336,86 @@ Widget collections |Angular Material |Angular Material | | |
 │   │   ├── note.json
 │   │   ├── rebuttal.json
 │   │   └── user.json
-│   ├── node-proxy.js
-│   ├── node-server.js
-│   ├── proxy-config.js
-│   └── webpack-dev-proxy.js
-├── src
-│   ├── app
-│   │   ├── app.module.ts
-│   │   ├── app.page.css
-│   │   ├── app.page.html
-│   │   ├── app.page.spec.ts
-│   │   ├── app.page.ts
-│   │   ├── app.routing.ts
-│   │   ├── app.spec.ts
-│   │   ├── bernie
-│   │   │   ├── README.md
-│   │   │   ├── bernie.module.ts
-│   │   │   ├── bernie.page.css
-│   │   │   ├── bernie.page.html
-│   │   │   ├── bernie.page.ts
-│   │   │   ├── bernie.routing.ts
-│   │   │   ├── claim
-│   │   │   │   ├── claim.component.css
-│   │   │   │   ├── claim.component.html
-│   │   │   │   ├── claim.component.spec.ts
-│   │   │   │   └── claim.component.ts
-│   │   │   └── rebuttal
-│   │   │       ├── rebuttal.component.css
-│   │   │       ├── rebuttal.component.html
-│   │   │       ├── rebuttal.component.spec.ts
-│   │   │       └── rebuttal.component.ts
-│   │   ├── books
-│   │   │   ├── README.md
-│   │   │   ├── add-commas
-│   │   │   │   └── add-commas.pipe.ts
-│   │   │   ├── book-authors
-│   │   │   │   └── book-authors.component.ts
-│   │   │   ├── book-detail
-│   │   │   │   └── book-detail.component.ts
-│   │   │   ├── book-exists
-│   │   │   │   └── book-exists.guard.ts
-│   │   │   ├── book-preview
-│   │   │   │   ├── book-preview-list.component.ts
-│   │   │   │   └── book-preview.component.ts
-│   │   │   ├── book-search
-│   │   │   │   └── book-search.component.ts
-│   │   │   ├── books.module.ts
-│   │   │   ├── books.routing.ts
-│   │   │   ├── collection.page.spec.ts
-│   │   │   ├── collection.page.ts
-│   │   │   ├── ellipsis
-│   │   │   │   ├── ellipsis.pipe.ts
-│   │   │   │   └── ellipsis.spec.ts
-│   │   │   ├── find-book.page.ts
-│   │   │   ├── selected-book.page.ts
-│   │   │   └── view-book.page.ts
+│   ├── service
+│   │   ├── authentication
+│   │   │   ├── hooks
+│   │   │   │   └── index.ts
+│   │   │   └── index.ts
+│   │   ├── claim
+│   │   │   ├── claim-model.ts
+│   │   │   ├── hooks
+│   │   │   │   └── index.ts
+│   │   │   └── index.ts
+│   │   ├── claimRebuttal
+│   │   │   ├── claim-rebuttal-model.ts
+│   │   │   ├── hooks
+│   │   │   │   └── index.ts
+│   │   │   └── index.ts
 │   │   ├── contact
-│   │   │   ├── contact.module.ts
-│   │   │   ├── contact.page.css
-│   │   │   ├── contact.page.html
-│   │   │   ├── contact.page.ts
-│   │   │   └── contact.routing.ts
+│   │   │   ├── contact-model.ts
+│   │   │   ├── hooks
+│   │   │   │   └── index.ts
+│   │   │   └── index.ts
+│   │   ├── crisis
+│   │   │   ├── crisis-model.ts
+│   │   │   ├── hooks
+│   │   │   │   └── index.ts
+│   │   │   └── index.ts
+│   │   ├── hero
+│   │   │   ├── hero-model.ts
+│   │   │   ├── hooks
+│   │   │   │   └── index.ts
+│   │   │   └── index.ts
+│   │   ├── hooks
+│   │   ├── index.ts
+│   │   ├── message
+│   │   │   ├── hooks
+│   │   │   │   └── index.ts
+│   │   │   ├── index.ts
+│   │   │   └── message-model.ts
+│   │   ├── note
+│   │   │   ├── hooks
+│   │   │   │   └── index.ts
+│   │   │   ├── index.ts
+│   │   │   └── note-model.ts
+│   │   ├── rebuttal
+│   │   │   ├── hooks
+│   │   │   │   └── index.ts
+│   │   │   ├── index.ts
+│   │   │   └── rebuttal-model.ts
+│   │   ├── user
+│   │   │   ├── hooks
+│   │   │   │   └── index.ts
+│   │   │   ├── index.ts
+│   │   │   └── user-model.ts
+│   │   └── verifyReset
+│   │       └── index.js
+│   └── webpack
+│       └── webpack.server.common.ts
+├── client
+│   ├── app
+│   │   ├── 404
+│   │   │   ├── 404.component.html
+│   │   │   ├── 404.component.scss
+│   │   │   └── 404.component.ts
+│   │   ├── app.component.html
+│   │   ├── app.component.scss
+│   │   ├── app.component.ts
+│   │   ├── app.global.scss
+│   │   ├── app.module.ts
+│   │   ├── app.routes.ts
 │   │   ├── core
+│   │   │   ├── 404
+│   │   │   │   ├── 404.component.html
+│   │   │   │   ├── 404.component.scss
+│   │   │   │   └── 404.component.ts
 │   │   │   ├── about
 │   │   │   │   └── about.page.ts
-│   │   │   ├── auth
-│   │   │   │   ├── auth.guard.ts
-│   │   │   │   ├── auth.module.ts
-│   │   │   │   ├── auth.service.ts
-│   │   │   │   └── login
-│   │   │   │       ├── login-form
-│   │   │   │       │   ├── login-form.component.css
-│   │   │   │       │   ├── login-form.component.spec.ts
-│   │   │   │       │   └── login-form.component.ts
-│   │   │   │       ├── login-modal
-│   │   │   │       │   ├── login-modal.component.spec.ts
-│   │   │   │       │   └── login-modal.component.ts
-│   │   │   │       ├── login.component.ts
-│   │   │   │       ├── login.module.ts
-│   │   │   │       └── login.routing.ts
 │   │   │   ├── core.module.ts
 │   │   │   ├── core.routing.ts
 │   │   │   ├── index.ts
-│   │   │   ├── interfaces
-│   │   │   │   ├── iconsole.ts
-│   │   │   │   ├── ilang.ts
-│   │   │   │   ├── index.ts
-│   │   │   │   └── iwindow.ts
-│   │   │   ├── navigator
-│   │   │   │   ├── layout.component.ts
-│   │   │   │   ├── nav-item.component.ts
-│   │   │   │   ├── navigator.module.ts
-│   │   │   │   ├── sidenav.component.ts
-│   │   │   │   └── toolbar.component.ts
-│   │   │   ├── not-found
-│   │   │   │   └── not-found.page.ts
-│   │   │   ├── platform
-│   │   │   │   ├── platform.directive.spec.ts
-│   │   │   │   └── platform.directive.ts
 │   │   │   ├── services
-│   │   │   │   ├── app.service.ts
-│   │   │   │   ├── console.service.ts
+│   │   │   │   ├── auth.guard.ts
 │   │   │   │   ├── data.service.spec.ts
 │   │   │   │   ├── data.service.ts
 │   │   │   │   ├── default-request-options.service.ts
@@ -445,193 +423,283 @@ Widget collections |Angular Material |Angular Material | | |
 │   │   │   │   ├── in-memory-data.service.ts
 │   │   │   │   ├── index.ts
 │   │   │   │   ├── log.service.spec.ts
-│   │   │   │   ├── log.service.ts
 │   │   │   │   ├── router-extensions.service.ts
-│   │   │   │   ├── user.service.ts
-│   │   │   │   └── window.service.ts
-│   │   │   ├── spinner.component.ts
-│   │   │   ├── store
-│   │   │   │   ├── book
-│   │   │   │   │   ├── book.effects.spec.ts
-│   │   │   │   │   ├── book.effects.ts
-│   │   │   │   │   ├── book.model.ts
-│   │   │   │   │   ├── book.reducer.ts
-│   │   │   │   │   └── google-books.service.ts
-│   │   │   │   ├── claim
-│   │   │   │   │   ├── README.md
-│   │   │   │   │   ├── claim.effects.ts
-│   │   │   │   │   ├── claim.model.ts
-│   │   │   │   │   └── claim.reducer.ts
-│   │   │   │   ├── claim-rebuttal
-│   │   │   │   │   ├── claim-rebuttal.effects.ts
-│   │   │   │   │   ├── claim-rebuttal.model.ts
-│   │   │   │   │   └── claim-rebuttal.reducer.ts
-│   │   │   │   ├── collection
-│   │   │   │   │   ├── collection.effects.spec.ts
-│   │   │   │   │   ├── collection.effects.ts
-│   │   │   │   │   └── collection.reducer.ts
-│   │   │   │   ├── contact
-│   │   │   │   │   ├── contact.effects.ts
-│   │   │   │   │   ├── contact.model.ts
-│   │   │   │   │   └── contact.reducer.ts
-│   │   │   │   ├── counter
-│   │   │   │   │   ├── counter.actions.test.ts
-│   │   │   │   │   ├── counter.effects.ts
-│   │   │   │   │   ├── counter.model.ts
-│   │   │   │   │   └── counter.reducer.ts
-│   │   │   │   ├── crisis
-│   │   │   │   │   ├── crisis.effects.ts
-│   │   │   │   │   ├── crisis.model.ts
-│   │   │   │   │   └── crisis.reducer.ts
-│   │   │   │   ├── db.ts
-│   │   │   │   ├── entity
-│   │   │   │   │   ├── entity.actions.ts
-│   │   │   │   │   ├── entity.functions.ts
-│   │   │   │   │   └── entity.model.ts
-│   │   │   │   ├── hero
-│   │   │   │   │   ├── hero.effects.ts
-│   │   │   │   │   ├── hero.model.ts
-│   │   │   │   │   └── hero.reducer.ts
-│   │   │   │   ├── id
-│   │   │   │   │   ├── id.actions.ts
-│   │   │   │   │   ├── id.functions.ts
-│   │   │   │   │   └── id.model.ts
-│   │   │   │   ├── index.ts
-│   │   │   │   ├── layout
-│   │   │   │   │   ├── layout.model.ts
-│   │   │   │   │   └── layout.reducer.ts
-│   │   │   │   ├── note
-│   │   │   │   │   ├── note.effects.ts
-│   │   │   │   │   ├── note.model.ts
-│   │   │   │   │   └── note.reducer.ts
-│   │   │   │   ├── rebuttal
-│   │   │   │   │   ├── rebuttal.effects.ts
-│   │   │   │   │   ├── rebuttal.model.ts
-│   │   │   │   │   └── rebuttal.reducer.ts
-│   │   │   │   ├── search
-│   │   │   │   │   └── search.reducer.ts
-│   │   │   │   ├── session
-│   │   │   │   │   ├── session.effects.ts
-│   │   │   │   │   ├── session.model.ts
-│   │   │   │   │   └── session.reducer.ts
-│   │   │   │   ├── slice
-│   │   │   │   │   ├── slice.actions.ts
-│   │   │   │   │   └── slice.functions.ts
-│   │   │   │   └── util.ts
-│   │   │   ├── title
-│   │   │   │   ├── title.component.html
-│   │   │   │   └── title.component.ts
-│   │   │   └── utils
-│   │   │       ├── config.spec.ts
-│   │   │       ├── config.ts
+│   │   │   │   ├── socket.service.ts
+│   │   │   │   └── user.service.ts
+│   │   │   └── store
+│   │   │       ├── book
+│   │   │       │   ├── book.effects.spec.ts
+│   │   │       │   ├── book.effects.ts
+│   │   │       │   ├── book.model.ts
+│   │   │       │   ├── book.reducer.ts
+│   │   │       │   └── google-books.service.ts
+│   │   │       ├── claim
+│   │   │       │   ├── README.md
+│   │   │       │   ├── claim.effects.ts
+│   │   │       │   ├── claim.model.ts
+│   │   │       │   └── claim.reducer.ts
+│   │   │       ├── claim-rebuttal
+│   │   │       │   ├── claim-rebuttal.effects.ts
+│   │   │       │   ├── claim-rebuttal.model.ts
+│   │   │       │   └── claim-rebuttal.reducer.ts
+│   │   │       ├── collection
+│   │   │       │   ├── collection.effects.spec.ts
+│   │   │       │   ├── collection.effects.ts
+│   │   │       │   └── collection.reducer.ts
+│   │   │       ├── contact
+│   │   │       │   ├── contact.effects.ts
+│   │   │       │   ├── contact.model.ts
+│   │   │       │   └── contact.reducer.ts
+│   │   │       ├── counter
+│   │   │       │   ├── counter.actions.test.ts
+│   │   │       │   ├── counter.effects.ts
+│   │   │       │   ├── counter.model.ts
+│   │   │       │   └── counter.reducer.ts
+│   │   │       ├── crisis
+│   │   │       │   ├── crisis.effects.ts
+│   │   │       │   ├── crisis.model.ts
+│   │   │       │   └── crisis.reducer.ts
+│   │   │       ├── db.ts
+│   │   │       ├── entity
+│   │   │       │   ├── entity.actions.ts
+│   │   │       │   ├── entity.functions.ts
+│   │   │       │   └── entity.model.ts
+│   │   │       ├── hero
+│   │   │       │   ├── hero.effects.ts
+│   │   │       │   ├── hero.model.ts
+│   │   │       │   └── hero.reducer.ts
+│   │   │       ├── id
+│   │   │       │   ├── id.actions.ts
+│   │   │       │   ├── id.functions.ts
+│   │   │       │   └── id.model.ts
 │   │   │       ├── index.ts
-│   │   │       ├── type.ts
-│   │   │       ├── view-broker.spec.ts
-│   │   │       └── view-broker.ts
-│   │   ├── counter
-│   │   │   ├── README.md
-│   │   │   ├── counter.component.css
-│   │   │   ├── counter.component.ts
-│   │   │   ├── counter.module.ts
-│   │   │   ├── counter.page.ts
-│   │   │   └── counter.routing.ts
-│   │   ├── heroes
-│   │   │   ├── admin
-│   │   │   │   ├── admin-dashboard
-│   │   │   │   │   └── admin-dashboard.component.ts
-│   │   │   │   ├── admin.module.ts
-│   │   │   │   ├── admin.page.css
-│   │   │   │   ├── admin.page.ts
-│   │   │   │   └── admin.routing.ts
-│   │   │   ├── crisis-center
-│   │   │   │   ├── compose-message
-│   │   │   │   │   ├── compose-message.component.html
-│   │   │   │   │   └── compose-message.component.ts
-│   │   │   │   ├── crisis-center-home
-│   │   │   │   │   └── crisis-center-home.component.ts
-│   │   │   │   ├── crisis-center.module.ts
-│   │   │   │   ├── crisis-center.page.css
-│   │   │   │   ├── crisis-center.page.html
-│   │   │   │   ├── crisis-center.page.ts
-│   │   │   │   ├── crisis-center.routing.ts
-│   │   │   │   ├── crisis-detail
-│   │   │   │   │   ├── crisis-detail-resolver.service.ts
-│   │   │   │   │   └── crisis-detail.component.ts
-│   │   │   │   └── crisis-list
-│   │   │   │       ├── crisis-list.component.css
-│   │   │   │       └── crisis-list.component.ts
+│   │   │       ├── layout
+│   │   │       │   ├── layout.model.ts
+│   │   │       │   └── layout.reducer.ts
+│   │   │       ├── message
+│   │   │       │   └── message.reducer.ts
+│   │   │       ├── note
+│   │   │       │   ├── note.effects.ts
+│   │   │       │   ├── note.model.ts
+│   │   │       │   └── note.reducer.ts
+│   │   │       ├── rebuttal
+│   │   │       │   ├── rebuttal.effects.ts
+│   │   │       │   ├── rebuttal.model.ts
+│   │   │       │   └── rebuttal.reducer.ts
+│   │   │       ├── search
+│   │   │       │   └── search.reducer.ts
+│   │   │       ├── session
+│   │   │       │   ├── session.effects.ts
+│   │   │       │   ├── session.model.ts
+│   │   │       │   └── session.reducer.ts
+│   │   │       ├── slice
+│   │   │       │   ├── slice.actions.ts
+│   │   │       │   └── slice.functions.ts
+│   │   │       └── util.ts
+│   │   ├── env.ts
+│   │   ├── index.ts
+│   │   ├── login
+│   │   │   ├── login.component.html
+│   │   │   ├── login.component.scss
+│   │   │   ├── login.component.ts
+│   │   │   └── login.service.ts
+│   │   ├── meta.json
+│   │   ├── module
+│   │   │   ├── bernie
+│   │   │   │   ├── README.md
+│   │   │   │   ├── bernie.module.ts
+│   │   │   │   ├── bernie.page.html
+│   │   │   │   ├── bernie.page.scss
+│   │   │   │   ├── bernie.page.ts
+│   │   │   │   ├── bernie.routing.ts
+│   │   │   │   ├── claim
+│   │   │   │   │   ├── claim.component.html
+│   │   │   │   │   ├── claim.component.scss
+│   │   │   │   │   ├── claim.component.spec.ts
+│   │   │   │   │   └── claim.component.ts
+│   │   │   │   └── rebuttal
+│   │   │   │       ├── rebuttal.component.html
+│   │   │   │       ├── rebuttal.component.scss
+│   │   │   │       ├── rebuttal.component.spec.ts
+│   │   │   │       └── rebuttal.component.ts
+│   │   │   ├── books
+│   │   │   │   ├── README.md
+│   │   │   │   ├── add-commas
+│   │   │   │   │   └── add-commas.pipe.ts
+│   │   │   │   ├── book-authors
+│   │   │   │   │   └── book-authors.component.ts
+│   │   │   │   ├── book-detail
+│   │   │   │   │   └── book-detail.component.ts
+│   │   │   │   ├── book-exists
+│   │   │   │   │   └── book-exists.guard.ts
+│   │   │   │   ├── book-preview
+│   │   │   │   │   ├── book-preview-list.component.ts
+│   │   │   │   │   └── book-preview.component.ts
+│   │   │   │   ├── book-search
+│   │   │   │   │   └── book-search.component.ts
+│   │   │   │   ├── books.module.ts
+│   │   │   │   ├── books.routing.ts
+│   │   │   │   ├── collection.page.spec.ts
+│   │   │   │   ├── collection.page.ts
+│   │   │   │   ├── ellipsis
+│   │   │   │   │   ├── ellipsis.pipe.ts
+│   │   │   │   │   └── ellipsis.spec.ts
+│   │   │   │   ├── find-book.page.ts
+│   │   │   │   ├── selected-book.page.ts
+│   │   │   │   └── view-book.page.ts
+│   │   │   ├── contact
+│   │   │   │   ├── contact.module.ts
+│   │   │   │   ├── contact.page.html
+│   │   │   │   ├── contact.page.scss
+│   │   │   │   ├── contact.page.ts
+│   │   │   │   └── contact.routing.ts
+│   │   │   ├── counter
+│   │   │   │   ├── README.md
+│   │   │   │   ├── counter.component.scss
+│   │   │   │   ├── counter.component.ts
+│   │   │   │   ├── counter.module.ts
+│   │   │   │   ├── counter.page.ts
+│   │   │   │   └── counter.routing.ts
 │   │   │   ├── dashboard
-│   │   │   │   ├── dashboard-crisis
-│   │   │   │   │   ├── dashboard-crisis.component.css
-│   │   │   │   │   ├── dashboard-crisis.component.html
-│   │   │   │   │   └── dashboard-crisis.component.ts
-│   │   │   │   ├── dashboard-hero
-│   │   │   │   │   ├── dashboard-hero.component.css
-│   │   │   │   │   ├── dashboard-hero.component.html
-│   │   │   │   │   ├── dashboard-hero.component.spec.ts
-│   │   │   │   │   └── dashboard-hero.component.ts
-│   │   │   │   ├── dashboard.component.css
 │   │   │   │   ├── dashboard.component.html
 │   │   │   │   ├── dashboard.component.ts
 │   │   │   │   ├── dashboard.module.ts
-│   │   │   │   ├── dashboard.routing.ts
-│   │   │   │   └── hero-search
-│   │   │   │       ├── hero-search.component.css
-│   │   │   │       ├── hero-search.component.html
-│   │   │   │       └── hero-search.component.ts
-│   │   │   ├── hero
-│   │   │   │   ├── hero-detail
-│   │   │   │   │   ├── hero-detail.component.css
-│   │   │   │   │   ├── hero-detail.component.html
-│   │   │   │   │   ├── hero-detail.component.no-testbed.spec.ts
-│   │   │   │   │   ├── hero-detail.component.spec.ts
-│   │   │   │   │   └── hero-detail.component.ts
-│   │   │   │   ├── hero-list
-│   │   │   │   │   ├── hero-list.component.css
-│   │   │   │   │   ├── hero-list.component.html
-│   │   │   │   │   ├── hero-list.component.spec.ts
-│   │   │   │   │   └── hero-list.component.ts
-│   │   │   │   ├── hero.module.ts
-│   │   │   │   └── hero.routing.ts
-│   │   │   ├── heroes.module.ts
-│   │   │   ├── heroes.page.css
-│   │   │   ├── heroes.page.html
-│   │   │   ├── heroes.page.ts
-│   │   │   └── heroes.routing.ts
-│   │   ├── notes
-│   │   │   ├── README.md
-│   │   │   ├── add-button
-│   │   │   │   ├── add-button.component.css
-│   │   │   │   ├── add-button.component.html
-│   │   │   │   └── add-button.component.ts
-│   │   │   ├── note
-│   │   │   │   ├── note.component.css
-│   │   │   │   ├── note.component.html
-│   │   │   │   └── note.component.ts
-│   │   │   ├── notes.module.ts
-│   │   │   ├── notes.page.css
-│   │   │   ├── notes.page.html
-│   │   │   ├── notes.page.spec.ts
-│   │   │   ├── notes.page.ts
-│   │   │   └── notes.routing.ts
+│   │   │   │   ├── dashboard.routes.ts
+│   │   │   │   └── index.ts
+│   │   │   ├── heroes
+│   │   │   │   ├── admin
+│   │   │   │   │   ├── admin-dashboard
+│   │   │   │   │   │   └── admin-dashboard.component.ts
+│   │   │   │   │   ├── admin.module.ts
+│   │   │   │   │   ├── admin.page.scss
+│   │   │   │   │   ├── admin.page.ts
+│   │   │   │   │   └── admin.routing.ts
+│   │   │   │   ├── crisis-center
+│   │   │   │   │   ├── compose-message
+│   │   │   │   │   │   ├── compose-message.component.html
+│   │   │   │   │   │   └── compose-message.component.ts
+│   │   │   │   │   ├── crisis-center-home
+│   │   │   │   │   │   └── crisis-center-home.component.ts
+│   │   │   │   │   ├── crisis-center.module.ts
+│   │   │   │   │   ├── crisis-center.page.html
+│   │   │   │   │   ├── crisis-center.page.scss
+│   │   │   │   │   ├── crisis-center.page.ts
+│   │   │   │   │   ├── crisis-center.routing.ts
+│   │   │   │   │   ├── crisis-detail
+│   │   │   │   │   │   ├── crisis-detail-resolver.service.ts
+│   │   │   │   │   │   └── crisis-detail.component.ts
+│   │   │   │   │   └── crisis-list
+│   │   │   │   │       ├── crisis-list.component.scss
+│   │   │   │   │       └── crisis-list.component.ts
+│   │   │   │   ├── dashboard
+│   │   │   │   │   ├── dashboard-crisis
+│   │   │   │   │   │   ├── dashboard-crisis.component.html
+│   │   │   │   │   │   ├── dashboard-crisis.component.scss
+│   │   │   │   │   │   └── dashboard-crisis.component.ts
+│   │   │   │   │   ├── dashboard-hero
+│   │   │   │   │   │   ├── dashboard-hero.component.html
+│   │   │   │   │   │   ├── dashboard-hero.component.scss
+│   │   │   │   │   │   ├── dashboard-hero.component.spec.ts
+│   │   │   │   │   │   └── dashboard-hero.component.ts
+│   │   │   │   │   ├── dashboard.component.html
+│   │   │   │   │   ├── dashboard.component.scss
+│   │   │   │   │   ├── dashboard.component.ts
+│   │   │   │   │   ├── dashboard.module.ts
+│   │   │   │   │   ├── dashboard.routing.ts
+│   │   │   │   │   └── hero-search
+│   │   │   │   │       ├── hero-search.component.html
+│   │   │   │   │       ├── hero-search.component.scss
+│   │   │   │   │       └── hero-search.component.ts
+│   │   │   │   ├── hero
+│   │   │   │   │   ├── hero-detail
+│   │   │   │   │   │   ├── hero-detail.component.html
+│   │   │   │   │   │   ├── hero-detail.component.no-testbed.spec.ts
+│   │   │   │   │   │   ├── hero-detail.component.scss
+│   │   │   │   │   │   ├── hero-detail.component.spec.ts
+│   │   │   │   │   │   └── hero-detail.component.ts
+│   │   │   │   │   ├── hero-list
+│   │   │   │   │   │   ├── hero-list.component.html
+│   │   │   │   │   │   ├── hero-list.component.scss
+│   │   │   │   │   │   ├── hero-list.component.spec.ts
+│   │   │   │   │   │   └── hero-list.component.ts
+│   │   │   │   │   ├── hero.module.ts
+│   │   │   │   │   └── hero.routing.ts
+│   │   │   │   ├── heroes.module.ts
+│   │   │   │   ├── heroes.page.html
+│   │   │   │   ├── heroes.page.scss
+│   │   │   │   ├── heroes.page.ts
+│   │   │   │   └── heroes.routing.ts
+│   │   │   ├── home
+│   │   │   │   ├── home.component.html
+│   │   │   │   └── home.component.ts
+│   │   │   ├── index.ts
+│   │   │   ├── message
+│   │   │   │   ├── index.ts
+│   │   │   │   ├── message.component.html
+│   │   │   │   ├── message.component.ts
+│   │   │   │   ├── message.module.ts
+│   │   │   │   ├── message.routes.ts
+│   │   │   │   └── message.service.ts
+│   │   │   ├── mod.module.ts
+│   │   │   ├── module.component.html
+│   │   │   ├── module.component.scss
+│   │   │   ├── module.component.ts
+│   │   │   ├── module.routes.ts
+│   │   │   ├── notes
+│   │   │   │   ├── README.md
+│   │   │   │   ├── add-button
+│   │   │   │   │   ├── add-button.component.html
+│   │   │   │   │   ├── add-button.component.scss
+│   │   │   │   │   └── add-button.component.ts
+│   │   │   │   ├── note
+│   │   │   │   │   ├── note.component.html
+│   │   │   │   │   ├── note.component.scss
+│   │   │   │   │   └── note.component.ts
+│   │   │   │   ├── notes.module.ts
+│   │   │   │   ├── notes.page.html
+│   │   │   │   ├── notes.page.scss
+│   │   │   │   ├── notes.page.spec.ts
+│   │   │   │   ├── notes.page.ts
+│   │   │   │   └── notes.routing.ts
+│   │   │   ├── setting
+│   │   │   │   ├── password.component.html
+│   │   │   │   ├── password.component.scss
+│   │   │   │   ├── password.component.ts
+│   │   │   │   ├── profile.component.html
+│   │   │   │   ├── profile.component.ts
+│   │   │   │   ├── setting.module.ts
+│   │   │   │   └── setting.routes.ts
+│   │   │   ├── user
+│   │   │   │   ├── dialog
+│   │   │   │   │   ├── addUser.html
+│   │   │   │   │   └── addUser.scss
+│   │   │   │   ├── index.ts
+│   │   │   │   ├── user.component.html
+│   │   │   │   ├── user.component.scss
+│   │   │   │   ├── user.component.ts
+│   │   │   │   ├── user.module.ts
+│   │   │   │   ├── user.routes.ts
+│   │   │   │   └── user.service.ts
+│   │   │   └── wiki
+│   │   │       ├── wiki-smart.component.ts
+│   │   │       ├── wiki.component.ts
+│   │   │       ├── wiki.module.ts
+│   │   │       ├── wiki.page.ts
+│   │   │       ├── wiki.routing.ts
+│   │   │       ├── wiki.scss
+│   │   │       └── wikipedia.service.ts
 │   │   ├── shared
 │   │   │   ├── alert
 │   │   │   │   ├── alert.component.spec.ts
 │   │   │   │   ├── alert.component.ts
 │   │   │   │   └── index.ts
-│   │   │   ├── analytics
-│   │   │   │   ├── analytics.module.ts
-│   │   │   │   ├── index.ts
-│   │   │   │   └── services
-│   │   │   │       ├── analytics.service.spec.ts
-│   │   │   │       └── analytics.service.ts
 │   │   │   ├── animations.ts
 │   │   │   ├── awesome
 │   │   │   │   └── awesome.pipe.ts
 │   │   │   ├── banner
-│   │   │   │   ├── banner.component.css
 │   │   │   │   ├── banner.component.detect-changes.spec.ts
 │   │   │   │   ├── banner.component.html
+│   │   │   │   ├── banner.component.scss
 │   │   │   │   ├── banner.component.spec.ts
 │   │   │   │   └── banner.component.ts
 │   │   │   ├── button
@@ -647,6 +715,10 @@ Widget collections |Angular Material |Angular Material | | |
 │   │   │   │   └── dialog.service.ts
 │   │   │   ├── draggable
 │   │   │   │   └── draggable.directive.ts
+│   │   │   ├── footer
+│   │   │   │   ├── footer.component.html
+│   │   │   │   ├── footer.component.scss
+│   │   │   │   └── footer.component.ts
 │   │   │   ├── form
 │   │   │   │   ├── form.component.spec.ts
 │   │   │   │   ├── form.component.ts
@@ -660,46 +732,18 @@ Widget collections |Angular Material |Angular Material | | |
 │   │   │   ├── highlight
 │   │   │   │   ├── highlight.directive.spec.ts
 │   │   │   │   └── highlight.directive.ts
+│   │   │   ├── index.ts
 │   │   │   ├── input
 │   │   │   │   ├── input.component.spec.ts
 │   │   │   │   └── input.component.ts
 │   │   │   ├── label
 │   │   │   │   ├── label.component.spec.ts
 │   │   │   │   └── label.component.ts
-│   │   │   ├── logo
-│   │   │   │   ├── index.ts
-│   │   │   │   ├── logo.component.css
-│   │   │   │   ├── logo.component.spec.ts
-│   │   │   │   └── logo.component.ts
-│   │   │   ├── modal
-│   │   │   │   ├── modal.component.css
-│   │   │   │   ├── modal.component.spec.ts
-│   │   │   │   └── modal.component.ts
-│   │   │   ├── modal-content
-│   │   │   │   ├── modal-content.component.spec.ts
-│   │   │   │   └── modal-content.component.ts
+│   │   │   ├── material.scss
+│   │   │   ├── module.service.ts
+│   │   │   ├── navigation.service.ts
 │   │   │   ├── selective-preloading-strategy.ts
 │   │   │   ├── shared.module.ts
-│   │   │   ├── test
-│   │   │   │   ├── browser-test-shim.js
-│   │   │   │   ├── e2e
-│   │   │   │   │   └── dropdowns.ts
-│   │   │   │   ├── jasmine-matchers.d.ts
-│   │   │   │   ├── jasmine-matchers.ts
-│   │   │   │   ├── mocks
-│   │   │   │   │   ├── mock-location-strategy.ts
-│   │   │   │   │   ├── ng2-config.mock.ts
-│   │   │   │   │   ├── router-extensions.mock.ts
-│   │   │   │   │   └── window.mock.ts
-│   │   │   │   ├── providers
-│   │   │   │   │   ├── core.ts
-│   │   │   │   │   ├── http.ts
-│   │   │   │   │   └── router.ts
-│   │   │   │   ├── router-stubs.ts
-│   │   │   │   ├── shorthand
-│   │   │   │   │   └── ng2-jasmine.ts
-│   │   │   │   ├── test.module.ts
-│   │   │   │   └── util.ts
 │   │   │   ├── title-case
 │   │   │   │   ├── title-case.pipe.spec.ts
 │   │   │   │   └── title-case.pipe.ts
@@ -707,52 +751,90 @@ Widget collections |Angular Material |Angular Material | | |
 │   │   │   │   ├── twain.component.spec.ts
 │   │   │   │   ├── twain.component.ts
 │   │   │   │   └── twain.service.ts
-│   │   │   └── welcome
-│   │   │       ├── welcome.component.spec.ts
-│   │   │       └── welcome.component.ts
-│   │   └── wiki
-│   │       ├── wiki-smart.component.ts
-│   │       ├── wiki.component.ts
-│   │       ├── wiki.css
-│   │       ├── wiki.module.ts
-│   │       ├── wiki.page.ts
-│   │       ├── wiki.routing.ts
-│   │       └── wikipedia.service.ts
+│   │   │   ├── version.service.ts
+│   │   │   ├── welcome
+│   │   │   │   ├── welcome.component.spec.ts
+│   │   │   │   └── welcome.component.ts
+│   │   │   └── widgets
+│   │   │       ├── index.ts
+│   │   │       └── todo
+│   │   │           ├── index.ts
+│   │   │           ├── todo.html
+│   │   │           └── todo.ts
+│   │   ├── signup
+│   │   │   ├── signup.component.html
+│   │   │   ├── signup.component.scss
+│   │   │   ├── signup.component.ts
+│   │   │   └── signup.service.ts
+│   │   └── widgets
+│   │       ├── index.ts
+│   │       └── todo
+│   │           ├── index.ts
+│   │           ├── todo.html
+│   │           └── todo.ts
 │   ├── assets
-│   │   ├── bernie-app.png
-│   │   ├── bernie-sanders-128.jpg
-│   │   ├── bernie-spreadsheet.png
-│   │   ├── collection.png
-│   │   ├── counter.png
-│   │   ├── notes.png
-│   │   ├── question-mark.png
-│   │   ├── rangleio-logo.svg
-│   │   └── styles
-│   │       ├── align.css
-│   │       ├── background-colors.css
-│   │       ├── basscss.scss
-│   │       ├── colors.css
-│   │       ├── flexbox.css
-│   │       ├── grid.css
-│   │       ├── hero-styles.css
-│   │       ├── heroes.css
-│   │       ├── hide.css
-│   │       ├── index.scss
-│   │       ├── media-object.css
-│   │       ├── position.css
-│   │       ├── responsive-margin.css
-│   │       └── responsive-padding.css
-│   ├── environments
-│   │   ├── environment.prod.ts
-│   │   └── environment.ts
-│   ├── favicon.ico
+│   │   ├── favicon.ico
+│   │   └── icon
+│   │       ├── android-icon-144x144.png
+│   │       ├── android-icon-192x192.png
+│   │       ├── android-icon-36x36.png
+│   │       ├── android-icon-48x48.png
+│   │       ├── android-icon-72x72.png
+│   │       ├── android-icon-96x96.png
+│   │       ├── apple-icon-114x114.png
+│   │       ├── apple-icon-120x120.png
+│   │       ├── apple-icon-144x144.png
+│   │       ├── apple-icon-152x152.png
+│   │       ├── apple-icon-180x180.png
+│   │       ├── apple-icon-57x57.png
+│   │       ├── apple-icon-60x60.png
+│   │       ├── apple-icon-72x72.png
+│   │       ├── apple-icon-76x76.png
+│   │       ├── apple-icon-precomposed.png
+│   │       ├── apple-icon.png
+│   │       ├── browserconfig.xml
+│   │       ├── favicon-16x16.png
+│   │       ├── favicon-32x32.png
+│   │       ├── favicon-96x96.png
+│   │       ├── favicon.ico
+│   │       ├── ms-icon-144x144.png
+│   │       ├── ms-icon-150x150.png
+│   │       ├── ms-icon-310x310.png
+│   │       └── ms-icon-70x70.png
+│   ├── config
+│   │   ├── config.common.ts
+│   │   ├── config.dev.ts
+│   │   ├── config.prod.ts
+│   │   ├── config.ts
+│   │   ├── empty.ts
+│   │   ├── helpers.ts
+│   │   ├── html-elements-plugin
+│   │   │   └── index.ts
+│   │   ├── html-head-config.ts
+│   │   ├── resource-override.ts
+│   │   ├── webpack.common.ts
+│   │   ├── webpack.dev.ts
+│   │   └── webpack.prod.ts
+│   ├── custom-typings.d.ts
 │   ├── index.html
+│   ├── main.aot.ts
 │   ├── main.ts
-│   ├── polyfills.ts
-│   ├── styles.scss
-│   ├── test.ts
-│   ├── tsconfig.app.json
-│   └── tsconfig.spec.json
-├── tsconfig.json
-└── tslint.json
+│   └── polyfills.ts
+├── config
+│   ├── default.json
+│   └── production.json
+├── docker
+│   ├── dev.dockerfile
+│   ├── docker-compose.dev.yml
+│   ├── docker-compose.prod.yml
+│   └── prod.dockerfile
+├── npm-debug.log
+├── package.json
+├── process.yml
+├── server.ts
+├── tsconfig.client.json
+├── tsconfig.server.json
+├── tslint.json
+├── webpack.config.js
+└── yarn.lock
 ```

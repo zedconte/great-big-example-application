@@ -2,11 +2,11 @@ import { Injectable, OnInit } from '@angular/core';
 import { Http, Response, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
+import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/observable/from';
 
-import { environment } from '../../../environments/environment.prod';
 import { Claim } from '../store/claim/claim.model';
 import { ClaimRebuttal } from '../store/claim-rebuttal/claim-rebuttal.model';
 import { Contact } from '../store/contact/contact.model';
@@ -14,34 +14,34 @@ import { Crisis } from '../store/crisis/crisis.model';
 import { Hero } from '../store/hero/hero.model';
 import { Note } from '../store/note/note.model';
 import { Rebuttal } from '../store/rebuttal/rebuttal.model';
-import { AppConfig } from '../../app.config';
+import { config } from '../../../config/config';
 
 @Injectable()
 export class DataService {
   private JSON_HEADER = { headers: new Headers({ 'Content-Type': 'application/json' }) };
 
-  constructor(private http: Http, private config: AppConfig) { }
+  constructor(private http: Http) { }
 
   login(payload) {
-    return this.http.post(`${this.config.apiUrl}/auth/login`, payload, this.JSON_HEADER)
+    return this.http.post(`${config.apiUrl}/auth/login`, payload, this.JSON_HEADER)
       .map(this.extractData)
       .catch(this.handleError);
   }
 
   getEntities(table: string): Observable<any[]> {
-    return this.http.get(`${this.config.apiUrl}/${table}`)
+    return this.http.get(`${config.apiUrl}/${table}`)
       .map(this.extractData)
       .catch(this.handleError);
   }
 
   getEntity(id: number | string, table: string): Observable<any> {
-    return this.http.get(`${this.config.apiUrl}/${table}/${id}`)
+    return this.http.get(`${config.apiUrl}/${table}/${id}`)
       .map(this.extractData)
       .catch(this.handleError);
   }
 
   addOrUpdate(entity: any, table): Observable<any> {
-    return this.http.post(`${this.config.apiUrl}/${table}`, this.prepareRecord(entity), this.JSON_HEADER)
+    return this.http.post(`${config.apiUrl}/${table}`, this.prepareRecord(entity), this.JSON_HEADER)
       .map(this.extractData)
       .catch(this.handleError);
   }

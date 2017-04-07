@@ -1,0 +1,9 @@
+{
+  "port": 8080,
+  "auth": {
+    "jwt": {
+      // Make sure you change this secret for production
+      "secret": "MANF_AUTH_SECRET"
+    }
+  }
+}
