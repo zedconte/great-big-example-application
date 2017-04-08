@@ -145,7 +145,7 @@ export function updateToRemote$(actions$: Actions, slice: string, dataService, s
       Observable
         .from((<any>entities).ids)
         .filter((id: string) => (<any>entities).entities[id].dirty)
-        .switchMap((id: string) => dataService.addOrUpdate((<any>entities).entities[id], slice))
+        .switchMap((id: string) => dataService.update((<any>entities).entities[id], slice))
         .map((responseEntity) => new EntityActions.UpdateSuccess(slice, responseEntity))
     );
 }

@@ -22,11 +22,11 @@ export class DataService {
 
   constructor(private http: Http) { }
 
-  login(payload) {
-    return this.http.post(`${config.apiUrl}/auth/login`, payload, this.JSON_HEADER)
-      .map(this.extractData)
-      .catch(this.handleError);
-  }
+  // login(payload) {
+  //   return this.http.post(`${config.apiUrl}/auth/login`, payload, this.JSON_HEADER)
+  //     .map(this.extractData)
+  //     .catch(this.handleError);
+  // }
 
   getEntities(table: string): Observable<any[]> {
     return this.http.get(`${config.apiUrl}/${table}`)
@@ -40,14 +40,26 @@ export class DataService {
       .catch(this.handleError);
   }
 
-  addOrUpdate(entity: any, table): Observable<any> {
-    return this.http.post(`${config.apiUrl}/${table}`, this.prepareRecord(entity), this.JSON_HEADER)
+  // add(entity: any, table): Observable<any> {
+  //   return this.http.post(`${config.apiUrl}/${table}`, this.prepareRecord(entity), this.JSON_HEADER)
+  //     .map(this.extractData)
+  //     .catch(this.handleError);
+  // }
+
+  update(entity: any, table: string): Observable<any> {
+    return this.http.patch(`${config.apiUrl}/${table}`, this.prepareRecord(entity), this.JSON_HEADER)
       .map(this.extractData)
       .catch(this.handleError);
   }
 
-  prepareRecord(record) {
-    delete record.dirty;
+  // addOrUpdate(entity: any, table): Observable<any> {
+  //   return this.http.post(`${config.apiUrl}/${table}`, this.prepareRecord(entity), this.JSON_HEADER)
+  //     .map(this.extractData)
+  //     .catch(this.handleError);
+  // }
+
+  prepareRecord(record: any) {
+    // delete record.dirty;
     return JSON.stringify(record);
   }
 
@@ -57,7 +69,23 @@ export class DataService {
     }
 
     let body = res.json();
-    return body.data || {};
+    if(!body.data) {
+      return {};
+    }
+
+    let obj = body.data;
+    if(Array.isArray(obj)) {
+      return obj.map(renameIdField);
+    }
+
+    return renameIdField(obj);
+
+    // Mongoose uses the field _id instead of id
+    function renameIdField(obj) {
+      let id = obj._id;
+      delete obj._id;
+      return Object.assign({}, obj, {id});
+    }
 
   }
 
