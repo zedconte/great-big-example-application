@@ -1,6 +1,6 @@
-FROM elaijuh/node
+FROM dancancro/node
 ENV PROJECT_NAME manf
-MAINTAINER hjl <jiale@implustech.com>
+MAINTAINER dan <dan.cancro@gmail.com>
 
 RUN mkdir /manf
 WORKDIR /manf

@@ -110,19 +110,10 @@ That's it. It shouldn't be too hard to remember these, and in return you will ha
 You will need to have [Git](https://git-scm.com/) and [Node.js + NPM](http://nodejs.org) installed on your machine. 
 
 ## Get Docker
-If you want to Dockerize your app, go [here](http://www.dzurico.com/dockerize-angular-application) to setup Docker, and 
-install [PhantomJS](http://phantomjs.org/download.html). It's used by Docker.
+If you want to Dockerize your app, go [here](http://www.dzurico.com/dockerize-angular-application) to setup Docker.
 
 ## Get MongoDB
 Install MongoDB and start it by running `mongod` from any directory.
-
-## Use latest TypeScript compiler
-TypeScript 2.1.x includes everything you need. Make sure to upgrade, even if you installed TypeScript previously.
-
-```
-npm install --global typescript
-```
-
 
 # Make it go
 
@@ -131,28 +122,66 @@ npm install --global typescript
 $ git clone https://github.com/dancancro/great-big-angular2-example.git
 $ cd great-big-angular2-example
 
-## Install dependencies
-$ npm install
+```
+
+#### local
+
+```sh
+# Get nodemon to reload the app automatically, and ts-node to use TypeScript for the node code
+npm i nodemon ts-node typescript@latest
+
+# or use yarn
+yarn add nodemon ts-node typescript@latest
+
+# build client code
+yarn run build:client:dev
 
 ## Put some data in the database
 1. Run `$ npm install -g node-mongo-seeds` to install the mongo seed tool globally
 2. Run `$ cd app && seed` to seed the mongodb with data from the /seeds folder. Running this again
 will wipe out data in these collections and replace it with what's in the json files.
 
-## Start it 
-$npm start
+## start server with webpack hmr
+yarn run start:hmr
+```
 
+#### docker (recommended)
+
+```sh
+# docker way which is recommended
+docker-compose -f ./docker/docker-compose.dev.yml up --build
+
+# real time service, check the new message in message module after running below command
+curl -H 'Content-Type: application/json' \
+  --data-binary '{ "email": "yourname@yourdomain.com", "message": "Hello FAMN" }' \
+  http://localhost:3030/messages/'
+```
+
+Go to `http://localhost:3130` with default created user `mo@po.da`, password `do`
+
+### Deploy
+
+```sh
+docker-compose -f ./docker/docker-compose.prod.yml up --build -d
+```
+
+### Other commands
+
+#### build
+
+```sh
+# build client for dev
+yarn run build:client:dev
+# build client for prod
+yarn run build:client:prod
+# build client with AOT for prod
+yarn run build:client:aot:prod
+# build server for prod
+yarn run build:server:prod
 ```
 
 Then navigate to [http://localhost:3130](http://localhost:3130) in your browser. If you get stuck on anything, no matter how little, 
 please let me know. I know how the little things are what cause the problems and I don't want you to have any problems.
-
-## Blocking Dependency Issues
-
-| Issue | Description | Features |
-| :-- | :-- | :-- |
-| [14480](https://github.com/angular/angular/issues/14480) | Angular 2 relative pathing from siblings doesn't work | Compose Message box on Crisis Center and login success routing |
-| [14201](https://github.com/angular/angular/pull/14201) | Duplicate instantiation of lazy loaded modules | ngrx Effects |
 
 # FAQ
 
