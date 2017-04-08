@@ -31,7 +31,7 @@ The rationale behind this is pretty simple...
     commit to using it, there's no better way than to see a complex example made with that technology.
 
     5. It's a whole lot easier to vet an idea or accept an approach others have taken when you have
-    a complete application with all of its edge cases to show you what needs to be accommodatedd. 
+    a complete application with all of its edge cases to show you what needs to be accommodated. 
     By containing many edge cases, a big application will quickly answer the common learner's question:
     "Why isn't this done the easy way I think it should be done?", or "What if we tried X instead?"
 

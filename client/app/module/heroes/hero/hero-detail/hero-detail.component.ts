@@ -57,7 +57,7 @@ export class HeroDetailComponent implements OnInit {
     // Include a junk 'foo' property for fun.
 
     // TODO: it should take you back to where you were, wherever that was
-    this.router.navigate(['/modules/heroes/list', { id: heroId, foo: 'foo' }]);
+    this.router.navigate(['/module/heroes/list', { id: heroId, foo: 'foo' }]);
   }
 
   goBack(): void {

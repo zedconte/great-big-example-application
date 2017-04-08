@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common'
 import { FormsModule } from '@angular/forms'
 import { RouterModule } from '@angular/router'
 
+import { MessageRouting } from './message.routing';
 import { MaterialModule } from '@angular/material'
 import { FlexLayoutModule } from '@angular/flex-layout'
 
@@ -23,10 +24,10 @@ import { ROUTES } from './message.routes'
   imports: [
     CommonModule,
     FormsModule,
+    MessageRouting,
     MaterialModule.forRoot(),
     FlexLayoutModule.forRoot(),
-    AgGridModule.withComponents([]),
-    RouterModule.forChild(ROUTES),
+    AgGridModule.withComponents([])
   ]
 })
 export class MessageModule {

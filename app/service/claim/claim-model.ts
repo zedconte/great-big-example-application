@@ -1,7 +1,6 @@
 import * as mongoose from 'mongoose'
 
 const schema = new mongoose.Schema({
-  id: { type: String, required: true },
   name: { type: String, default: '' },
   imageLabel: { type: String, default: ''},
   createdAt: { type: Date, 'default': Date.now },

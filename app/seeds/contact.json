@@ -1,1 +1,14 @@
-[{"id":21,"name":"Sam Spade"},{"id":22,"name":"Nick Dangerous"},{"id":24,"name":"Nancy Drew"}]
+[
+  {
+    "_id": 21,
+    "name": "Sam Spade"
+  },
+  {
+    "_id": 22,
+    "name": "Nick Dangerous"
+  },
+  {
+    "_id": 24,
+    "name": "Nancy Drew"
+  }
+]

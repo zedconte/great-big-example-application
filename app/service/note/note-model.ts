@@ -1,7 +1,6 @@
 import * as mongoose from 'mongoose'
 
 const schema = new mongoose.Schema({
-  id: { type: String, required: true },
   text: { type: String, required: true },
   colour: { type: String, required: true },
   left: { type: String, required: true },

@@ -1,4 +1,5 @@
 export const commonConfig = {
     port: 80,
-    tokenKey: 'manf-jwt'
+    tokenKey: 'manf-jwt',
+    apiUrl: '/api'
 }

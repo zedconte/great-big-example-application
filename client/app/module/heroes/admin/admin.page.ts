@@ -7,8 +7,8 @@ import { Component } from '@angular/core';
     <nav>
       <a routerLink="./" routerLinkActive="active"
         [routerLinkActiveOptions]="{ exact: true }">Dashboard</a>
-      <a routerLink="/modules/heroes/crisis-center" routerLinkActive="active">Manage Crises</a>
-      <a routerLink="/modules/heroes/list" routerLinkActive="active">Manage Heroes</a>
+      <a routerLink="/module/heroes/crisis-center" routerLinkActive="active">Manage Crises</a>
+      <a routerLink="/module/heroes/list" routerLinkActive="active">Manage Heroes</a>
     </nav>
     <router-outlet></router-outlet>
   `

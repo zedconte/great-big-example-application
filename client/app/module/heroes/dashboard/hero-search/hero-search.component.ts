@@ -48,7 +48,7 @@ export class HeroSearchComponent implements OnInit, OnDestroy {
   }
 
   gotoDetail(hero: Hero): void {
-    let link = ['/modules/heroes/hero', hero.id];
+    let link = ['/module/heroes/hero', hero.id];
     this.router.navigate(link);
   }
 

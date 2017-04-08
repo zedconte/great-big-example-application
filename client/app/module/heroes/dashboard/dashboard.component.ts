@@ -36,12 +36,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   gotoHero(hero: Hero) {
-    let url = `/modules/heroes/hero/${hero.id}`;
+    let url = `/module/heroes/hero/${hero.id}`;
     this.router.navigateByUrl(url);
   }
 
   gotoCrisis(crisis: Crisis) {
-    let url = `/modules/heroes/crisis-center/${crisis.id}`;
+    let url = `/module/heroes/crisis-center/${crisis.id}`;
     this.router.navigateByUrl(url);
   }
 

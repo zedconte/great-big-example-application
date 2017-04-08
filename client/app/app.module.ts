@@ -5,8 +5,7 @@ import { RouterModule } from '@angular/router'
 import './app.global.scss'
 
 import { StoreLogMonitorModule } from '@ngrx/store-log-monitor'
-
-import { ROUTES } from './app.routes'
+import { AppRouting } from './app.routing';
 
 /** TODO: remove when work-around is not needed*/
 import 'hammerjs';
@@ -22,11 +21,9 @@ import { CoreModule } from './core/core.module';
 @NgModule({
   imports: [
     CoreModule,
+    AppRouting,
     SharedModule,
-    StoreLogMonitorModule,
-    RouterModule.forRoot(ROUTES, {
-      useHash: true    // TODO: fix this. If this is false, the only page that works is the root
-    })
+    StoreLogMonitorModule
   ],
   declarations: [
     AppComponent,

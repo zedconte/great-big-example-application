@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router'
 
 import { MaterialModule } from '@angular/material'
 import { FlexLayoutModule } from '@angular/flex-layout'
+import { ModuleRouting } from './module.routing';
 
 
 
@@ -16,7 +17,6 @@ import { FooterComponent } from '../shared/footer/footer.component'
 import { HomeComponent } from './home/home.component'
 
 import { ModuleService, NavigationService, VersionService } from '../shared/index'
-import { ROUTES } from './module.routes'
 
 const APP_PROVIDERS = [
   ModuleService,
@@ -33,9 +33,9 @@ const APP_PROVIDERS = [
   imports: [
     HttpModule,
     CommonModule,
+    ModuleRouting,
     MaterialModule.forRoot(),
-    FlexLayoutModule.forRoot(),
-    RouterModule.forChild(ROUTES),
+    FlexLayoutModule.forRoot()
   ],
   providers: [
     ...APP_PROVIDERS,

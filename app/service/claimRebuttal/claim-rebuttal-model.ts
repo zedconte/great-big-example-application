@@ -1,10 +1,6 @@
 import * as mongoose from 'mongoose'
 
 const schema = new mongoose.Schema({
-  id: {
-    type: String,
-    required: true
-  },
   claimId: {
     type: String,
     required: true

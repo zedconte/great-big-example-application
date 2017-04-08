@@ -1,15 +1,20 @@
 import { LoginComponent } from './login/login.component'
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+
 import { SignupComponent } from './signup/signup.component'
 import { PageNotFoundComponent } from './404/404.component'
 import { ModModule } from './module'
 import { AuthGuard } from './core/services/auth.guard'
+import { CanDeactivateGuard } from './shared/can-deactivate/can-deactivate.guard';
+import { SelectivePreloadingStrategy } from './shared/selective-preloading-strategy';
 
 
 function loadModModule() {
   return ModModule
 }
 
-export const ROUTES = [
+const routes: Routes = [
   {
     path: '',
     redirectTo: '/login',
@@ -34,3 +39,23 @@ export const ROUTES = [
   },
   { path: '**', redirectTo: '/404-page' }
 ]
+
+
+@NgModule({
+  imports: [
+    RouterModule.forRoot(
+      routes,
+      { preloadingStrategy: SelectivePreloadingStrategy,
+        useHash: true    // TODO: fix this. If this is false, the only page that works is the root
+      }
+    )
+  ],
+  exports: [
+    RouterModule
+  ],
+  providers: [
+    CanDeactivateGuard,
+    SelectivePreloadingStrategy
+  ]
+})
+export class AppRouting { };

@@ -6,7 +6,7 @@
     <md-list>
       <md-list-item [class.md-active]="navigation?.currentTitle==value.name" *ngFor="let value of modules">
         <button md-button disableRipple="true" md-ripple md-ripple-speed-factor="0.3" (click)="navigation.currentTitle=value.name"
-          [routerLink]="['/module', value.id]" class="menu-button">
+          [routerLink]="['/module/' + value.id]" class="menu-button">
           {{ value.name }}
         </button>
       </md-list-item>
