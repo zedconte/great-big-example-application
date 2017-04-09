@@ -11,7 +11,7 @@ import { AppRouting } from './app.routing';
 import 'hammerjs';
 
 /* App Root */
-import { AppComponent } from './app.component';
+import { AppPage } from './app.page';
 import { SharedModule } from './shared/shared.module';
 import { PageNotFoundComponent } from './404/404.component'
 
@@ -26,13 +26,13 @@ import { CoreModule } from './core/core.module';
     StoreLogMonitorModule
   ],
   declarations: [
-    AppComponent,
+    AppPage,
     PageNotFoundComponent
   ],
   providers: [
   ],
   bootstrap: [
-    AppComponent
+    AppPage
   ]
 })
 export class AppModule { }

@@ -24,7 +24,7 @@ import { DBModule } from '@ngrx/db';
 /**
  * Import toplevel component/providers/directives/pipes
  */
-import { AppComponent } from '../app.component'
+import { AppPage } from '../app.page'
 import { LoginComponent } from '../login/login.component'
 import { SignupComponent } from '../signup/signup.component'
 import { SocketService } from './services/socket.service'

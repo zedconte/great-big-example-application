@@ -59,8 +59,13 @@ export class DataService {
   // }
 
   prepareRecord(record: any) {
-    // delete record.dirty;
-    return JSON.stringify(record);
+    // replace the id field with _id for Mongoose
+    let newRecord = Object.assign({}, record, {_id: record.id});
+    delete newRecord.id;
+    
+    // remove the dirty field
+    newRecord.dirty && delete newRecord.dirty;
+    return JSON.stringify(newRecord);
   }
 
   private extractData(res: Response) {
@@ -69,11 +74,14 @@ export class DataService {
     }
 
     let body = res.json();
-    if(!body.data) {
+
+    console.log('RES    ' + JSON.stringify(res))
+
+    let obj = body.data;
+    if(!obj) {
       return {};
     }
 
-    let obj = body.data;
     if(Array.isArray(obj)) {
       return obj.map(renameIdField);
     }

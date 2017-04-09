@@ -93,6 +93,7 @@ export function updateEach<T>(state: Entities<T>, action: any): Entities<T> {
 };
 
 function reduceOne<T>(state: Entities<T>, entity: T = null, action: EntityAction<T>): T {
+      console.log('contact:' + JSON.stringify(entity) + ' ' + action.type)
   switch (action.type) {
 
     case typeFor(state.slice, actions.ADD):
@@ -108,7 +109,7 @@ function reduceOne<T>(state: Entities<T>, entity: T = null, action: EntityAction
       return Object.assign({}, state.initialEntity, action.payload, { dirty: false });
     case typeFor(state.slice, actions.UPDATE_SUCCESS):
       if (entity['id'] == action.payload.id) {
-        return Object.assign({}, entity, action.payload, { dirty: false });
+        return Object.assign({}, entity, { dirty: false });
       } else {
         return entity;
       }
