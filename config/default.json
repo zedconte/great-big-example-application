@@ -1,7 +1,9 @@
 {
   // this was 'manf'. I'm not sure how that was supposed to work'
   "host": "localhost",
+  "local": {},
   "port": 3130,
+  // "nedb": "../data/",
   "mongodb": {
     "server": {
       "host": "localhost",

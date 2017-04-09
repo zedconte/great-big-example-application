@@ -1,12 +1,13 @@
 import * as mongoose from 'mongoose'
+let ObjectId = mongoose.Schema.Types.ObjectId // https://github.com/marshallswain/feathers-mongoose-starter/blob/master/server/services/tickets.js
 
 const schema = new mongoose.Schema({
   claimId: {
-    type: String,
+    type: ObjectId,
     required: true
   },
   rebuttalId: {
-    type: String,
+    type: ObjectId,
     required: true
   },
   sortOrder: {

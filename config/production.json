@@ -1,4 +1,5 @@
 {
+  "nedb": "NEDB_BASE_PATH",
   "port": 8080,
   "auth": {
     "jwt": {

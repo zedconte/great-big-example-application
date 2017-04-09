@@ -3,8 +3,10 @@
 const service = require('feathers-mongoose');
 import hooks from './hooks'
 import ContactModel from './contact-model'
+import { getModel } from '../../../config/util'
+const entity = 'contact';
 
-export default function() {
+export default function () {
   const app = this;
 
   const options = {
@@ -16,8 +18,8 @@ export default function() {
     lean: true
   };
 
-  app.use('/api/contact', service(options));
-  const contactService = app.service('/api/contact');
-  contactService.before(hooks.before);
-  contactService.after(hooks.after);
+  app.use(`/api/${entity}`, service(options));
+  const entityService = app.service(`/api/${entity}`);
+  entityService.before(hooks.before);
+  entityService.after(hooks.after);
 };

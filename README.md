@@ -3,7 +3,7 @@
 [![Dependency Status](https://david-dm.org/dancancro/great-big-angular2-example.svg)](https://david-dm.org/dancancro/great-big-angular2-example)
 
 
-[Live Demo](http://great-big-angular2-example.herokuapp.com)
+[Live Demo](http://great-big-angular2-example.herokuapp.com) (There's a problem unique to the Travis build so this isn't the latest version)
 
 # Background and Motivation
 
@@ -57,7 +57,7 @@ lower authority yielding to the higher one:
 7. [angular-seed-advanced](https://github.com/NathanWalker/angular-seed-advanced) by Minko Gechev + Nathan Walker + community
 8. [ng2-state-talk - drag/editable notes](https://github.com/JavascriptMick/ng2-state-talk) by [@JavascriptMick](https://github.com/JavascriptMick) 
 9. [rangle-starter Angular 2 with TypeScript and Redux version - counter](https://www.npmjs.com/package/rangle-starter) by [@SethDavenport](https://github.com/SethDavenport)
-10. [feathers-starter-react-redux-login-roles - Feathers back end with auth](https://github.com/eddyystop/feathers-starter-react-redux-login-roles) by [@eddyystop]
+10. [feathers-starter-react-redux-login-roles - Feathers back end with auth](https://github.com/eddyystop/feathers-starter-react-redux-login-roles) by [@eddyystop](https://github.com/eddyystop)
 
 In addition to the features from these demos, I added one of my own. I replaced
 

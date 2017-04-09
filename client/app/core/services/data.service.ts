@@ -6,6 +6,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/observable/from';
+var mongoose = require('mongoose');
 
 import { Claim } from '../store/claim/claim.model';
 import { ClaimRebuttal } from '../store/claim-rebuttal/claim-rebuttal.model';
@@ -60,9 +61,10 @@ export class DataService {
 
   prepareRecord(record: any) {
     // replace the id field with _id for Mongoose
-    let newRecord = Object.assign({}, record, {_id: record.id});
+    var id = mongoose.Types.ObjectId(record.id);
+    let newRecord = Object.assign({}, record, { _id: id });
     delete newRecord.id;
-    
+
     // remove the dirty field
     newRecord.dirty && delete newRecord.dirty;
     return JSON.stringify(newRecord);
@@ -78,11 +80,11 @@ export class DataService {
     console.log('RES    ' + JSON.stringify(res))
 
     let obj = body.data;
-    if(!obj) {
+    if (!obj) {
       return {};
     }
 
-    if(Array.isArray(obj)) {
+    if (Array.isArray(obj)) {
       return obj.map(renameIdField);
     }
 
@@ -92,7 +94,7 @@ export class DataService {
     function renameIdField(obj) {
       let id = obj._id;
       delete obj._id;
-      return Object.assign({}, obj, {id});
+      return Object.assign({}, obj, { id });
     }
 
   }
