@@ -1,21 +1,25 @@
-const service = require('feathers-mongoose');
+'use strict';
+
 import hooks from './hooks'
 import ClaimRebuttalModel from './claim-rebuttal-model'
+import { getModel, getService } from '../../../config/util'
+const entity = 'claimRebuttal';
 
-export default function() {
+export default function () {
   const app = this;
+  const service = getService(app);
 
-  let options = {
-    Model: ClaimRebuttalModel,
+  const options = {
+    Model: getModel(app, entity, ClaimRebuttalModel),
     paginate: {
-      default: 100,
-      max: 200
+      default: 5,
+      max: 25
     },
     lean: true
   };
 
-  app.use('/api/claimrebuttal', service(options));
-  const claimRebuttalService = app.service('/api/claimrebuttal');
-  claimRebuttalService.before(hooks.before);
-  claimRebuttalService.after(hooks.after);
+  app.use(`/api/${entity}`, service(options));
+  const entityService = app.service(`/api/${entity}`);
+  entityService.before(hooks.before);
+  entityService.after(hooks.after);
 };

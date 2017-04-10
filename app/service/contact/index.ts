@@ -1,16 +1,16 @@
 'use strict';
 
-const service = require('feathers-mongoose');
 import hooks from './hooks'
 import ContactModel from './contact-model'
-import { getModel } from '../../../config/util'
+import { getModel, getService } from '../../../config/util'
 const entity = 'contact';
 
 export default function () {
   const app = this;
+  const service = getService(app);
 
   const options = {
-    Model: ContactModel,
+    Model: getModel(app, entity, ContactModel),
     paginate: {
       default: 5,
       max: 25

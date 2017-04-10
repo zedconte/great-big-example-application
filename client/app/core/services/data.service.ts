@@ -61,7 +61,8 @@ export class DataService {
 
   prepareRecord(record: any) {
     // replace the id field with _id for Mongoose
-    var id = mongoose.Types.ObjectId(record.id);
+    // console.log('record.id.toString(16)  ' + record.id.toString(16))
+    var id = record.id //mongoose.Types.ObjectId(record.id.toString(16));
     let newRecord = Object.assign({}, record, { _id: id });
     delete newRecord.id;
 
@@ -70,14 +71,14 @@ export class DataService {
     return JSON.stringify(newRecord);
   }
 
-  private extractData(res: Response) {
+  extractData(res: Response) {
     if (res.status < 200 || res.status >= 300) {
       throw new Error('Bad response status: ' + res.status);
     }
 
     let body = res.json();
 
-    console.log('RES    ' + JSON.stringify(res))
+    console.log('RESPONSE    ' + JSON.stringify(res))
 
     let obj = body.data;
     if (!obj) {
@@ -99,7 +100,7 @@ export class DataService {
 
   }
 
-  private handleError(error: Response | any) {
+  handleError(error: Response | any) {
     // In a real world app, we might use a remote logging infrastructure
     let errMsg: string;
     if (error instanceof Response) {

@@ -1,14 +1,16 @@
 'use strict';
 
-const service = require('feathers-mongoose');
 import hooks from './hooks'
 import RebuttalModel from './rebuttal-model'
+import { getModel, getService } from '../../../config/util'
+const entity = 'rebuttal';
 
-export default function() {
+export default function () {
   const app = this;
+  const service = getService(app);
 
   const options = {
-    Model: RebuttalModel,
+    Model: getModel(app, entity, RebuttalModel),
     paginate: {
       default: 5,
       max: 25
@@ -16,8 +18,8 @@ export default function() {
     lean: true
   };
 
-  app.use('/api/rebuttal', service(options));
-  const rebuttalService = app.service('/api/rebuttal');
-  rebuttalService.before(hooks.before);
-  rebuttalService.after(hooks.after);
+  app.use(`/api/${entity}`, service(options));
+  const entityService = app.service(`/api/${entity}`);
+  entityService.before(hooks.before);
+  entityService.after(hooks.after);
 };

@@ -1,21 +1,25 @@
-const service = require('feathers-mongoose')
+'use strict';
+
 import hooks from './hooks'
 import MessageModel from './message-model'
+import { getModel, getService } from '../../../config/util'
+const entity = 'message';
 
-export default function() {
-  const app = this
+export default function () {
+  const app = this;
+  const service = getService(app);
 
-  let options = {
-    Model: MessageModel,
+  const options = {
+    Model: getModel(app, entity, MessageModel),
     paginate: {
-      default: 100,
-      max: 200
+      default: 5,
+      max: 25
     },
     lean: true
-  }
+  };
 
-  app.use('/api/message', service(options))
-  const messageService = app.service('api/message')
-  messageService.before(hooks.before)
-  messageService.after(hooks.after)
-}
+  app.use(`/api/${entity}`, service(options));
+  const entityService = app.service(`/api/${entity}`);
+  entityService.before(hooks.before);
+  entityService.after(hooks.after);
+};

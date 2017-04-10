@@ -28,6 +28,10 @@
   },
   "author": "Various",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dancancro/great-big-angular2-example.git"
+  },
   "dependencies": {
     "@angular/animations": "4.0.1",
     "@angular/common": "4.0.1",
@@ -43,7 +47,7 @@
     "@angular/router": "4.0.1",
     "@angularclass/form-validators": "^1.0.12",
     "@ngrx/core": "^1.2.0",
-    "@ngrx/db": "^2.0.0",
+    "@ngrx/db": "2.0.1",
     "@ngrx/effects": "2.0.2",
     "@ngrx/router-store": "1.2.5",
     "@ngrx/store": "2.2.1",
@@ -80,7 +84,7 @@
     "reselect": "2.5.4",
     "rxjs": "~5.2.0",
     "typescript": "2.2.2",
-    "zone.js": "~0.7.8"
+    "zone.js": "0.8.5"
   },
   "devDependencies": {
     "@angular/compiler-cli": "4.0.1",
@@ -130,7 +134,7 @@
     "tslint": "~4.4.2",
     "tslint-loader": "^3.3.0",
     "url-loader": "^0.5.7",
-    "webpack": "2.2.0",
+    "webpack": "2.3.3",
     "webpack-dev-middleware": "^1.10.0",
     "webpack-dev-server": "2.4.1",
     "webpack-dll-bundles-plugin": "^1.0.0-beta.5",

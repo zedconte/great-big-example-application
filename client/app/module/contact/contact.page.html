@@ -1,6 +1,7 @@
 <h2>Contacts of {{(user$ | async).fullName}}</h2>
 <div *ngIf="(msg$ | async)" class="msg">{{(msg$ | async)}}</div>
 
+<button type="button" class="btn" (click)="newContact()">New Contact</button>
 <form *ngIf="contact$ | async" [formGroup]="contactForm" (ngSubmit)="onSubmit()">
   <h3 highlight>{{ (contact$ | async).name | awesome }}</h3>
   <div class="form-group">
@@ -11,7 +12,6 @@
   <br>
   <button type="submit" class="btn btn-default" [disabled]="!contactForm.valid">Save</button>
   <button type="button" class="btn" (click)="nextContact()" [disabled]="!contactForm.valid">Next Contact</button>
-  <button type="button" class="btn" (click)="newContact()">New Contact</button>
 </form>
 
 
