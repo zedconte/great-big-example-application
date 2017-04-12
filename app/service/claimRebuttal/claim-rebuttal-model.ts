@@ -2,6 +2,7 @@ import * as mongoose from 'mongoose'
 let ObjectId = mongoose.Schema.Types.ObjectId // https://github.com/marshallswain/feathers-mongoose-starter/blob/master/server/services/tickets.js
 
 const schema = new mongoose.Schema({
+  _id: { type: String, required: true },
   claimId: {
     type: ObjectId,
     required: true

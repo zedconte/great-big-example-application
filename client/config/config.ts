@@ -2,9 +2,10 @@ import { devConfig } from './config.dev'
 import { prodConfig } from './config.prod'
 
 interface ClientConfig {
+  apiUrl: string,
+  host: string,
   port: string,
-  tokenKey: string,
-  apiUrl: string
+  tokenKey: string
 }
 
 let config: ClientConfig

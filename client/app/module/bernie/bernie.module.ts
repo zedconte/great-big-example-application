@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
 import { SortablejsModule } from 'angular-sortablejs';
 import { AsyncPipe } from '@angular/common';
 import { EffectsModule } from '@ngrx/effects';
@@ -8,7 +7,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { BerniePage } from './bernie.page';
 import { ClaimComponent } from './claim/claim.component';
 import { RebuttalComponent } from './rebuttal/rebuttal.component';
-import { DataService } from '../../core/services/data.service';
+import { RestService } from '../../core/services/rest.service';
 import { SharedModule } from '../../shared/shared.module';
 import { BernieRouting } from './bernie.routing';
 import { ClaimEffects } from '../../core/store/claim/claim.effects';
@@ -31,7 +30,7 @@ import { ClaimRebuttalEffects } from '../../core/store/claim-rebuttal/claim-rebu
     RebuttalComponent
   ],
   providers: [
-    DataService
+    RestService
   ]
 })
 export class BernieModule { }

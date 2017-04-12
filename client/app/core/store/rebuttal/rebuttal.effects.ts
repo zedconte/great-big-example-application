@@ -4,7 +4,7 @@ import { Actions, Effect } from '@ngrx/effects';
 
 import { Rebuttal } from './rebuttal.model';
 import { slices } from '../util';
-import { DataService } from '../../services/data.service';
+import { RestService } from '../../services/rest.service';
 import * as functions from '../entity/entity.functions';
 
 @Injectable()
@@ -15,7 +15,7 @@ export class RebuttalEffects {
   constructor(
     private store: Store<Rebuttal>,
     private actions$: Actions,
-    private dataService: DataService
+    private dataService: RestService
   ) { }
 }
 

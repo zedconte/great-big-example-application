@@ -4,9 +4,17 @@ import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/observable/from';
 var mongoose = require('mongoose');
+import * as feathers from 'feathers/client';
+import * as socketio from 'feathers-socketio/client';
+import rest from 'feathers-rest/client';
+const io = require('socket.io-client')
+const hooks = require('feathers-hooks')
+import * as authentication from 'feathers-authentication-client'
+import superagent from 'superagent';
 
 import { Claim } from '../store/claim/claim.model';
 import { ClaimRebuttal } from '../store/claim-rebuttal/claim-rebuttal.model';
@@ -18,10 +26,21 @@ import { Rebuttal } from '../store/rebuttal/rebuttal.model';
 import { config } from '../../../config/config';
 
 @Injectable()
-export class DataService {
+export class RestService {
+  public app: any
   private JSON_HEADER = { headers: new Headers({ 'Content-Type': 'application/json' }) };
+  private host = `http://${config.host}:${config.port}${config.apiUrl}`;
 
-  constructor(private http: Http) { }
+  constructor(private http: Http) {
+    this.app = feathers()
+      .configure(rest(config.host).superagent(superagent))
+      .configure(hooks())
+      .configure(authentication({
+        cookie: 'manf-jwt',
+        storageKey: 'manf-jwt',
+        storage: window.localStorage
+      }))
+  }
 
   // login(payload) {
   //   return this.http.post(`${config.apiUrl}/auth/login`, payload, this.JSON_HEADER)
@@ -41,13 +60,34 @@ export class DataService {
       .catch(this.handleError);
   }
 
-  // add(entity: any, table): Observable<any> {
-  //   return this.http.post(`${config.apiUrl}/${table}`, this.prepareRecord(entity), this.JSON_HEADER)
-  //     .map(this.extractData)
-  //     .catch(this.handleError);
-  // }
+  addOld(entity: any, table): Observable<any> {
+    return this.http.post(`${config.apiUrl}/${table}`, this.prepareRecord(entity), this.JSON_HEADER)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  add(entity: any, table): Observable<any> {
+    return this.app.authenticate().then(() => {
+      const entities = this.app.service(table);
+      return entities.create(this.prepareRecord(entity)).then((data, err) => data);
+    })
+      .catch(this.handleError);
+  }
 
   update(entity: any, table: string): Observable<any> {
+    console.log('RestService.update ' + JSON.stringify(entity))
+    return this.app.authenticate()
+      .then(() => {
+        const entities = this.app.service('api/' + table);
+        return entities.update(this.prepareRecord(entity))
+          .then((data, err) => this.extractData(data));
+      })
+      .catch(this.handleError);
+  }
+
+  updateOld(entity: any, table: string): Observable<any> {
+    console.log('RestService.update ' + JSON.stringify(entity))
+    debugger;
     return this.http.patch(`${config.apiUrl}/${table}`, this.prepareRecord(entity), this.JSON_HEADER)
       .map(this.extractData)
       .catch(this.handleError);
@@ -62,7 +102,10 @@ export class DataService {
   prepareRecord(record: any) {
     // replace the id field with _id for Mongoose
     // console.log('record.id.toString(16)  ' + record.id.toString(16))
-    var id = record.id //mongoose.Types.ObjectId(record.id.toString(16));
+    // var id = (record.id || 0).toString(16);
+    // while (id.length < 24)
+    //   id = '0' + id;
+    let id = record.id
     let newRecord = Object.assign({}, record, { _id: id });
     delete newRecord.id;
 

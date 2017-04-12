@@ -1,6 +1,7 @@
 import * as mongoose from 'mongoose'
 
 const schema = new mongoose.Schema({
+  _id: { type: String, required: true },
   shortName: { type: String, required: true },
   longName: { type: String, required: true },
   link: { type: String, required: true },

@@ -4,13 +4,13 @@ import {
   ActivatedRouteSnapshot
 } from '@angular/router';
 
-import { DataService } from '../../../../core/services/data.service';
+import { RestService } from '../../../../core/services/rest.service';
 import { Crisis } from '../../../../core/store/crisis/crisis.model';
 import { slices } from '../../../../core/store/util';
 
 @Injectable()
 export class CrisisDetailResolver implements Resolve<Crisis> {
-  constructor(private ds: DataService, private router: Router) { }
+  constructor(private ds: RestService, private router: Router) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<Crisis> {
     let id = route.params['id'];

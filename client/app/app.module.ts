@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { RouterModule } from '@angular/router'
 import './app.global.scss'

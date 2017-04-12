@@ -1,5 +1,6 @@
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
+import { from } from 'rxjs/observable/from';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
@@ -138,11 +139,24 @@ export function loadFromRemote$(actions$: Actions, slice: string, dataService): 
     );
 }
 
+export function addToRemote$(actions$: Actions, slice: string, dataService, store): Observable<Action> {
+  return actions$
+    .ofType(typeFor(slice, actions.ADD))
+    .withLatestFrom(store.select(slice))
+    .switchMap(([{ }, entities]) =>  // first element is action, but it isn't used
+      Observable
+        .from((<any>entities).ids)
+        .filter((id: string) => (<any>entities).entities[id].dirty)
+        .switchMap((id: string) => dataService.add((<any>entities).entities[id], slice))
+        .map((responseEntity) => new EntityActions.UpdateSuccess(slice, responseEntity))
+    );
+}
+
 export function updateToRemote$(actions$: Actions, slice: string, dataService, store): Observable<Action> {
   return actions$
-    .ofType(typeFor(slice, actions.UPDATE), typeFor(slice, actions.ADD))
+    .ofType(typeFor(slice, actions.UPDATE))
     .withLatestFrom(store.select(slice))
-    .switchMap(([{}, entities]) =>  // first element is action, but it isn't used
+    .switchMap(([{ }, entities]) =>  // first element is action, but it isn't used
       Observable
         .from((<any>entities).ids)
         .filter((id: string) => (<any>entities).entities[id].dirty)

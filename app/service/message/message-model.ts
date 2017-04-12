@@ -1,6 +1,7 @@
 import * as mongoose from 'mongoose'
 
 const schema = new mongoose.Schema({
+  _id: { type: String, required: true },
   email: {
     type: String,
     required: true
@@ -10,6 +11,6 @@ const schema = new mongoose.Schema({
     default: ''
   }
 },
-{ timestamps: {} })
+  { timestamps: {} })
 
 export default mongoose.model('Message', schema, 'message')

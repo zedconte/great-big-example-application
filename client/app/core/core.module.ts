@@ -1,5 +1,6 @@
 import { NgModule, ApplicationRef, Optional, SkipSelf } from '@angular/core'
-import { BrowserModule } from '@angular/platform-browser'
+// import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common'
 import { FormsModule } from '@angular/forms'
 import { HttpModule } from '@angular/http'
@@ -51,7 +52,8 @@ const rootReducer = compose(stateSetter, combineReducers)({
 const store = StoreModule.provideStore(reducer);
 
 let imports = [
-  BrowserModule,
+  // BrowserModule,
+  BrowserAnimationsModule,
   FormsModule,
   HttpModule,
   CommonModule,

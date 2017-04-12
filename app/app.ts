@@ -45,7 +45,7 @@ app.use(compress())
   .use(cors())
   .use('/', serveStatic(app.get('public')))
   .use(bodyParser.json())
-  .use(bodyParser.urlencoded({extended: true}))
+  .use(bodyParser.urlencoded({ extended: true }))
   .configure(hooks())
   .configure(rest())
   .configure(socketio())
@@ -70,6 +70,7 @@ app.use(compress())
 
 //This ADMIN user is for new development, update  with strong credential or remove it in production
 app.service('users').create({
+  _id: '58ebe9a41732b781cf2d8d49',
   email: 'mo@po.da',
   password: 'do',
   roles: ['ADMIN']
