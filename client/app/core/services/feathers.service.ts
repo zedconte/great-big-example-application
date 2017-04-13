@@ -18,8 +18,8 @@ import { config } from '../../../config/config'
 export class FeathersService {
     // See feathers-reduxify-services::default
     mapServicePathsToNames = {
-        users: 'users',
-        messages: 'messages',
+        user: 'user',
+        message: 'message',
         logs: 'logs',
         config: 'config',
         // Do not change the following. Hardcoded path for custom service: human name for further use.
