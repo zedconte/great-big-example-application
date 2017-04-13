@@ -21,129 +21,129 @@ import { FeathersService } from './feathers.service';
 
 @Injectable()
 export class RestService {
-  public app: any
-  private JSON_HEADER = { headers: new Headers({ 'Content-Type': 'application/json' }) };
+    public app: any
+    private JSON_HEADER = { headers: new Headers({ 'Content-Type': 'application/json' }) };
 
-  constructor(private http: Http, feathersService: FeathersService) {
-    this.app = feathersService.app;
-  }
-
-  // login(payload) {
-  //   return this.http.post(`${config.apiUrl}/auth/login`, payload, this.JSON_HEADER)
-  //     .map(this.extractData)
-  //     .catch(this.handleError);
-  // }
-
-  getEntities(table: string): Observable<any[]> {
-    return this.http.get(`${config.apiUrl}/${table}`)
-      .map(this.extractData)
-      .catch(this.handleError);
-  }
-
-  getEntity(id: number | string, table: string): Observable<any> {
-    return this.http.get(`${config.apiUrl}/${table}/${id}`)
-      .map(this.extractData)
-      .catch(this.handleError);
-  }
-
-  addOld(entity: any, table): Observable<any> {
-    return this.http.post(`${config.apiUrl}/${table}`, this.prepareRecord(entity), this.JSON_HEADER)
-      .map(this.extractData)
-      .catch(this.handleError);
-  }
-
-  add(entity: any, table): Observable<any> {
-    return this.app.authenticate().then(() => {
-      const entities = this.app.service(table);
-      return entities.create(this.prepareRecord(entity)).then((data, err) => {
-        return data
-      });
-    })
-      .catch(this.handleError);
-  }
-
-  update(entity: any, table: string): Observable<any> {
-    console.log('RestService.update ' + JSON.stringify(entity))
-    return this.app.authenticate()
-      .then(() => {
-        const entities = this.app.service(table);
-        let obj = this.prepareRecord(entity);
-        return entities.patch(obj)
-          .then((data, err) => this.extractData(data))
-          .catch(this.handleError);
-      })
-      .catch(this.handleError);
-  }
-
-  updateOld(entity: any, table: string): Observable<any> {
-    console.log('RestService.update ' + JSON.stringify(entity))
-    debugger;
-    return this.http.patch(`${config.apiUrl}/${table}`, this.prepareRecord(entity), this.JSON_HEADER)
-      .map(this.extractData)
-      .catch(this.handleError);
-  }
-
-  // addOrUpdate(entity: any, table): Observable<any> {
-  //   return this.http.post(`${config.apiUrl}/${table}`, this.prepareRecord(entity), this.JSON_HEADER)
-  //     .map(this.extractData)
-  //     .catch(this.handleError);
-  // }
-
-  prepareRecord(record: any) {
-    // replace the id field with _id for Mongoose
-    // console.log('record.id.toString(16)  ' + record.id.toString(16))
-    // var id = (record.id || 0).toString(16);
-    // while (id.length < 24)
-    //   id = '0' + id;
-    let id = record.id
-    let newRecord = Object.assign({}, record, { _id: '' + id });
-    delete newRecord.id;
-
-    // remove the dirty field
-    newRecord.dirty && delete newRecord.dirty;
-    return newRecord;
-  }
-
-  extractData(res: Response) {
-    if (res.status < 200 || res.status >= 300) {
-      throw new Error('Bad response status: ' + res.status);
+    constructor(private http: Http, feathersService: FeathersService) {
+        this.app = feathersService.app;
     }
 
-    let body = res.json();
+    // login(payload) {
+    //   return this.http.post(`${config.apiUrl}/auth/login`, payload, this.JSON_HEADER)
+    //     .map(this.extractData)
+    //     .catch(this.handleError);
+    // }
 
-    console.log('RESPONSE    ' + JSON.stringify(res))
-
-    let obj = body.data;
-    if (!obj) {
-      return {};
+    getEntities(table: string): Observable<any[]> {
+        return this.http.get(`${config.apiUrl}/${table}`)
+            .map(this.extractData)
+            .catch(this.handleError);
     }
 
-    if (Array.isArray(obj)) {
-      return obj.map(renameIdField);
+    getEntity(id: number | string, table: string): Observable<any> {
+        return this.http.get(`${config.apiUrl}/${table}/${id}`)
+            .map(this.extractData)
+            .catch(this.handleError);
     }
 
-    return renameIdField(obj);
+    // addOld(entity: any, table): Observable<any> {
+    //   return this.http.post(`${config.apiUrl}/${table}`, this.prepareRecord(entity), this.JSON_HEADER)
+    //     .map(this.extractData)
+    //     .catch(this.handleError);
+    // }
 
-    // Mongoose uses the field _id instead of id
-    function renameIdField(obj) {
-      let id = obj._id;
-      delete obj._id;
-      return Object.assign({}, obj, { id });
+    add(entity: any, table): Observable<any> {
+        return this.app.authenticate().then(() => {
+            const entities = this.app.service(table);
+            return entities.create(this.prepareRecord(entity)).then((data, err) => {
+                return data
+            });
+        })
+            .catch(this.handleError);
     }
 
-  }
-
-  handleError(error: Response | any) {
-    // In a real world app, we might use a remote logging infrastructure
-    let errMsg: string;
-    if (error instanceof Response) {
-      const body = error.json() || '';
-      const err = body.error || JSON.stringify(body);
-      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
-    } else {
-      errMsg = error.message ? error.message : error.toString();
+    update(entity: any, table: string): Observable<any> {
+        console.log('RestService.update ' + JSON.stringify(entity))
+        return this.app.authenticate()
+            .then(() => {
+                const entities = this.app.service(table);
+                let obj = this.prepareRecord(entity);
+                return entities.patch(obj)
+                    .then((data, err) => this.extractData(data))
+                    .catch(this.handleError);
+            })
+            .catch(this.handleError);
     }
-    console.error(errMsg);
-    return Observable.throw(errMsg);
-  }
+
+    // updateOld(entity: any, table: string): Observable<any> {
+    //   console.log('RestService.update ' + JSON.stringify(entity))
+    //   debugger;
+    //   return this.http.patch(`${config.apiUrl}/${table}`, this.prepareRecord(entity), this.JSON_HEADER)
+    //     .map(this.extractData)
+    //     .catch(this.handleError);
+    // }
+
+    // addOrUpdate(entity: any, table): Observable<any> {
+    //   return this.http.post(`${config.apiUrl}/${table}`, this.prepareRecord(entity), this.JSON_HEADER)
+    //     .map(this.extractData)
+    //     .catch(this.handleError);
+    // }
+
+    prepareRecord(record: any) {
+        // replace the id field with _id for Mongoose
+        // console.log('record.id.toString(16)  ' + record.id.toString(16))
+        // var id = (record.id || 0).toString(16);
+        // while (id.length < 24)
+        //   id = '0' + id;
+        let id = record.id
+        let newRecord = Object.assign({}, record, { _id: '' + id });
+        delete newRecord.id;
+
+        // remove the dirty field
+        newRecord.dirty && delete newRecord.dirty;
+        return newRecord;
+    }
+
+    extractData(res: Response) {
+        if (res.status < 200 || res.status >= 300) {
+            throw new Error('Bad response status: ' + res.status);
+        }
+
+        let body = res.json();
+
+        console.log('RESPONSE    ' + JSON.stringify(res))
+
+        let obj = body.data;
+        if (!obj) {
+            return {};
+        }
+
+        if (Array.isArray(obj)) {
+            return obj.map(renameIdField);
+        }
+
+        return renameIdField(obj);
+
+        // Mongoose uses the field _id instead of id
+        function renameIdField(obj) {
+            let id = obj._id;
+            delete obj._id;
+            return Object.assign({}, obj, { id });
+        }
+
+    }
+
+    handleError(error: Response | any) {
+        // In a real world app, we might use a remote logging infrastructure
+        let errMsg: string;
+        if (error instanceof Response) {
+            const body = error.json() || '';
+            const err = body.error || JSON.stringify(body);
+            errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
+        } else {
+            errMsg = error.message ? error.message : error.toString();
+        }
+        console.error(errMsg);
+        return Observable.throw(errMsg);
+    }
 }
