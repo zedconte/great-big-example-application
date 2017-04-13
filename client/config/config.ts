@@ -5,7 +5,9 @@ interface ClientConfig {
   apiUrl: string,
   host: string,
   port: string,
-  tokenKey: string
+  tokenKey: string,
+  cookie: string,
+  storageKey: string
 }
 
 let config: ClientConfig

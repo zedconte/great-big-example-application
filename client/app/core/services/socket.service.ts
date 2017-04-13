@@ -9,22 +9,17 @@ import RxJS from 'rxjs'
 import { Injectable } from '@angular/core'
 import { Router, CanActivate } from '@angular/router'
 import { helpers } from '../../../config/helpers'
+import { config } from '../../../config/config'
+import { FeathersService } from './feathers.service';
 
 @Injectable()
 export class SocketService {
   public socket: any
   public app: any
 
-  constructor() {
+  constructor(feathersService: FeathersService) {
     this.socket = io(helpers.getHost())
-    this.app = feathers()
-      .configure(socketio(this.socket))
-      .configure(hooks())
-      .configure(authentication({
-        cookie: 'manf-jwt',
-        storageKey: 'manf-jwt',
-        storage: window.localStorage
-      }))
+    this.app = feathersService.app;
   }
 
   getService(service) {

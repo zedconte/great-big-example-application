@@ -23,6 +23,7 @@ export class NotesPage implements OnInit {
 
   onAddNote(colour) {
     this.store.dispatch(new EntityActions.Add(slices.NOTE, {
+      id: uuid.v1(),
       text: '',
       colour: colour,
       left: 200,

@@ -4,7 +4,8 @@ import { combineLatest } from 'rxjs/observable/combineLatest';
 import * as fromRouter from '@ngrx/router-store';
 import { localStorageSync } from 'ngrx-store-localstorage';
 import 'rxjs/add/operator/filter';
-
+import reduxifyServices, { getServicesStatus } from 'feathers-reduxify-services';
+import { reduxPromiseMiddleware } from 'redux-promise-middleware';
 import { Book } from './book/book.model';
 import { Note } from './note/note.model';
 // import { environment } from '../../../environments/environment.prod';
@@ -18,6 +19,7 @@ import { User } from './session/session.model';
 import { Crisis } from './crisis/crisis.model';
 import { Contact } from './contact/contact.model';
 import { Hero } from './hero/hero.model';
+import { FeathersService } from '../services/feathers.service';
 
 /**
  * The createSelector function is one of our most handy tools. In basic terms, you give
@@ -100,7 +102,12 @@ export interface RootState {
  * the result from right to left.
  */
 
+// Expose Redux action creators and reducers for Feathers' services
+const feathersService = new FeathersService();  // TODO: should use the singleton?
+const services = reduxifyServices(feathersService.app, ['user', 'message']);
+
 const reducers = {
+  // ngrx ones
   book: fromBooks.reducer,
   claim: fromClaims.reducer,
   claimRebuttal: fromClaimRebuttals.reducer,
@@ -110,19 +117,23 @@ const reducers = {
   crisis: fromCrises.reducer,
   hero: fromHeroes.reducer,
   layout: fromLayout.reducer,
-  message: fromMessage.reducer,
   note: fromNotes.reducer,
   rebuttal: fromRebuttals.reducer,
   router: fromRouter.routerReducer,
   search: fromSearch.reducer,
-  session: fromSession.reducer
+  session: fromSession.reducer,
+
+  // feathers ones
+  // message: services.message.reducer,
+  message: fromMessage.reducer
 }
 
 const developmentReducer = compose(
-  storeFreeze,
+  storeFreeze, //reduxPromiseMiddleware(),
   localStorageSync(['session'], true),
   combineReducers)(reducers);
 const productionReducer = compose(
+  // reduxPromiseMiddleware(),
   localStorageSync(['session'], true),
   combineReducers)(reducers);
 

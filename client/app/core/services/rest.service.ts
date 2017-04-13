@@ -8,13 +8,6 @@ import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/observable/from';
 var mongoose = require('mongoose');
-import * as feathers from 'feathers/client';
-import * as socketio from 'feathers-socketio/client';
-import rest from 'feathers-rest/client';
-const io = require('socket.io-client')
-const hooks = require('feathers-hooks')
-import * as authentication from 'feathers-authentication-client'
-import superagent from 'superagent';
 
 import { Claim } from '../store/claim/claim.model';
 import { ClaimRebuttal } from '../store/claim-rebuttal/claim-rebuttal.model';
@@ -24,22 +17,15 @@ import { Hero } from '../store/hero/hero.model';
 import { Note } from '../store/note/note.model';
 import { Rebuttal } from '../store/rebuttal/rebuttal.model';
 import { config } from '../../../config/config';
+import { FeathersService } from './feathers.service';
 
 @Injectable()
 export class RestService {
   public app: any
   private JSON_HEADER = { headers: new Headers({ 'Content-Type': 'application/json' }) };
-  private host = `http://${config.host}:${config.port}${config.apiUrl}`;
 
-  constructor(private http: Http) {
-    this.app = feathers()
-      .configure(rest(config.host).superagent(superagent))
-      .configure(hooks())
-      .configure(authentication({
-        cookie: 'manf-jwt',
-        storageKey: 'manf-jwt',
-        storage: window.localStorage
-      }))
+  constructor(private http: Http, feathersService: FeathersService) {
+    this.app = feathersService.app;
   }
 
   // login(payload) {
@@ -69,7 +55,9 @@ export class RestService {
   add(entity: any, table): Observable<any> {
     return this.app.authenticate().then(() => {
       const entities = this.app.service(table);
-      return entities.create(this.prepareRecord(entity)).then((data, err) => data);
+      return entities.create(this.prepareRecord(entity)).then((data, err) => {
+        return data
+      });
     })
       .catch(this.handleError);
   }
@@ -78,9 +66,11 @@ export class RestService {
     console.log('RestService.update ' + JSON.stringify(entity))
     return this.app.authenticate()
       .then(() => {
-        const entities = this.app.service('api/' + table);
-        return entities.update(this.prepareRecord(entity))
-          .then((data, err) => this.extractData(data));
+        const entities = this.app.service(table);
+        let obj = this.prepareRecord(entity);
+        return entities.patch(obj)
+          .then((data, err) => this.extractData(data))
+          .catch(this.handleError);
       })
       .catch(this.handleError);
   }
@@ -106,12 +96,12 @@ export class RestService {
     // while (id.length < 24)
     //   id = '0' + id;
     let id = record.id
-    let newRecord = Object.assign({}, record, { _id: id });
+    let newRecord = Object.assign({}, record, { _id: '' + id });
     delete newRecord.id;
 
     // remove the dirty field
     newRecord.dirty && delete newRecord.dirty;
-    return JSON.stringify(newRecord);
+    return newRecord;
   }
 
   extractData(res: Response) {

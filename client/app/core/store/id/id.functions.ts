@@ -37,13 +37,13 @@ export function updateIDs(state: IDs, action: IDActions.Add | IDActions.Load): I
 };
 
 export function addID(state: IDs, action: IDActions.Add | IDActions.Load): IDs {
-  const id = action.payload;
+  const id = action.payload.id;
   if (state.ids.indexOf(id.id) > -1) {
     return state;
   }
 
   return Object.assign({}, state, {
-    ids: [...state.ids, id.id]
+    ids: [...state.ids, id]
   });
 };
 

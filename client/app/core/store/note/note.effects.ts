@@ -13,6 +13,8 @@ export class NoteEffects {
   private loadFromRemote$ = functions.loadFromRemote$(this.actions$, slices.NOTE, this.dataService);
   @Effect()
   private updateToRemote$ = functions.updateToRemote$(this.actions$, slices.NOTE, this.dataService, this.store);
+  @Effect()
+  private addToRemote$ = functions.addToRemote$(this.actions$, slices.NOTE, this.dataService, this.store);
 
   constructor(
     private store: Store<Note>,

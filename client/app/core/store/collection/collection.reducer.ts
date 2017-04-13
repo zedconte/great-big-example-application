@@ -14,10 +14,10 @@ export function reducer(state = initialIDs(),
       return functions.updateIDs(state, action);
     case typeFor(slices.COLLECTION, actions.ADD_SUCCESS):
     case typeFor(slices.COLLECTION, actions.DELETE_FAIL):
-      functions.addID(state, action);
+      return functions.addID(state, action);
     case typeFor(slices.COLLECTION, actions.DELETE_SUCCESS):
     case typeFor(slices.COLLECTION, actions.ADD_FAIL):
-      functions.deleteID(state, action);
+      return functions.deleteID(state, action);
     default: {
       return state;
     }

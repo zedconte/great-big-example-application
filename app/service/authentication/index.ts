@@ -5,7 +5,7 @@ import hooks from './hooks'
 
 
 
-export default function() {
+export default function () {
   const app = this
 
   let config = app.get('auth')
@@ -14,5 +14,5 @@ export default function() {
     .configure(jwt())
     .configure(local())
 
-  app.service('authentication').before(hooks.before)
+  app.service('api/authentication').before(hooks.before)
 }
