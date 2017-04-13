@@ -25,7 +25,7 @@ export class RestService {
     private JSON_HEADER = { headers: new Headers({ 'Content-Type': 'application/json' }) };
 
     constructor(private http: Http, feathersService: FeathersService) {
-        this.app = feathersService.app;
+        this.app = feathersService.restApp;
     }
 
     // login(payload) {
