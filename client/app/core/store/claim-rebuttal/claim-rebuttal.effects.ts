@@ -4,7 +4,7 @@ import { Actions, Effect } from '@ngrx/effects';
 
 import { ClaimRebuttal } from './claim-rebuttal.model';
 import { slices } from '../util';
-import { RestService } from '../../services/rest.service';
+import { RESTService } from '../../services/rest.service';
 import * as functions from '../entity/entity.functions';
 
 @Injectable()
@@ -15,7 +15,7 @@ export class ClaimRebuttalEffects {
   constructor(
     private store: Store<ClaimRebuttal>,
     private actions$: Actions,
-    private dataService: RestService
+    private dataService: RESTService
   ) { }
 }
 

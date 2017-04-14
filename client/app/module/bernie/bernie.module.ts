@@ -7,7 +7,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { BerniePage } from './bernie.page';
 import { ClaimComponent } from './claim/claim.component';
 import { RebuttalComponent } from './rebuttal/rebuttal.component';
-import { RestService } from '../../core/services/rest.service';
+import { RESTService } from '../../core/services/rest.service';
 import { SharedModule } from '../../shared/shared.module';
 import { BernieRouting } from './bernie.routing';
 import { ClaimEffects } from '../../core/store/claim/claim.effects';
@@ -30,7 +30,7 @@ import { ClaimRebuttalEffects } from '../../core/store/claim-rebuttal/claim-rebu
     RebuttalComponent
   ],
   providers: [
-    RestService
+    RESTService
   ]
 })
 export class BernieModule { }

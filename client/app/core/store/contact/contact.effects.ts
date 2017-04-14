@@ -4,7 +4,7 @@ import { Actions, Effect } from '@ngrx/effects';
 
 import { Contact } from './contact.model';
 import { slices } from '../util';
-import { RestService } from '../../services/rest.service';
+import { RESTService } from '../../services/rest.service';
 import * as functions from '../entity/entity.functions';
 
 @Injectable()
@@ -17,7 +17,7 @@ export class ContactEffects {
   constructor(
     private store: Store<Contact>,
     private actions$: Actions,
-    private dataService: RestService
+    private dataService: RESTService
   ) { }
 }
 

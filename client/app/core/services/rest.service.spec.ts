@@ -19,7 +19,7 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/toPromise';
 
 import { Hero } from '../store/hero/hero.model';
-import { RestService } from './rest.service';
+import { RESTService } from './rest.service';
 
 const makeHeroData = () => [
   { id: '1', name: 'Windstorm' },
@@ -29,13 +29,13 @@ const makeHeroData = () => [
 ] as Hero[];
 
 ////////  Tests  /////////////
-describe('Http-RestService (mockBackend)', () => {
+describe('Http-RESTService (mockBackend)', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [HttpModule],
       providers: [
-        RestService,
+        RESTService,
         { provide: XHRBackend, useClass: MockBackend }
       ]
     })
@@ -43,16 +43,16 @@ describe('Http-RestService (mockBackend)', () => {
   }));
 
   it('can instantiate service when inject service',
-    inject([RestService], (service: RestService) => {
-      expect(service instanceof RestService).toBe(true);
+    inject([RESTService], (service: RESTService) => {
+      expect(service instanceof RESTService).toBe(true);
     }));
 
 
 
   it('can instantiate service with "new"', inject([Http], (http: Http) => {
     expect(http).not.toBeNull('http should be provided');
-    let service = new RestService(http);
-    expect(service instanceof RestService).toBe(true, 'new service should be ok');
+    let service = new RESTService(http);
+    expect(service instanceof RESTService).toBe(true, 'new service should be ok');
   }));
 
 
@@ -63,13 +63,13 @@ describe('Http-RestService (mockBackend)', () => {
 
   describe('when getHeroes', () => {
     let backend: MockBackend;
-    let service: RestService;
+    let service: RESTService;
     let fakeHeroes: Hero[];
     let response: Response;
 
     beforeEach(inject([Http, XHRBackend], (http: Http, be: MockBackend) => {
       backend = be;
-      service = new RestService(http);
+      service = new RESTService(http);
       fakeHeroes = makeHeroData();
       let options = new ResponseOptions({ status: 200, body: { data: fakeHeroes } });
       response = new Response(options);

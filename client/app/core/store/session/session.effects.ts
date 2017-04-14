@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Effect, Actions } from '@ngrx/effects';
 
-import { RestService } from '../../services/rest.service';
+import { RESTService } from '../../services/rest.service';
 import * as functions from '../slice/slice.functions';
 import { slices } from '../util';
 import { feathersAuthentication }  from '../../../feathers';
@@ -9,7 +9,7 @@ import { feathersAuthentication }  from '../../../feathers';
 @Injectable()
 export class SessionEffects {
   constructor(private actions$: Actions,
-    private dataService: RestService) { }
+    private dataService: RESTService) { }
 
   @Effect()
   login$ = functions.loadFromRemote$(this.actions$, slices.SESSION, this.dataService, 'login', this.transform)

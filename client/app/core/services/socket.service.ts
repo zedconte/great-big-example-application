@@ -19,7 +19,7 @@ export class SocketService {
 
     constructor(feathersService: FeathersService) {
         this.socket = io(helpers.getHost())
-        this.app = feathersService.socketApp;
+        this.app = feathersService.app;
     }
 
     getService(service) {

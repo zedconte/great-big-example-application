@@ -1,7 +1,7 @@
 import { EffectsTestingModule, EffectsRunner } from '@ngrx/effects/testing';
 import { TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { BookEffects } from './book.effects';
-import { GoogleBooksService } from './google-books.service';
+import { GoogleBooksService } from '../../../module/books/services/google-books.service';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of'
 import 'rxjs/add/observable/throw'
@@ -41,7 +41,7 @@ describe('BookEffects', () => {
       const book2 = { id: '222', volumeInfo: {} } as Book;
       const books = [book1, book2];
 
-      const {runner, bookEffects} = setup({ searchBooksReturnValue: Observable.of(books) });
+      const { runner, bookEffects } = setup({ searchBooksReturnValue: Observable.of(books) });
 
       const expectedResult = new IDActions.LoadSuccess(slices.SEARCH, books);
 
@@ -56,7 +56,7 @@ describe('BookEffects', () => {
     }));
 
     it('should return a new LoadSuccess action, with an empty array, if the books service throws', fakeAsync(() => {
-      const {runner, bookEffects} = setup({ searchBooksReturnValue: Observable.throw(new Error()) });
+      const { runner, bookEffects } = setup({ searchBooksReturnValue: Observable.throw(new Error()) });
 
       const expectedResult = new IDActions.LoadSuccess(slices.SEARCH, []);
       runner.queue(new IDActions.Load(slices.SEARCH, 'query'));
@@ -70,7 +70,7 @@ describe('BookEffects', () => {
     }));
 
     it(`should not do anything if the query is an empty string`, fakeAsync(() => {
-      const {runner, bookEffects} = setup();
+      const { runner, bookEffects } = setup();
 
       runner.queue(new IDActions.Load(slices.SEARCH, ''));
       let result = null;

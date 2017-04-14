@@ -18,7 +18,7 @@ import { config } from '../../../config/config'
 export class FeathersService {
     // See feathers-reduxify-services::default
     mapServicePathsToNames = {
-        user: 'user',
+        user: 'users',
         message: 'message',
         logs: 'logs',
         config: 'config',
@@ -26,10 +26,10 @@ export class FeathersService {
         '/verifyReset/:action/:value': 'verifyReset',
     };
     // See feathers-reduxify-services::getServicesStatus. Order highest priority msg first.
-    prioritizedListServices = ['auth', 'user', 'verifyReset', 'message', 'logs'];
+    prioritizedListServices = ['auth', 'users', 'verifyReset', 'message', 'logs'];
     socket: any;
-    socketApp: any;
-    restApp: any;
+    // app: any;
+    app: any;
     feathersAuthentication: any;
     verifyResetRoute = '/verifyReset/:action/:value'; // must match what server uses
     verifyReset: any;
@@ -40,7 +40,18 @@ export class FeathersService {
         this.socket = io();
 
         // Configure feathers-client for websockets
-        this.socketApp = feathers()
+        // this.app = feathers()
+        //     .configure(socketio(this.socket))
+        //     .configure(hooks())
+        //     .configure(authentication({
+        //         cookie: config.cookie,
+        //         storageKey: config.storageKey,
+        //         storage: window.localStorage, // store the token in localStorage and initially sign in with that
+        //     }));
+
+        // Configure feathers-client for REST
+        this.app = feathers()
+            // .configure(rest(config.apiUrl).superagent(superagent))
             .configure(socketio(this.socket))
             .configure(hooks())
             .configure(authentication({
@@ -49,26 +60,16 @@ export class FeathersService {
                 storage: window.localStorage, // store the token in localStorage and initially sign in with that
             }));
 
-        // Configure feathers-client for REST
-        this.restApp = feathers()
-            .configure(rest(config.apiUrl).superagent(superagent))
-            .configure(hooks())
-            .configure(authentication({
-                cookie: config.cookie,
-                storageKey: config.storageKey,
-                storage: window.localStorage, // store the token in localStorage and initially sign in with that
-            }));
-
         // Reduxify feathers-authentication
-        this.feathersAuthentication = reduxifyAuthentication(this.socketApp,
+        this.feathersAuthentication = reduxifyAuthentication(this.app,
             { isUserAuthorized: (user) => user.isVerified } // user must be verified to authenticate
         );
 
         // Configure services
-        this.verifyReset = this.restApp.service(this.verifyResetRoute); // eslint-disable-line no-unused-vars
+        this.verifyReset = this.app.service(this.verifyResetRoute); // eslint-disable-line no-unused-vars
 
         // Reduxify feathers services
-        this.feathersServices = reduxifyServices(this.restApp, this.mapServicePathsToNames);
+        this.feathersServices = reduxifyServices(this.app, this.mapServicePathsToNames);
     }
 
     // Convenience method to get status of feathers services, incl feathers-authentication

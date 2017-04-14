@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { RestService } from '../../core/services/rest.service';
+import { RESTService } from '../../core/services/rest.service';
 import { SharedModule } from '../../shared/shared.module';
 import { ContactPage } from './contact.page';
 import { ContactRouting } from './contact.routing';
@@ -19,7 +19,7 @@ import { ContactEffects } from '../../core/store/contact/contact.effects';
     ContactPage
   ],
   providers: [
-    RestService
+    RESTService
   ]
 })
 export class ContactModule { }

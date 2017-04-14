@@ -31,6 +31,7 @@ export class MessageComponent implements OnInit, OnDestroy {
         this.createDataSource()
       })
 
+    // Listen for new messages from the server and update the store accordingly
     this.messageService.resource$.subscribe(res => {
       switch (res.type) {
         case 'find':

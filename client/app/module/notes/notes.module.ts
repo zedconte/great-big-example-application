@@ -5,7 +5,7 @@ import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { EffectsModule } from '@ngrx/effects';
 
-import { RestService } from '../../core/services/rest.service';
+import { RESTService } from '../../core/services/rest.service';
 import { NoteEffects } from '../../core/store/note/note.effects';
 import { NoteComponent } from './note/note.component';
 import { AddButtonComponent } from './add-button/add-button.component';
@@ -26,7 +26,7 @@ import { SharedModule } from '../../shared/shared.module';
     AddButtonComponent
   ],
   providers: [
-    RestService
+    RESTService
   ]
 })
 export class NotesModule { }

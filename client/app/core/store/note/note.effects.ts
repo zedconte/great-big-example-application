@@ -4,7 +4,7 @@ import { Actions, Effect } from '@ngrx/effects';
 
 import { Note } from './note.model';
 import { slices } from '../util';
-import { RestService } from '../../services/rest.service';
+import { RESTService } from '../../services/rest.service';
 import * as functions from '../entity/entity.functions';
 
 @Injectable()
@@ -19,7 +19,7 @@ export class NoteEffects {
   constructor(
     private store: Store<Note>,
     private actions$: Actions,
-    private dataService: RestService
+    private dataService: RESTService
   ) { }
 }
 

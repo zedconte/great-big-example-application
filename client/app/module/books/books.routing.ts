@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { BookExistsGuard } from './book-exists/book-exists.guard';
+import { BookExistsGuard } from './services/book-exists.guard';
 import { FindBookPage } from './find-book.page';
 import { ViewBookPage } from './view-book.page';
 import { CollectionPage } from './collection.page';

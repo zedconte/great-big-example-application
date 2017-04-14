@@ -20,12 +20,12 @@ import { config } from '../../../config/config';
 import { FeathersService } from './feathers.service';
 
 @Injectable()
-export class RestService {
+export class RESTService {
     public app: any
     private JSON_HEADER = { headers: new Headers({ 'Content-Type': 'application/json' }) };
 
     constructor(private http: Http, feathersService: FeathersService) {
-        this.app = feathersService.restApp;
+        this.app = feathersService.app;
     }
 
     // login(payload) {
@@ -46,42 +46,42 @@ export class RestService {
             .catch(this.handleError);
     }
 
-    // addOld(entity: any, table): Observable<any> {
-    //   return this.http.post(`${config.apiUrl}/${table}`, this.prepareRecord(entity), this.JSON_HEADER)
-    //     .map(this.extractData)
-    //     .catch(this.handleError);
+    add(entity: any, table): Observable<any> {
+      return this.http.post(`${config.apiUrl}/${table}`, this.prepareRecord(entity), this.JSON_HEADER)
+        .map(this.extractData)
+        .catch(this.handleError);
+    }
+
+    // addNew(entity: any, table): Observable<any> {
+    //     return this.app.authenticate().then(() => {
+    //         const entities = this.app.service(table);
+    //         return entities.create(this.prepareRecord(entity)).then((data, err) => {
+    //             return data
+    //         });
+    //     })
+    //         .catch(this.handleError);
     // }
 
-    add(entity: any, table): Observable<any> {
-        return this.app.authenticate().then(() => {
-            const entities = this.app.service(table);
-            return entities.create(this.prepareRecord(entity)).then((data, err) => {
-                return data
-            });
-        })
-            .catch(this.handleError);
-    }
+    // updateNew(entity: any, table: string): Observable<any> {
+    //     console.log('RESTService.update ' + JSON.stringify(entity))
+    //     return this.app.authenticate()
+    //         .then(() => {
+    //             const entities = this.app.service(table);
+    //             let obj = this.prepareRecord(entity);
+    //             return entities.patch(entity._id, obj)
+    //                 .then((data, err) => this.extractData(data))
+    //                 .catch(this.handleError);
+    //         })
+    //         .catch(this.handleError);
+    // }
 
     update(entity: any, table: string): Observable<any> {
-        console.log('RestService.update ' + JSON.stringify(entity))
-        return this.app.authenticate()
-            .then(() => {
-                const entities = this.app.service(table);
-                let obj = this.prepareRecord(entity);
-                return entities.patch(obj)
-                    .then((data, err) => this.extractData(data))
-                    .catch(this.handleError);
-            })
-            .catch(this.handleError);
+      console.log('RESTService.update ' + JSON.stringify(entity))
+      debugger;
+      return this.http.put(`${config.apiUrl}/${table}`, this.prepareRecord(entity), this.JSON_HEADER)
+        .map(this.extractData)
+        .catch(this.handleError);
     }
-
-    // updateOld(entity: any, table: string): Observable<any> {
-    //   console.log('RestService.update ' + JSON.stringify(entity))
-    //   debugger;
-    //   return this.http.patch(`${config.apiUrl}/${table}`, this.prepareRecord(entity), this.JSON_HEADER)
-    //     .map(this.extractData)
-    //     .catch(this.handleError);
-    // }
 
     // addOrUpdate(entity: any, table): Observable<any> {
     //   return this.http.post(`${config.apiUrl}/${table}`, this.prepareRecord(entity), this.JSON_HEADER)
@@ -96,7 +96,7 @@ export class RestService {
         // while (id.length < 24)
         //   id = '0' + id;
         let id = record.id
-        let newRecord = Object.assign({}, record, { _id: '' + id });
+        let newRecord = Object.assign({}, record, { _id: id });
         delete newRecord.id;
 
         // remove the dirty field
@@ -113,19 +113,22 @@ export class RestService {
 
         console.log('RESPONSE    ' + JSON.stringify(res))
 
-        let obj = body.data;
+        let obj = body.data || body;  // TODO: I don't know why sometimes body is the object and sometimes body.data is
         if (!obj) {
             return {};
         }
 
         if (Array.isArray(obj)) {
-            return obj.map(renameIdField);
+            return obj.map(fixUpFields);
         }
 
-        return renameIdField(obj);
+        return fixUpFields(obj);
 
         // Mongoose uses the field _id instead of id
-        function renameIdField(obj) {
+        function fixUpFields(obj) {
+            obj.__v && delete obj.__v; // I don't know what this is for
+            obj.updatedAt && delete obj.updatedAt;
+            obj.createdAt && delete obj.createdAt;
             let id = obj._id;
             delete obj._id;
             return Object.assign({}, obj, { id });
