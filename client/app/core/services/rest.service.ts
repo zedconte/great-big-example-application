@@ -22,7 +22,7 @@ import { FeathersService } from './feathers.service';
 @Injectable()
 export class RESTService {
     public app: any
-    private JSON_HEADER = { headers: new Headers({ 'Content-Type': 'application/json' }) };
+    private JSON_HEADER = { headers: new Headers({ 'Content-Type': 'application/json', 'Accepts': 'application/json'  }) };
 
     constructor(private http: Http, feathersService: FeathersService) {
         this.app = feathersService.app;
@@ -96,7 +96,7 @@ export class RESTService {
         // while (id.length < 24)
         //   id = '0' + id;
         let id = record.id
-        let newRecord = Object.assign({}, record, { _id: id });
+        let newRecord = Object.assign({}, record, { _id: '' + id });
         delete newRecord.id;
 
         // remove the dirty field
