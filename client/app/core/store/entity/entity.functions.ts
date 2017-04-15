@@ -100,7 +100,7 @@ export function updateEach<T>(state: Entities<T>, action: any): Entities<T> {
 };
 
 function reduceOne<T>(state: Entities<T>, entity: T = null, action: EntityAction<T>): T {
-  console.log('reduceOne contact:' + JSON.stringify(entity) + ' ' + action.type)
+  console.log('reduceOne entity:' + JSON.stringify(entity) + ' ' + action.type)
   switch (action.type) {
 
     case typeFor(state.slice, actions.ADD):

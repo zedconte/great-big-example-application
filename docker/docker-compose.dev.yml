@@ -6,7 +6,7 @@ services:
       dockerfile: ./docker/dev.dockerfile
     environment:
       - NODE_ENV=development
-      - NODE_CONFIG_DIR=./app/config
+      - NODE_CONFIG_DIR=./server/config
     links:
       - mongo
     ports:

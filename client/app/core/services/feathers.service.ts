@@ -61,14 +61,14 @@ export class FeathersService {
 
     // Reduxify feathers-authentication
     this.feathersAuthentication = reduxifyAuthentication(this.socketApp,
-      { isUserAuthorized: (user) => user.isVerified } // user must be verified to authenticate
+      //  { isUserAuthorized: (user) => user.isVerified } // user must be verified to authenticate
     );
 
     // Configure services
     this.verifyReset = this.socketApp.service(this.verifyResetRoute); // eslint-disable-line no-unused-vars
 
     // Reduxify feathers services
-    this.feathersServices = reduxifyServices(this.socketApp, this.mapServicePathsToNames);
+    this.feathersServices = reduxifyServices(this.socketApp, this.mapServicePathsToNames, {});
   }
 
   // Convenience method to get status of feathers services, incl feathers-authentication

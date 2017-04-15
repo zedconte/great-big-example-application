@@ -5,7 +5,10 @@ import * as fromRouter from '@ngrx/router-store';
 import { localStorageSync } from 'ngrx-store-localstorage';
 import 'rxjs/add/operator/filter';
 import reduxifyServices, { getServicesStatus } from 'feathers-reduxify-services';
-import { reduxPromiseMiddleware } from 'redux-promise-middleware';
+import reduxPromiseMiddleware from 'redux-promise-middleware';
+import reduxMulti from 'redux-multi';
+import reduxThunk from 'redux-thunk';
+
 import { Book } from './book/book.model';
 import { Note } from './note/note.model';
 // import { environment } from '../../../environments/environment.prod';
@@ -104,7 +107,7 @@ export interface RootState {
 
 // Expose Redux action creators and reducers for Feathers' services
 const feathersService = new FeathersService();  // TODO: should use the singleton?
-const services = reduxifyServices(feathersService.socketApp, ['message']);
+const services = reduxifyServices(feathersService.socketApp, feathersService.mapServicePathsToNames, {});
 
 const reducers = {
   // ngrx ones
@@ -124,18 +127,25 @@ const reducers = {
   session: fromSession.reducer,
 
   // feathers ones
-  message: services.message.reducer,
-  // message: fromMessage.reducer
+  // message: (<any>services).message.reducer,
+  message: fromMessage.reducer
 }
 
 const developmentReducer = compose(
-  storeFreeze, reduxPromiseMiddleware(),
-  localStorageSync(['session'], true),
+  // reduxThunk, // Thunk middleware for Redux
+  // reduxMulti, // Dispatch multiple actions
+  // reduxPromiseMiddleware(),
+  // storeFreeze, 
+  // localStorageSync(['session'], true),
   combineReducers)(reducers);
 const productionReducer = compose(
-  reduxPromiseMiddleware(),
-  localStorageSync(['session'], true),
+  // reduxThunk, // Thunk middleware for Redux
+  // reduxMulti, // Dispatch multiple actions
+  // reduxPromiseMiddleware(),
+  // localStorageSync(['session'], true),
   combineReducers)(reducers);
+
+
 
 export function reducer(state: any, action: any) {
   if (process.env.NODE_ENV === 'production') {

@@ -12,7 +12,7 @@ const rest = require('feathers-rest')
 const socketio = require('feathers-socketio')
 const handler = require('feathers-errors/handler')
 
-import service from './service'
+import services from './services'
 import middleware from './middleware'
 
 const app = feathers()
@@ -49,7 +49,7 @@ app.use(compress())
   .configure(hooks())
   .configure(rest())
   .configure(socketio())
-  .configure(service)
+  .configure(services)
   .configure(middleware)
 
 
