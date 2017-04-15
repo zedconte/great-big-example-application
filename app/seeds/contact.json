@@ -1,14 +1,14 @@
 [
   {
-    "_id": 21,
+    "_id": "21",
     "name": "Sam Spade"
   },
   {
-    "_id": 22,
+    "_id": "22",
     "name": "Nick Dangerous"
   },
   {
-    "_id": 24,
+    "_id": "24",
     "name": "Nancy Drew"
   }
 ]

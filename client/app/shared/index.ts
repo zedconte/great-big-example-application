@@ -6,6 +6,6 @@
 // export * from './sidebar/index'
 // export * from './+topnav/index'
 
-export * from './module.service'
-export * from './navigation.service'
-export * from './version.service'
+export * from './services/module.service'
+export * from './services/navigation.service'
+export * from './services/version.service'

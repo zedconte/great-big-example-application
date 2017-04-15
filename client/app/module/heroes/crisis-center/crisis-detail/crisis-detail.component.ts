@@ -39,10 +39,8 @@ export class CrisisDetailComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    alert('ngOnInit ')
     this.route.data
       .subscribe((data: { crisis: Crisis }) => {
-        debugger;
         this.editName = data.crisis.name;
         this.crisis = data.crisis;
       });

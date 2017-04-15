@@ -13,6 +13,8 @@ export class ContactEffects {
   private loadFromRemote$ = functions.loadFromRemote$(this.actions$, slices.CONTACT, this.dataService);
   @Effect()
   private updateToRemote$ = functions.updateToRemote$(this.actions$, slices.CONTACT, this.dataService, this.store);
+  @Effect()
+  private addToRemote$ = functions.addToRemote$(this.actions$, slices.CONTACT, this.dataService, this.store);
 
   constructor(
     private store: Store<Contact>,

@@ -47,7 +47,6 @@ export class CrisisListComponent implements OnInit {
 
   onSelect(crisis: Crisis) {
     // Navigate with relative link
-    alert('onSelect navigating to ' + this.route)
     this.router.navigate([crisis.id], { relativeTo: this.route });
   }
 

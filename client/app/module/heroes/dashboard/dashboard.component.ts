@@ -41,7 +41,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   gotoCrisis(crisis: Crisis) {
-    alert('gotoCrisis')
     let url = `/module/heroes/crisis-center/${crisis.id}`;
     this.router.navigateByUrl(url);
   }

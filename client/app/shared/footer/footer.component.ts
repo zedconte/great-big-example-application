@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { NavigationService } from '../navigation.service'
+import { NavigationService } from '../services/navigation.service'
 
 @Component({
   selector: 'footer-cmp',

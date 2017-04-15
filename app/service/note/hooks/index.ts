@@ -8,7 +8,7 @@ const before = {
   find: [],
   get: [],
   create: [],
-  update: [],
+  update: [globalHooks.myHook({})],
   patch: [],
   remove: []
 }

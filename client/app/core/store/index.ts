@@ -76,21 +76,21 @@ import { Entities, IDs } from './entity/entity.model';
  * our top level state interface is just a map of keys to inner state types.
  */
 export interface RootState {
-    book: Entities<Book>;
-    claimRebuttal: Entities<ClaimRebuttal>;
-    claim: Entities<Claim>;
-    collection: IDs;
-    contact: Entities<Contact>;
-    counter: Counter;
-    crisis: Entities<Crisis>;
-    hero: Entities<Hero>
-    layout: Layout;
-    message: any;
-    note: Entities<Note>;
-    rebuttal: Entities<Rebuttal>;
-    router: fromRouter.RouterState;
-    search: IDs;
-    session: Session;
+  book: Entities<Book>;
+  claimRebuttal: Entities<ClaimRebuttal>;
+  claim: Entities<Claim>;
+  collection: IDs;
+  contact: Entities<Contact>;
+  counter: Counter;
+  crisis: Entities<Crisis>;
+  hero: Entities<Hero>
+  layout: Layout;
+  message: any;
+  note: Entities<Note>;
+  rebuttal: Entities<Rebuttal>;
+  router: fromRouter.RouterState;
+  search: IDs;
+  session: Session;
 }
 
 
@@ -104,45 +104,45 @@ export interface RootState {
 
 // Expose Redux action creators and reducers for Feathers' services
 const feathersService = new FeathersService();  // TODO: should use the singleton?
-const services = reduxifyServices(feathersService.app, ['message']);
+const services = reduxifyServices(feathersService.socketApp, ['message']);
 
 const reducers = {
-    // ngrx ones
-    book: fromBooks.reducer,
-    claim: fromClaims.reducer,
-    claimRebuttal: fromClaimRebuttals.reducer,
-    contact: fromContacts.reducer,
-    collection: fromCollection.reducer,
-    counter: fromCounter.reducer,
-    crisis: fromCrises.reducer,
-    hero: fromHeroes.reducer,
-    layout: fromLayout.reducer,
-    note: fromNotes.reducer,
-    rebuttal: fromRebuttals.reducer,
-    router: fromRouter.routerReducer,
-    search: fromSearch.reducer,
-    session: fromSession.reducer,
+  // ngrx ones
+  book: fromBooks.reducer,
+  claim: fromClaims.reducer,
+  claimRebuttal: fromClaimRebuttals.reducer,
+  contact: fromContacts.reducer,
+  collection: fromCollection.reducer,
+  counter: fromCounter.reducer,
+  crisis: fromCrises.reducer,
+  hero: fromHeroes.reducer,
+  layout: fromLayout.reducer,
+  note: fromNotes.reducer,
+  rebuttal: fromRebuttals.reducer,
+  router: fromRouter.routerReducer,
+  search: fromSearch.reducer,
+  session: fromSession.reducer,
 
-    // feathers ones
-    message: services.message.reducer,
-    // message: fromMessage.reducer
+  // feathers ones
+  message: services.message.reducer,
+  // message: fromMessage.reducer
 }
 
 const developmentReducer = compose(
-    storeFreeze, //reduxPromiseMiddleware(),
-    localStorageSync(['session'], true),
-    combineReducers)(reducers);
+  storeFreeze, //reduxPromiseMiddleware(),
+  localStorageSync(['session'], true),
+  combineReducers)(reducers);
 const productionReducer = compose(
-    // reduxPromiseMiddleware(),
-    localStorageSync(['session'], true),
-    combineReducers)(reducers);
+  // reduxPromiseMiddleware(),
+  localStorageSync(['session'], true),
+  combineReducers)(reducers);
 
 export function reducer(state: any, action: any) {
-    if (process.env.NODE_ENV === 'production') {
-        return productionReducer(state, action);
-    } else {
-        return developmentReducer(state, action);
-    }
+  if (process.env.NODE_ENV === 'production') {
+    return productionReducer(state, action);
+  } else {
+    return developmentReducer(state, action);
+  }
 }
 
 
@@ -200,7 +200,7 @@ export const getSearchLoading = createSelector(getSearchState, fromSearch.getLoa
  * composes the search result IDs to return an array of books in the store.
  */
 export const getSearchResults = createSelector(getBookEntities, getSearchBookIds, (books, searchIds) => {
-    return searchIds.map(id => books[id]);
+  return searchIds.map(id => books[id]);
 });
 
 export const getCollectionState = (state: RootState) => state.collection;
@@ -208,10 +208,10 @@ export const getCollectionLoaded = createSelector(getCollectionState, fromCollec
 export const getCollectionLoading = createSelector(getCollectionState, fromCollection.getLoading);
 export const getCollectionBookIds = createSelector(getCollectionState, fromCollection.getIds);
 export const getBookCollection = createSelector(getBookEntities, getCollectionBookIds, (entities, ids) => {
-    return ids.map(id => entities[id]);
+  return ids.map(id => entities[id]);
 });
 export const isSelectedBookInCollection = createSelector(getCollectionBookIds, getSelectedBookId, (ids, selected) => {
-    return ids.indexOf(selected) > -1;
+  return ids.indexOf(selected) > -1;
 });
 
 /**
@@ -243,7 +243,7 @@ export const getNotesState = (state: RootState) => state.note;
 export const getNoteEntities = createSelector(getNotesState, fromNotes.getEntities);
 export const getNoteIds = createSelector(getNotesState, fromNotes.getIds);
 export const getNotes = createSelector(getNoteEntities, getNoteIds, (entities, ids) => {
-    return ids.map(id => entities[id]);
+  return ids.map(id => entities[id]);
 });
 
 /**
@@ -253,20 +253,20 @@ export const getClaimsState = (state: RootState): Entities<Claim> => state.claim
 export const getClaimEntities = createSelector(getClaimsState, fromClaims.getEntities);
 export const getClaimIds = createSelector(getClaimsState, fromClaims.getIds);
 export const getClaims = createSelector(getClaimEntities, getClaimIds, (entities, ids) => {
-    return ids.map(id => entities[id]);
+  return ids.map(id => entities[id]);
 });
 export const getBerniePage = createSelector(getBerniePageState, getClaims, (berniePage, claims) => {
 
-    let _dirty = false;
-    claims.forEach(claim => {
-        claim.rebuttals.forEach(rebuttal => {
-            if (rebuttal && rebuttal.dirty) {
-                _dirty = true;
-            }
-        });
+  let _dirty = false;
+  claims.forEach(claim => {
+    claim.rebuttals.forEach(rebuttal => {
+      if (rebuttal && rebuttal.dirty) {
+        _dirty = true;
+      }
     });
+  });
 
-    return Object.assign({}, berniePage, { dirty: _dirty })
+  return Object.assign({}, berniePage, { dirty: _dirty })
 
 });
 
@@ -277,7 +277,7 @@ export const getRebuttalsState = (state: RootState): Entities<Rebuttal> => state
 export const getRebuttalEntities = createSelector(getRebuttalsState, fromRebuttals.getEntities);
 export const getRebuttalIds = createSelector(getRebuttalsState, fromRebuttals.getIds);
 export const getRebuttals = createSelector(getRebuttalEntities, getRebuttalIds, (entities, ids) => {
-    return ids.map(id => entities[id]);
+  return ids.map(id => entities[id]);
 });
 
 /**
@@ -287,45 +287,45 @@ export const getClaimRebuttalsState = (state: RootState): Entities<ClaimRebuttal
 export const getClaimRebuttalEntities = createSelector(getClaimRebuttalsState, fromClaimRebuttals.getEntities);
 export const getClaimRebuttalIds = createSelector(getClaimRebuttalsState, fromClaimRebuttals.getIds);
 export const getClaimRebuttals = createSelector(getClaimRebuttalEntities, getClaimRebuttalIds, (entities, ids) => {
-    return ids.map(id => entities[id]);
+  return ids.map(id => entities[id]);
 });
 
 // Many-to-Many Join, Denormalization with sorted sub array
 export const getDeepClaims = createSelector(getClaimEntities, getClaimIds, getRebuttalEntities, getClaimRebuttals,
-    (claims, claimIds, rebuttals, claimRebuttals) => {
-        return claimIds
-            // .sort((a, b) => claims[a].shortName < claims[b].sortOrder ? -1 : 1)
-            .map(cid =>
-                Object.assign(
-                    {},
-                    claims[cid],
-                    {
-                        rebuttals:
-                        claimRebuttals
-                            .filter(cr => cr.claimId == cid)
-                            .sort((a, b) => a.sortOrder - b.sortOrder)
-                            .map(cr => {
-                                // return rebuttals[cr.rebuttalId];
-                                return {
-                                    claimRebuttalId: cr.id,
-                                    id: rebuttals[cr.rebuttalId].id,
-                                    shortName: rebuttals[cr.rebuttalId].shortName,
-                                    longName: rebuttals[cr.rebuttalId].longName,
-                                    comments: rebuttals[cr.rebuttalId].comments,
-                                    editing: rebuttals[cr.rebuttalId].editing,
-                                    isNew: rebuttals[cr.rebuttalId].isNew,
-                                    // isTouched: rebuttals[cr.rebuttalId].isTouched,
-                                    link: rebuttals[cr.rebuttalId].link
-                                };
-                            })
-                    }, // TODO: the AssociateRebuttal action should create a new rebuttal or have you pick one.
-                    {
-                        adding: Object.keys(rebuttals).find((id) => rebuttals[id].editing && rebuttals[id].isNew) !== undefined  //TODO Why can id be null?
-                    }
-                )
-            );
+  (claims, claimIds, rebuttals, claimRebuttals) => {
+    return claimIds
+      // .sort((a, b) => claims[a].shortName < claims[b].sortOrder ? -1 : 1)
+      .map(cid =>
+        Object.assign(
+          {},
+          claims[cid],
+          {
+            rebuttals:
+            claimRebuttals
+              .filter(cr => cr.claimId == cid)
+              .sort((a, b) => a.sortOrder - b.sortOrder)
+              .map(cr => {
+                // return rebuttals[cr.rebuttalId];
+                return {
+                  claimRebuttalId: cr.id,
+                  id: rebuttals[cr.rebuttalId].id,
+                  shortName: rebuttals[cr.rebuttalId].shortName,
+                  longName: rebuttals[cr.rebuttalId].longName,
+                  comments: rebuttals[cr.rebuttalId].comments,
+                  editing: rebuttals[cr.rebuttalId].editing,
+                  isNew: rebuttals[cr.rebuttalId].isNew,
+                  // isTouched: rebuttals[cr.rebuttalId].isTouched,
+                  link: rebuttals[cr.rebuttalId].link
+                };
+              })
+          }, // TODO: the AssociateRebuttal action should create a new rebuttal or have you pick one.
+          {
+            adding: Object.keys(rebuttals).find((id) => rebuttals[id].editing && rebuttals[id].isNew) !== undefined  //TODO Why can id be null?
+          }
+        )
+      );
 
-    });
+  });
 
 
 // export const isTouched = function (state$: Observable<RootState>) {
@@ -357,12 +357,12 @@ export const getCrisisEntities = createSelector(getCrisesState, fromCrises.getEn
 export const getCrisisIds = createSelector(getCrisesState, fromCrises.getIds);
 export const getSelectedCrisis = createSelector(getCrisesState, fromCrises.getSelected);
 export const getCrises = createSelector(getCrisisEntities, getCrisisIds, (entities, ids) => {
-    return ids.map(id => entities[id]);
+  return ids.map(id => entities[id]);
 });
 // A selector that takes a parameter (id)
 export const getCrisis = (id) => createSelector(getCrisesState, (crisisList) => {
-    // return crisisList.filter(c => c.id === id);
-    return crisisList.ids.map(id => crisisList.entities[id]).filter(c => c.id === id);
+  // return crisisList.filter(c => c.id === id);
+  return crisisList.ids.map(id => crisisList.entities[id]).filter(c => c.id === id);
 });
 
 /**
@@ -374,7 +374,7 @@ export const getContactEntities = createSelector(getContactsState, fromContacts.
 export const getContactIds = createSelector(getContactsState, fromContacts.getIds);
 export const getSelectedContact = createSelector(getContactsState, fromContacts.getSelected);
 export const getContacts = createSelector(getContactEntities, getContactIds, (entities, ids) => {
-    return ids.map(id => entities[id]);
+  return ids.map(id => entities[id]);
 });
 export const getContact = createSelector(getContactsState, fromContacts.getSelected);
 
@@ -386,8 +386,8 @@ export const getHeroEntities = createSelector(getHeroesState, fromHeroes.getEnti
 export const getHeroIds = createSelector(getHeroesState, fromHeroes.getIds);
 export const getSelectedHero = createSelector(getHeroesState, fromHeroes.getSelected);
 export const getHeroes = createSelector(getHeroEntities, getHeroIds, (entities, ids) => {
-    return ids.map(id => entities[id]);
+  return ids.map(id => entities[id]);
 });
 export const getHeroesForSearchTerm = createSelector(getHeroes, getHeroSearchTerm, (heroes, searchTerm) => {
-    return heroes.filter(hero => hero.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1);
+  return heroes.filter(hero => hero.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1);
 });

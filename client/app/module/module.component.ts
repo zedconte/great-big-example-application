@@ -12,10 +12,10 @@ import {
 import { Router } from '@angular/router'
 
 import { MdSidenav } from '@angular/material'
-import { ModuleMeta, ModuleService } from '../shared/module.service'
+import { ModuleMeta, ModuleService } from '../shared/services/module.service'
 import { SocketService } from '../core/services/socket.service'
 import { Http, Response } from '@angular/http'
-import { NavigationService } from '../shared/navigation.service'
+import { NavigationService } from '../shared/services/navigation.service'
 import { Subscription } from 'rxjs/Subscription'
 import { Observable } from 'rxjs/Rx'
 
