@@ -4,13 +4,13 @@ import { Injectable } from '@angular/core';
 
 import * as feathers from 'feathers/client';
 import * as socketio from 'feathers-socketio/client'
+import rest from 'feathers-rest/client';
 const hooks = require('feathers-hooks')
 import * as authentication from 'feathers-authentication-client'
 import reduxifyServices, { getServicesStatus } from 'feathers-reduxify-services';
 import reduxifyAuthentication from 'feathers-reduxify-authentication';
 const io = require('socket.io-client');
 import superagent from 'superagent';
-import rest from 'feathers-rest/client';
 
 import { config } from '../../../config/config'
 

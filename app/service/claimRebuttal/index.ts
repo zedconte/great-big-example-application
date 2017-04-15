@@ -13,7 +13,7 @@ export default function () {
     Model: getModel(app, entity, ClaimRebuttalModel),
     paginate: {
       default: 5,
-      max: 25
+      max: 700
     },
     lean: true
   };

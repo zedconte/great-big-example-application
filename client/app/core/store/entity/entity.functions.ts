@@ -55,6 +55,12 @@ export function selectNext<T>(state: Entities<T>, action: EntityActions.SelectNe
   return Object.assign({}, state, { selectedEntityId: state.ids[ix] });
 };
 
+/**
+ * Add entities in the action's payload into the state if they are not yet there
+ * 
+ * @param state 
+ * @param action 
+ */
 export function union<T>(state: Entities<T>, action: EntityActions.LoadSuccess<T>) {
   const entities = action.payload;
   let newEntities = entities.filter(entity => !state.entities[entity.id]);

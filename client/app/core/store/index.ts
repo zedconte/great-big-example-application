@@ -129,11 +129,11 @@ const reducers = {
 }
 
 const developmentReducer = compose(
-  storeFreeze, //reduxPromiseMiddleware(),
+  storeFreeze, reduxPromiseMiddleware(),
   localStorageSync(['session'], true),
   combineReducers)(reducers);
 const productionReducer = compose(
-  // reduxPromiseMiddleware(),
+  reduxPromiseMiddleware(),
   localStorageSync(['session'], true),
   combineReducers)(reducers);
 
