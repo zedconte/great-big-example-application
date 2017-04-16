@@ -4,14 +4,14 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { SignupComponent } from './signup/signup.component'
 import { PageNotFoundComponent } from './404/404.component'
-import { ModModule } from './module'
+import { ModuleModule } from './module'
 import { AuthGuard } from './core/services/auth.guard'
 import { CanDeactivateGuard } from './shared/can-deactivate/can-deactivate.guard';
 import { SelectivePreloadingStrategy } from './shared/selective-preloading-strategy';
 
 
 function loadModModule() {
-  return ModModule
+  return ModuleModule
 }
 
 const routes: Routes = [
@@ -45,7 +45,8 @@ const routes: Routes = [
   imports: [
     RouterModule.forRoot(
       routes,
-      { preloadingStrategy: SelectivePreloadingStrategy,
+      {
+        preloadingStrategy: SelectivePreloadingStrategy,
         useHash: true    // TODO: fix this. If this is false, the only page that works is the root
       }
     )

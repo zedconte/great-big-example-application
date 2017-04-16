@@ -6,8 +6,8 @@ import { localStorageSync } from 'ngrx-store-localstorage';
 import 'rxjs/add/operator/filter';
 import reduxifyServices, { getServicesStatus } from 'feathers-reduxify-services';
 import reduxPromiseMiddleware from 'redux-promise-middleware';
-import reduxMulti from 'redux-multi';
-import reduxThunk from 'redux-thunk';
+// import reduxMulti from 'redux-multi';
+// import reduxThunk from 'redux-thunk';
 
 import { Book } from './book/book.model';
 import { Note } from './note/note.model';
@@ -127,8 +127,8 @@ const reducers = {
   session: fromSession.reducer,
 
   // feathers ones
-  // message: (<any>services).message.reducer,
-  message: fromMessage.reducer
+  message: (<any>services).message.reducer,
+  // message: fromMessage.reducer
 }
 
 const developmentReducer = compose(
