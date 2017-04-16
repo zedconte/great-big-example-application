@@ -1,9 +1,13 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 
 import { slideInDownAnimation } from '../../../../shared/animations';
 import { DialogService } from '../../../../shared/dialog/dialog.service';
 import { Crisis } from '../../../../core/store/crisis/crisis.model';
+import * as fromRoot from '../../../../core/store';
+import * as EntityActions from '../../../../core/store/entity/entity.actions';
+import { slices } from '../../../../core/store/util'
 
 @Component({
   template: `
@@ -35,6 +39,7 @@ export class CrisisDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
+    private store: Store<fromRoot.RootState>,
     public dialogService: DialogService
   ) { }
 
@@ -52,6 +57,7 @@ export class CrisisDetailComponent implements OnInit {
 
   save() {
     this.crisis.name = this.editName;
+    this.store.dispatch(new EntityActions.Update(slices.CRISIS, this.crisis));
     this.gotoCrises();
   }
 
