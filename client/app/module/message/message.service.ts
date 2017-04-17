@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core'
 import { Response } from '@angular/http'
 import { Observable } from 'rxjs/Observable'
 import { SocketService } from '../../core/services/socket.service'
-import 'rxjs/add/observable/fromPromise'
 
 
 @Injectable()
@@ -11,8 +10,8 @@ export class MessageService {
   private _observable
   private socketMessagesService
 
-  constructor(private _socketService: SocketService) {
-    this.socketMessagesService = _socketService.getService('api/message')
+  constructor(private socketService: SocketService) {
+    this.socketMessagesService = socketService.getService('api/message')
 
     // this.item$ is a public observable for components to subscribe
     this.resource$ = new Observable(observable => this._observable = observable)
@@ -39,10 +38,10 @@ export class MessageService {
     })
   }
 
-  createMessage(data) {
-    Observable.fromPromise(this.socketMessagesService.create(data))
-      .catch(this.handleError)
-  }
+  // createMessage(data) {
+  //   Observable.fromPromise(this.socketMessagesService.create(data))
+  //     .catch(this.handleError)
+  // }
 
 
   handleError(err: Response | any) {

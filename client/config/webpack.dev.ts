@@ -172,7 +172,7 @@ export default webpackMerge(webpackCommonConfig({ env: ENV }), {
       },
       dllDir: helpers.root('dll'),
       webpackConfig: webpackMergeDll(webpackCommonConfig({ env: ENV }), {
-        devtool: 'cheap-module-source-map',
+        devtool: 'source-map',
         plugins: []
       })
     }),

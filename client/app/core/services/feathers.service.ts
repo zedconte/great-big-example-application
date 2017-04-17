@@ -2,6 +2,7 @@
 /* global io, window */
 import { Injectable } from '@angular/core';
 
+import { Observable } from 'rxjs/Observable'
 import * as feathers from 'feathers/client';
 import * as socketio from 'feathers-socketio/client'
 import rest from 'feathers-rest/client';
@@ -33,7 +34,7 @@ export class FeathersService {
   feathersAuthentication: any;
   verifyResetRoute = '/verifyReset/:action/:value'; // must match what server uses
   verifyReset: any;
-  feathersServices: any;
+  services: any;
   // private host = `http://${config.host}:${config.port}${config.apiUrl}`;
 
   constructor() {
@@ -68,11 +69,32 @@ export class FeathersService {
     this.verifyReset = this.socketApp.service(this.verifyResetRoute); // eslint-disable-line no-unused-vars
 
     // Reduxify feathers services
-    this.feathersServices = reduxifyServices(this.socketApp, this.mapServicePathsToNames, {});
+    this.services = reduxifyServices(this.socketApp, this.mapServicePathsToNames, {});
+    observablifyServices(this.services)
   }
 
   // Convenience method to get status of feathers services, incl feathers-authentication
   getFeathersStatus = (servicesRootState, names = this.prioritizedListServices) =>
     getServicesStatus(servicesRootState, names);
 
+}
+
+function observablifyServices(services) {
+  for (let prop in services) {
+    let service = services[prop];
+    service._observable = {};
+    service.resource$ = new Observable(observable => service._observable = observable)
+    service.on('created', res => {
+      service._observable.next({
+        type: 'created',
+        entities: res.data
+      });
+    });
+    service.on('find', res => {
+      service._observable.next({
+        type: 'find',
+        entities: res.data
+      });
+    });
+  }
 }

@@ -8,18 +8,16 @@ import { MaterialModule } from '@angular/material'
 import { FlexLayoutModule } from '@angular/flex-layout'
 
 
-import {AgGridModule} from 'ag-grid-angular/main'
+import { AgGridModule } from 'ag-grid-angular/main'
 import 'ag-grid/dist/styles/ag-grid.css'
 import 'ag-grid/dist/styles/theme-material.css'
 
 
-import { MessageComponent } from './message.component'
-
-import { ROUTES } from './message.routes'
+import { MessagePage } from './message.page'
 
 @NgModule({
   declarations: [
-    MessageComponent,
+    MessagePage,
   ],
   imports: [
     CommonModule,

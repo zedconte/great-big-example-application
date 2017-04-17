@@ -6,8 +6,8 @@ import { localStorageSync } from 'ngrx-store-localstorage';
 import 'rxjs/add/operator/filter';
 import reduxifyServices, { getServicesStatus } from 'feathers-reduxify-services';
 import reduxPromiseMiddleware from 'redux-promise-middleware';
-// import reduxMulti from 'redux-multi';
-// import reduxThunk from 'redux-thunk';
+import reduxMulti from 'redux-multi';
+import reduxThunk from 'redux-thunk';
 
 import { Book } from './book/book.model';
 import { Note } from './note/note.model';
@@ -107,7 +107,6 @@ export interface RootState {
 
 // Expose Redux action creators and reducers for Feathers' services
 const feathersService = new FeathersService();  // TODO: should use the singleton?
-const services = reduxifyServices(feathersService.socketApp, feathersService.mapServicePathsToNames, {});
 
 const reducers = {
   // ngrx ones
@@ -127,22 +126,22 @@ const reducers = {
   session: fromSession.reducer,
 
   // feathers ones
-  message: (<any>services).message.reducer,
+  message: (<any>feathersService.services).message.reducer,
   // message: fromMessage.reducer
 }
 
 const developmentReducer = compose(
-  // reduxThunk, // Thunk middleware for Redux
-  // reduxMulti, // Dispatch multiple actions
+  // reduxThunk,                // Thunk middleware for Redux
+  // reduxMulti,                // Dispatch multiple actions
   // reduxPromiseMiddleware(),
-  // storeFreeze, 
-  // localStorageSync(['session'], true),
+  // storeFreeze,
+  localStorageSync(['session'], true),
   combineReducers)(reducers);
 const productionReducer = compose(
-  // reduxThunk, // Thunk middleware for Redux
-  // reduxMulti, // Dispatch multiple actions
+  // reduxThunk,               // Thunk middleware for Redux
+  // reduxMulti,               // Dispatch multiple actions
   // reduxPromiseMiddleware(),
-  // localStorageSync(['session'], true),
+  localStorageSync(['session'], true),
   combineReducers)(reducers);
 
 
@@ -401,3 +400,8 @@ export const getHeroes = createSelector(getHeroEntities, getHeroIds, (entities, 
 export const getHeroesForSearchTerm = createSelector(getHeroes, getHeroSearchTerm, (heroes, searchTerm) => {
   return heroes.filter(hero => hero.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1);
 });
+
+/**
+ * Messages Selectors
+ */
+export const getMessages = (state: RootState) => state.message;
