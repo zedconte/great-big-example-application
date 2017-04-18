@@ -28,11 +28,11 @@ export class RESTService {
   }
 
   getEntities(table: string): Observable<any[]> {
-    const entities = this.restApp.service(table);
+    const service = this.restApp.service(table);
     return Observable.from(
       this.restApp.authenticate()
         .then(() => {
-          return entities.find()
+          return service.find()
             .then((data, err) => this.extractData(data))
             .catch(this.handleError);
         })
@@ -40,11 +40,11 @@ export class RESTService {
   }
 
   getEntity(id: number | string, table: string): Observable<any> {
-    const entities = this.restApp.service(table);
+    const service = this.restApp.service(table);
     return Observable.from(
       this.restApp.authenticate()
         .then(() => {
-          return entities.get(id)
+          return service.get(id)
             .then((data, err) => {
               return this.extractData(data)
             });
@@ -54,8 +54,8 @@ export class RESTService {
 
   add(entity: any, table): Observable<any> {
     return Observable.from(this.restApp.authenticate().then(() => {
-      const entities = this.restApp.service(table);
-      return entities.create(this.prepareRecord(entity))
+      const service = this.restApp.service(table);
+      return service.create(this.prepareRecord(entity))
         .then((data, err) => {
           return this.extractData(data)
         });
@@ -66,9 +66,21 @@ export class RESTService {
   update(entity: any, table: string): Observable<any> {
     return Observable.from(this.restApp.authenticate()
       .then(() => {
-        const entities = this.restApp.service(table);
+        const service = this.restApp.service(table);
         let obj = this.prepareRecord(entity);
-        return entities.update(obj._id, obj)
+        return service.update(obj._id, obj)
+          .then((data, err) => this.extractData(data))
+          .catch(this.handleError);
+      })
+      .catch(this.handleError));
+  }
+
+  remove(entity: any, table: string): Observable<any> {
+    return Observable.from(this.restApp.authenticate()
+      .then(() => {
+        const service = this.restApp.service(table);
+        let obj = this.prepareRecord(entity);
+        return service.remove(obj._id, obj)
           .then((data, err) => this.extractData(data))
           .catch(this.handleError);
       })

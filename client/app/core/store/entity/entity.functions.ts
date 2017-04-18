@@ -170,3 +170,15 @@ export function updateToRemote$(actions$: Actions, slice: string, dataService, s
         .map((responseEntity) => new EntityActions.UpdateSuccess(slice, responseEntity))
     );
 }
+
+export function deleteFromRemote$(actions$: Actions, slice: string, dataService, store): Observable<Action> {
+  return actions$
+    .ofType(typeFor(slice, actions.DELETE))
+    .withLatestFrom(store.select(slice))
+    .switchMap(([{ }, entities]) =>  // first element is action, but it isn't used
+      Observable
+        .from((<any>entities).ids)
+        .switchMap((id: string) => dataService.remove((<any>entities).entities[id], slice))
+        .map((responseEntity) => new EntityActions.UpdateSuccess(slice, responseEntity))
+    );
+}
