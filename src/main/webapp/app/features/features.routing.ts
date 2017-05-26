@@ -11,6 +11,7 @@ const routes: Routes = [
         children: [
             { path: '', component: HomePage },
             { path: 'bernie', loadChildren: './bernie/bernie.module#BernieModule' },
+            { path: 'blog', loadChildren: './blog/blog.module#BlogModule' },
             { path: 'books', loadChildren: './books/books.module#BooksModule' },
             { path: 'chat', loadChildren: './chat/chat.module#ChatModule' },
             { path: 'contacts', loadChildren: './contact/contact.module#ContactModule' },

@@ -7,9 +7,9 @@ import org.slf4j.LoggerFactory
 import scala.concurrent.duration._
 
 /**
- * Performance test for the Entry entity.
+ * Performance test for the Article entity.
  */
-class EntryGatlingTest extends Simulation {
+class ArticleGatlingTest extends Simulation {
 
     val context: LoggerContext = LoggerFactory.getILoggerFactory.asInstanceOf[LoggerContext]
     // Log all HTTP requests
@@ -42,7 +42,7 @@ class EntryGatlingTest extends Simulation {
         "Authorization" -> "${access_token}"
     )
 
-    val scn = scenario("Test the Entry entity")
+    val scn = scenario("Test the Article entity")
         .exec(http("First unauthenticated request")
         .get("/api/account")
         .headers(headers_http)
@@ -60,26 +60,26 @@ class EntryGatlingTest extends Simulation {
         .check(status.is(200)))
         .pause(10)
         .repeat(2) {
-            exec(http("Get all entries")
-            .get("/api/entries")
+            exec(http("Get all articles")
+            .get("/api/articles")
             .headers(headers_http_authenticated)
             .check(status.is(200)))
             .pause(10 seconds, 20 seconds)
-            .exec(http("Create new entry")
-            .post("/api/entries")
+            .exec(http("Create new article")
+            .post("/api/articles")
             .headers(headers_http_authenticated)
             .body(StringBody("""{"id":null, "title":"SAMPLE_TEXT", "content":null, "date":"2020-01-01T00:00:00.000Z"}""")).asJSON
             .check(status.is(201))
-            .check(headerRegex("Location", "(.*)").saveAs("new_entry_url"))).exitHereIfFailed
+            .check(headerRegex("Location", "(.*)").saveAs("new_article_url"))).exitHereIfFailed
             .pause(10)
             .repeat(5) {
-                exec(http("Get created entry")
-                .get("${new_entry_url}")
+                exec(http("Get created article")
+                .get("${new_article_url}")
                 .headers(headers_http_authenticated))
                 .pause(10)
             }
-            .exec(http("Delete created entry")
-            .delete("${new_entry_url}")
+            .exec(http("Delete created article")
+            .delete("${new_article_url}")
             .headers(headers_http_authenticated))
             .pause(10)
         }

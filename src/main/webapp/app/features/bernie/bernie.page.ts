@@ -47,7 +47,7 @@ export class BerniePage implements OnDestroy {
     };
 
     constructor(private store: Store<fromRoot.RootState>,
-        private route: ActivatedRoute, ) {
+        private route: ActivatedRoute) {
         this.page$ = store.select(fromRoot.getBerniePageState);
         this.claimEntities$ = store.select(fromRoot.getClaimsState);
         this.deepClaims$ = store.select(fromRoot.getDeepClaims);

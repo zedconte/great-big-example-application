@@ -1,9 +1,9 @@
-import { Entry } from '../entry';
+import { Article } from '../article';
 export class Tag {
-    constructor(
-        public id?: number,
-        public name?: string,
-        public entry?: Entry,
-    ) {
-    }
+  constructor(
+    public id?: number,
+    public name?: string,
+    public article?: Article,
+  ) {
+  }
 }

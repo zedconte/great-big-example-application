@@ -79,7 +79,7 @@
 │   │   │               │   ├── ClaimRebuttal.java
 │   │   │               │   ├── Contact.java
 │   │   │               │   ├── Crisis.java
-│   │   │               │   ├── Entry.java
+│   │   │               │   ├── Article.java
 │   │   │               │   ├── Hero.java
 │   │   │               │   ├── Message.java
 │   │   │               │   ├── Note.java
@@ -99,7 +99,7 @@
 │   │   │               │   ├── CustomAuditEventRepository.java
 │   │   │               │   ├── CustomSocialConnectionRepository.java
 │   │   │               │   ├── CustomSocialUsersConnectionRepository.java
-│   │   │               │   ├── EntryRepository.java
+│   │   │               │   ├── ArticleRepository.java
 │   │   │               │   ├── HeroRepository.java
 │   │   │               │   ├── MessageRepository.java
 │   │   │               │   ├── NoteRepository.java
@@ -115,7 +115,7 @@
 │   │   │               │       ├── ClaimSearchRepository.java
 │   │   │               │       ├── ContactSearchRepository.java
 │   │   │               │       ├── CrisisSearchRepository.java
-│   │   │               │       ├── EntrySearchRepository.java
+│   │   │               │       ├── ArticleSearchRepository.java
 │   │   │               │       ├── HeroSearchRepository.java
 │   │   │               │       ├── MessageSearchRepository.java
 │   │   │               │       ├── NoteSearchRepository.java
@@ -160,7 +160,7 @@
 │   │   │                   │   ├── ClaimResource.java
 │   │   │                   │   ├── ContactResource.java
 │   │   │                   │   ├── CrisisResource.java
-│   │   │                   │   ├── EntryResource.java
+│   │   │                   │   ├── ArticleResource.java
 │   │   │                   │   ├── HeroResource.java
 │   │   │                   │   ├── LogsResource.java
 │   │   │                   │   ├── MessageResource.java
@@ -217,8 +217,8 @@
 │   │   │   │       │   ├── 20170501195012_added_entity_ClaimRebuttal.xml
 │   │   │   │       │   ├── 20170501195013_added_entity_Blog.xml
 │   │   │   │       │   ├── 20170501195013_added_entity_constraints_Blog.xml
-│   │   │   │       │   ├── 20170501195014_added_entity_Entry.xml
-│   │   │   │       │   ├── 20170501195014_added_entity_constraints_Entry.xml
+│   │   │   │       │   ├── 20170501195014_added_entity_Article.xml
+│   │   │   │       │   ├── 20170501195014_added_entity_constraints_Article.xml
 │   │   │   │       │   ├── 20170501195015_added_entity_Tag.xml
 │   │   │   │       │   ├── 20170501195016_load_data_Seed.xml
 │   │   │   │       │   └── 20170517190733_added_entity_Message.xml
@@ -548,20 +548,20 @@
 │   │       │   │   │   ├── crisis.service.ts
 │   │       │   │   │   └── index.ts
 │   │       │   │   ├── entity.module.ts
-│   │       │   │   ├── entry
-│   │       │   │   │   ├── entry-delete-dialog.component.html
-│   │       │   │   │   ├── entry-delete-dialog.component.ts
-│   │       │   │   │   ├── entry-detail.component.html
-│   │       │   │   │   ├── entry-detail.component.ts
-│   │       │   │   │   ├── entry-dialog.component.html
-│   │       │   │   │   ├── entry-dialog.component.ts
-│   │       │   │   │   ├── entry-popup.service.ts
-│   │       │   │   │   ├── entry.component.html
-│   │       │   │   │   ├── entry.component.ts
-│   │       │   │   │   ├── entry.model.ts
-│   │       │   │   │   ├── entry.module.ts
-│   │       │   │   │   ├── entry.route.ts
-│   │       │   │   │   ├── entry.service.ts
+│   │       │   │   ├── article
+│   │       │   │   │   ├── article-delete-dialog.component.html
+│   │       │   │   │   ├── article-delete-dialog.component.ts
+│   │       │   │   │   ├── article-detail.component.html
+│   │       │   │   │   ├── article-detail.component.ts
+│   │       │   │   │   ├── article-dialog.component.html
+│   │       │   │   │   ├── article-dialog.component.ts
+│   │       │   │   │   ├── article-popup.service.ts
+│   │       │   │   │   ├── article.component.html
+│   │       │   │   │   ├── article.component.ts
+│   │       │   │   │   ├── article.model.ts
+│   │       │   │   │   ├── article.module.ts
+│   │       │   │   │   ├── article.route.ts
+│   │       │   │   │   ├── article.service.ts
 │   │       │   │   │   └── index.ts
 │   │       │   │   ├── hero
 │   │       │   │   │   ├── hero-delete-dialog.component.html
@@ -976,7 +976,7 @@
 │   │       │   │   ├── contact.json
 │   │       │   │   ├── crisis.json
 │   │       │   │   ├── dashboard.json
-│   │       │   │   ├── entry.json
+│   │       │   │   ├── article.json
 │   │       │   │   ├── error.json
 │   │       │   │   ├── game.json
 │   │       │   │   ├── gateway.json
@@ -1015,7 +1015,7 @@
 │   │       │   │   ├── contact.json
 │   │       │   │   ├── crisis.json
 │   │       │   │   ├── dashboard.json
-│   │       │   │   ├── entry.json
+│   │       │   │   ├── article.json
 │   │       │   │   ├── error.json
 │   │       │   │   ├── game.json
 │   │       │   │   ├── gateway.json
@@ -1054,7 +1054,7 @@
 │   │       │   │   ├── contact.json
 │   │       │   │   ├── crisis.json
 │   │       │   │   ├── dashboard.json
-│   │       │   │   ├── entry.json
+│   │       │   │   ├── article.json
 │   │       │   │   ├── error.json
 │   │       │   │   ├── game.json
 │   │       │   │   ├── gateway.json
@@ -1093,7 +1093,7 @@
 │   │       │       ├── contact.json
 │   │       │       ├── crisis.json
 │   │       │       ├── dashboard.json
-│   │       │       ├── entry.json
+│   │       │       ├── article.json
 │   │       │       ├── error.json
 │   │       │       ├── game.json
 │   │       │       ├── gateway.json
@@ -1139,7 +1139,7 @@
 │       │       ├── ClaimRebuttalGatlingTest.scala
 │       │       ├── ContactGatlingTest.scala
 │       │       ├── CrisisGatlingTest.scala
-│       │       ├── EntryGatlingTest.scala
+│       │       ├── ArticleGatlingTest.scala
 │       │       ├── HeroGatlingTest.scala
 │       │       ├── MessageGatlingTest.scala
 │       │       ├── NoteGatlingTest.scala
@@ -1170,7 +1170,7 @@
 │       │                       ├── ClaimResourceIntTest.java
 │       │                       ├── ContactResourceIntTest.java
 │       │                       ├── CrisisResourceIntTest.java
-│       │                       ├── EntryResourceIntTest.java
+│       │                       ├── ArticleResourceIntTest.java
 │       │                       ├── HeroResourceIntTest.java
 │       │                       ├── LogsResourceIntTest.java
 │       │                       ├── MessageResourceIntTest.java
@@ -1193,7 +1193,7 @@
 │       │   │       ├── claim.spec.ts
 │       │   │       ├── contact.spec.ts
 │       │   │       ├── crisis.spec.ts
-│       │   │       ├── entry.spec.ts
+│       │   │       ├── article.spec.ts
 │       │   │       ├── hero.spec.ts
 │       │   │       ├── message.spec.ts
 │       │   │       ├── note.spec.ts
@@ -1234,8 +1234,8 @@
 │       │       │       │   └── contact-detail.component.spec.ts
 │       │       │       ├── crisis
 │       │       │       │   └── crisis-detail.component.spec.ts
-│       │       │       ├── entry
-│       │       │       │   └── entry-detail.component.spec.ts
+│       │       │       ├── article
+│       │       │       │   └── article-detail.component.spec.ts
 │       │       │       ├── hero
 │       │       │       │   └── hero-detail.component.spec.ts
 │       │       │       ├── message
@@ -1246,7 +1246,7 @@
 │       │       │       │   └── rebuttal-detail.component.spec.ts
 │       │       │       └── tag
 │       │       │           └── tag-detail.component.spec.ts
-│       │       ├── entry.ts
+│       │       ├── article.ts
 │       │       ├── helpers
 │       │       │   ├── mock-account.service.ts
 │       │       │   ├── mock-language.service.ts

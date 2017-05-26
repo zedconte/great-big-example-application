@@ -36,18 +36,22 @@ export function typeFor(slice, action) {
 }
 
 export const slices = {
+    ARTICLE: 'article',
     BOOK: 'book',
     CRISIS: 'crisis',
     CLAIM: 'claim',
     CLAIM_REBUTTAL: 'claimRebuttal',
     COLLECTION: 'collection',
+    COMMENT: 'comment',
     CONTACT: 'contact',
     COUNTER: 'counter',
     HERO: 'hero',
     LAYOUT: 'layout',
     MESSAGE: 'message',
     NOTE: 'note',
+    PROFILE: 'profile',
     REBUTTAL: 'rebuttal',
     SEARCH: 'search',
-    SESSION: 'session'
+    SESSION: 'session',
+    TAG: 'tag'
 };

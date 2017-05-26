@@ -51,7 +51,7 @@ entity Tag {
 	name String required minlength(2)
 }
 
-entity Entry {
+entity Article {
 	title String required,
 	content Blob required,
 	date ZonedDateTime required
@@ -59,14 +59,14 @@ entity Entry {
 
 relationship ManyToOne {
 	Blog{user(login)} to User,
-	Entry{blog(name)} to Blog
+	Article{blog(name)} to Blog
 }
 
 relationship ManyToMany {
-	Entry{tag(name)} to Tag{entry}
+	Article{tag(name)} to Tag{article}
 }
 
-paginate Entry, Tag with infinite-scroll
+paginate Article, Tag with infinite-scroll
 
 entity Message {
     userLogin String,

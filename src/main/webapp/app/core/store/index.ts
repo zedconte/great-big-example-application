@@ -5,6 +5,7 @@ import * as fromRouter from '@ngrx/router-store';
 import { localStorageSync } from 'ngrx-store-localstorage';
 import 'rxjs/add/operator/filter';
 
+import { Article } from './article/article.model';
 import { Book } from './book/book.model';
 import { Claim } from './claim/claim.model';
 import { Crisis } from './crisis/crisis.model';
@@ -51,10 +52,12 @@ import { combineReducers } from '@ngrx/store';
  * the state of the reducer plus any selector functions. The `* as`
  * notation packages up all of the exports into a single object.
  */
+import * as fromArticles from './article/article.reducer';
 import * as fromBooks from './book/book.reducer';
 import * as fromClaimRebuttals from './claim-rebuttal/claim-rebuttal.reducer';
 import * as fromClaims from './claim/claim.reducer';
 import * as fromCollection from './collection/collection.reducer';
+import * as fromComments from './comment/comment.reducer';
 import * as fromContacts from './contact/contact.reducer';
 import * as fromCounter from './counter/counter.reducer';
 import * as fromCrises from './crisis/crisis.reducer';
@@ -76,9 +79,11 @@ import { IDs } from './id/id.model';
  */
 export interface RootState {
     book: Entities<Book>;
+    article: Entities<Article>;
     claimRebuttal: Entities<ClaimRebuttal>;
     claim: Entities<Claim>;
     collection: IDs;
+    comment: Entities<Comment>;
     contact: Entities<Contact>;
     counter: Counter;
     crisis: Entities<Crisis>;
@@ -103,6 +108,7 @@ export interface RootState {
 const reducers = {
     // ngrx ones
     book: fromBooks.reducer,
+    article: fromArticles.reducer,
     claim: fromClaims.reducer,
     claimRebuttal: fromClaimRebuttals.reducer,
     contact: fromContacts.reducer,
@@ -319,7 +325,7 @@ export const getCounterValue = createSelector(getCounterState, fromCounter.getVa
 /**
  * Crises Selectors
  */
-export const getCrisesState = (state: RootState) => state.crisis;
+export const getCrisesState = (state: RootState): Entities<Crisis> => state.crisis;
 export const getCrisisEntities = createSelector(getCrisesState, fromCrises.getEntities);
 export const getCrisisIds = createSelector(getCrisesState, fromCrises.getIds);
 export const getSelectedCrisis = createSelector(getCrisesState, fromCrises.getSelected);
@@ -336,7 +342,7 @@ export const getCrisis = (id) => createSelector(getCrisesState, (crisisList) => 
  * Contacts Selectors
  */
 
-export const getContactsState = (state: RootState) => state.contact;
+export const getContactsState = (state: RootState): Entities<Contact> => state.contact;
 export const getContactEntities = createSelector(getContactsState, fromContacts.getEntities);
 export const getContactIds = createSelector(getContactsState, fromContacts.getIds);
 export const getSelectedContact = createSelector(getContactsState, fromContacts.getSelected);
@@ -348,7 +354,7 @@ export const getContact = createSelector(getContactsState, fromContacts.getSelec
 /**
  * Heroes Selectors
  */
-export const getHeroesState = (state: RootState) => state.hero;
+export const getHeroesState = (state: RootState): Entities<Hero> => state.hero;
 export const getHeroEntities = createSelector(getHeroesState, fromHeroes.getEntities);
 export const getHeroIds = createSelector(getHeroesState, fromHeroes.getIds);
 export const getSelectedHero = createSelector(getHeroesState, fromHeroes.getSelected);
@@ -370,3 +376,25 @@ export const getMessages = createSelector(getMessageEntities, getMessageIds, (en
     return ids.map((id) => entities[id]);
 });
 export const getMessage = createSelector(getMessagesState, fromMessages.getSelected);
+
+/**
+ * Comments Selectors
+ */
+export const getCommentsState = (state: RootState): Entities<Comment> => state.comment;
+export const getCommentEntities = createSelector(getCommentsState, fromComments.getEntities);
+export const getCommentIds = createSelector(getCommentsState, fromComments.getIds);
+export const getComments = createSelector(getCommentEntities, getCommentIds, (entities, ids) => {
+    return ids.map((id) => entities[id]);
+});
+
+/**
+ * Articles Selectors
+ */
+export const getArticlesState = (state: RootState): Entities<Article> => state.article;
+export const getArticleEntities = createSelector(getArticlesState, fromArticles.getEntities);
+export const getArticleIds = createSelector(getArticlesState, fromArticles.getIds);
+export const getSelectedArticleId = createSelector(getArticlesState, fromArticles.getSelectedId);
+export const getSelectedArticle = createSelector(getArticlesState, fromBooks.getSelected);
+export const getArticles = createSelector(getArticleEntities, getArticleIds, (entities, ids) => {
+    return ids.map((id) => entities[id]);
+});

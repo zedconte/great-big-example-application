@@ -36,7 +36,7 @@ public class Tag implements Serializable {
     @ManyToMany(mappedBy = "tags")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Entry> entries = new HashSet<>();
+    private Set<Article> articles = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -59,29 +59,29 @@ public class Tag implements Serializable {
         this.name = name;
     }
 
-    public Set<Entry> getEntries() {
-        return entries;
+    public Set<Article> getArticles() {
+        return articles;
     }
 
-    public Tag entries(Set<Entry> entries) {
-        this.entries = entries;
+    public Tag articles(Set<Article> articles) {
+        this.articles = articles;
         return this;
     }
 
-    public Tag addEntry(Entry entry) {
-        this.entries.add(entry);
-        entry.getTags().add(this);
+    public Tag addArticle(Article article) {
+        this.articles.add(article);
+        article.getTags().add(this);
         return this;
     }
 
-    public Tag removeEntry(Entry entry) {
-        this.entries.remove(entry);
-        entry.getTags().remove(this);
+    public Tag removeArticle(Article article) {
+        this.articles.remove(article);
+        article.getTags().remove(this);
         return this;
     }
 
-    public void setEntries(Set<Entry> entries) {
-        this.entries = entries;
+    public void setArticles(Set<Article> articles) {
+        this.articles = articles;
     }
 
     @Override

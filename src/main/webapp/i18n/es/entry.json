@@ -1,26 +1,26 @@
 {
-    "greatBigExampleApplicationApp": {
-        "entry" : {
-            "home": {
-                "title": "Entries",
-                "createLabel": "Crear nuevo Entry",
-                "createOrEditLabel": "Crear o editar Entry",
-                "search": "Search for Entry"
-            },
-            "created": "Un nuevo Entry ha sido creado con el identificador {{ param }}",
-            "updated": "Un Entry ha sido actualizado con el identificador {{ param }}",
-            "deleted": "Un Entry ha sido eliminado con el identificador {{ param }}",
-            "delete": {
-                "question": "¿Seguro que quiere eliminar Entry {{ id }}?"
-            },
-            "detail": {
-                "title": "Entry"
-            },
-            "title": "Title",
-            "content": "Content",
-            "date": "Date",
-            "blog": "Blog",
-            "tag": "Tag"
-        }
+  "greatBigExampleApplicationApp": {
+    "article": {
+      "home": {
+        "title": "Articles",
+        "createLabel": "Crear nuevo Article",
+        "createOrEditLabel": "Crear o editar Article",
+        "search": "Search for Article"
+      },
+      "created": "Un nuevo Article ha sido creado con el identificador {{ param }}",
+      "updated": "Un Article ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Article ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Article {{ id }}?"
+      },
+      "detail": {
+        "title": "Article"
+      },
+      "title": "Title",
+      "content": "Content",
+      "date": "Date",
+      "blog": "Blog",
+      "tag": "Tag"
     }
+  }
 }

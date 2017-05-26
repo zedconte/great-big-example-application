@@ -1,0 +1,47 @@
+<div>
+  <h2>
+    <span jhiTranslate="greatBigExampleApplicationApp.article.home.title">Articles</span>
+    <button class="btn btn-primary float-right create-article" [routerLink]="['/', { outlets: { popup: ['article-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down"  jhiTranslate="greatBigExampleApplicationApp.article.home.createLabel">
+            Create new Article
+            </span>
+        </button>
+  </h2>
+  <jhi-alert></jhi-alert>
+  <div class="row">
+    <div class="col-sm-12 no-padding-right">
+      <form name="searchForm" class="form-inline">
+        <div class="input-group w-100 mt-3">
+          <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'greatBigExampleApplicationApp.article.home.search' | translate }}">
+          <button class="input-group-addon btn btn-info" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+          <button class="input-group-addon btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <br/>
+  <div class="table-responsive" *ngIf="articles">
+    <div infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+      <div *ngFor="let article of articles; trackBy: trackId">
+        <h2>{{article.title}}</h2>
+        <small>Posted on {{article.date | date: 'short'}} by {{article.blog.user.login}}</small>
+        <div [innerHTML]="article.content"></div>
+        <div class="btn-group mb-2 mt-1">
+          <button type="submit" [routerLink]="['/', { outlets: { popup: 'article/'+ article.id + '/edit'} }]" replaceUrl="true" class="btn btn-primary btn-sm">
+                    <span class="fa fa-pencil"></span>
+                    <span class="hidden-md-down" jhiTranslate="entity.action.edit">Edit</span>
+                </button>
+          <button type="submit" [routerLink]="['/', { outlets: { popup: 'article/'+ article.id + '/delete'} }]" replaceUrl="true" class="btn btn-danger btn-sm">
+                    <span class="fa fa-remove"></span>
+                    <span class="hidden-md-down" jhiTranslate="entity.action.delete">Delete</span>
+                </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,3 +1,6 @@
+// TODO: Think about renaming this. It's more of a user controls slice than a layout per se
+// Also, these data should be defined in the features directory since they are UI specific
+
 import { slices } from '../util';
 
 export interface NavLayout {
@@ -50,6 +53,24 @@ export const initialHeroesDashboardPageLayout = {
     heroSearchTerm: ''
 };
 
+export interface BlogPageLayout {
+    type: string,
+
+    filters: {
+        tag?: string,
+        author?: string,
+        favorited?: string,
+        limit?: number,
+        offset?: number
+    }
+}
+
+export const initialBlogPageLayout = {
+    type: 'all',
+
+    filters: {}
+};
+
 export interface Layout {
     nav: NavLayout;
     booksPage: BooksPageLayout;
@@ -62,6 +83,7 @@ export function initialLayout() {
     return {
         nav: initialNavLayout,
         booksPage: initialBooksPageLayout,
+        blogPage: initialBlogPageLayout,
         berniePage: initialBerniePageLayout,
         heroesDashboardPage: initialHeroesDashboardPageLayout,
         msg: ''

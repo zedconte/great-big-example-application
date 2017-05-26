@@ -9,7 +9,7 @@ import { EventManager, AlertService } from 'ng-jhipster';
 import { Tag } from './tag.model';
 import { TagPopupService } from './tag-popup.service';
 import { TagService } from './tag.service';
-import { Entry, EntryService } from '../entry';
+import { Article, ArticleService } from '../article';
 
 @Component({
     selector: 'jhi-tag-dialog',
@@ -21,13 +21,13 @@ export class TagDialogComponent implements OnInit {
     authorities: any[];
     isSaving: boolean;
 
-    entries: Entry[];
+    articles: Article[];
 
     constructor(
         public activeModal: NgbActiveModal,
         private alertService: AlertService,
         private tagService: TagService,
-        private entryService: EntryService,
+        private articleService: ArticleService,
         private eventManager: EventManager
     ) {
     }
@@ -35,8 +35,8 @@ export class TagDialogComponent implements OnInit {
     ngOnInit() {
         this.isSaving = false;
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
-        this.entryService.query().subscribe(
-            (res: Response) => { this.entries = res.json(); }, (res: Response) => this.onError(res.json()));
+        this.articleService.query().subscribe(
+            (res: Response) => { this.articles = res.json(); }, (res: Response) => this.onError(res.json()));
     }
     clear() {
         this.activeModal.dismiss('cancel');
@@ -59,7 +59,7 @@ export class TagDialogComponent implements OnInit {
     }
 
     private onSaveSuccess(result: Tag) {
-        this.eventManager.broadcast({ name: 'tagListModification', content: 'OK'});
+        this.eventManager.broadcast({ name: 'tagListModification', content: 'OK' });
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
@@ -78,7 +78,7 @@ export class TagDialogComponent implements OnInit {
         this.alertService.error(error.message, null, null);
     }
 
-    trackEntryById(index: number, item: Entry) {
+    trackArticleById(index: number, item: Article) {
         return item.id;
     }
 
@@ -106,11 +106,11 @@ export class TagPopupComponent implements OnInit, OnDestroy {
     constructor(
         private route: ActivatedRoute,
         private tagPopupService: TagPopupService
-    ) {}
+    ) { }
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
-            if ( params['id'] ) {
+            if (params['id']) {
                 this.modalRef = this.tagPopupService
                     .open(TagDialogComponent, params['id']);
             } else {
