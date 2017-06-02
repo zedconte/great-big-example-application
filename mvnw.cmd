@@ -40,7 +40,9 @@
 
 @REM set %HOME% to equivalent of $HOME
 if "%HOME%" == "" (set "HOME=%HOMEDRIVE%%HOMEPATH%")
-
+@REM if "%MAVEN_OPTS%" == "" (set "MAVEN_OPTS=")
+set MAVEN_OPTS=-Dhttp.proxyHost=10.8.0.70 -Dhttp.proxyPort=8080 -Dhttp.proxyUser=ortegavl -Dhttp.proxyPassword=Lr154307$ -Dhttps.proxyHost=10.8.0.70 -Dhttps.proxyPort=8080 -Dhttps.proxyUser=ortegavl -Dhttps.proxyPassword=Lr154307$
+echo %MAVEN_OPTS%
 @REM Execute a user defined script before this one
 if not "%MAVEN_SKIP_RC%" == "" goto skipRcPre
 @REM check for pre script, once with legacy .bat ending and once with .cmd ending
